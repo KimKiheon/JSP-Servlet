@@ -46,6 +46,84 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 <meta charset="utf-8" />
 <title>My Page</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      if(<%=all%> != 0){
+    	  google.charts.setOnLoadCallback(drawChart);
+      }
+      else{
+    	  google.charts.setOnLoadCallback(defaultDrawChart);
+      }
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Effort', 'Amount given'],
+          ['참석', <%=succ%>],
+          ['불참', <%=all - succ%>]
+        ]);
+        var options = {
+          title: 'Match Success Rate',
+          pieHole: 0.5,
+          'width': 350,
+          chartArea:{
+        	    left:10,
+        	    right:10, // !!! works !!!
+        	    bottom:20,  // !!! works !!!
+        	    top:20,
+        	    width:"100%",
+        	    height:"80%"
+        	  },
+          pieSliceTextStyle: {
+            color: 'white',
+            fontSize: 9,
+          },
+
+          tooltip: {trigger: 'selection'},
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+        chart.draw(data, options);
+      }
+      
+      function defaultDrawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Effort', 'Amount given'],
+            ['no match', 1],
+            ['no 1', 0],
+            ['no 2', 0],
+            ['no 3', 0],
+            ['no 4', 0],
+          ]);
+
+          var options = {
+        		  title: '아직 매치를 실시하지 않으셨습니다.',
+        		  pieHole: 0.5,
+                  'width': 350,
+                  chartArea:{
+                	    left:10,
+                	    right:10, // !!! works !!!
+                	    bottom:20,  // !!! works !!!
+                	    top:20,
+                	    width:"80%",
+                	    height:"80%",
+                	  },
+                  pieSliceText: 'none',
+                  pieSliceTextStyle: {
+                    color: 'white',
+                  },
+                  legend: 'none',
+                  tooltip: {trigger: 'none',},
+                  enableInteractivity:'false',
+                  
+                  colors: ['grey','green'],
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+          chart.draw(data, options);
+        }
+    </script>
+    
 </head>
 <body>
 
@@ -102,6 +180,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 			<tr>
 				<td style="background: lightgray;">전체 매칭 시도수</td>
 				<td><%=all%> 회</td>
+				<td rowspan="3"><div id="donut_single" style=" margin:0%; width:50px; float:auto;"></div></td>				
 			</tr>
 			<tr>
 				<td style="background: lightgray;">매칭 성공 수</td>
