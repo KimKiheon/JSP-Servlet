@@ -9,6 +9,12 @@
 <%@ page import="vo.PeopleVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
+<%
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setDateHeader("Expires", 0L); // Do not cache in proxy server
+%>
 <%--
 viewpeople.jsp
 현재 매치의 참가한 참가자의 리스트를 보여주는 페이지
@@ -34,13 +40,18 @@ viewpeople.jsp
 		avg = 0;
 	else
 		avg = (double) (succ / all) * 100;
-
+	String state = null;
 	//BBS View
 	int pageNumber = 1;
 	int seqNo = 1;
 	if (request.getParameter("seqNo") != null) {
 		seqNo = Integer.parseInt(request.getParameter("seqNo"));
 	}
+	if(id != null){
+		state = PeopleDAO.matchstate(seqNo,id);
+		System.out.printf("%s\n",state);
+	}	
+	MatchVO match = new MatchDAO().getMatches(seqNo);
 %>
 <html>
 <head>
@@ -67,8 +78,14 @@ a:hover {
 </style>
 
 </head>
+<%
+if(state == null){	
+%>
+<script language="javascript">
+		location.href = "jointhematch.jsp";
+	</script>
 <body>
-
+<%} %>
 	<header>
 		<div id="HL">
 			&nbsp;<a href="main.jsp">CUKBM</a>
@@ -101,9 +118,16 @@ a:hover {
 		if (id != null) {
 	%>
 	<div class="container1">
-		<div class="row">
-			<table id="viewrtable"
-				style="text-align: center; border: 1px solid #dddddd">
+		<div class="rrow">
+		<div>
+				<h1>
+				<span><%=match.getTitle()%></span> 
+<span style=" height:30px; font-size:20px; background-color:#45a049; color:white;">&nbsp;&nbsp;참가자 정보&nbsp;&nbsp;</span>				</h1>
+				 
+				</div>		
+				<div style="background-color:#f3f3f3; height:3px; width:100%;">
+				</div>
+			<table class="matchinfo">
 				<thead>
 					<tr>
 						<th style="background-color: #eeeeee; text-align: center;">참가자</th>
@@ -115,7 +139,6 @@ a:hover {
 							성공률</th>
 						<th style="background-color: #eeeeee; text-align: center;">카카오톡
 							ID</th>
-						<th style="background-color: #eeeeee; text-align: center;">방장</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -128,22 +151,20 @@ a:hover {
 								membervo = memberdao.getInfo(list.get(i).getJoinman());
 					%>
 					<tr>
-						<td><%=list.get(i).getJoinman()%></td>
+						<td><%=list.get(i).getJoinman()%>
+						<%
+							if (list.get(i).getFlag() == 1) {
+						%>
+						<span style=" height:30px; font-size:15px; background-color:#45a049; color:white;">&nbsp;&nbsp; 방장 &nbsp;&nbsp;</span>				</h1>
+						
+						<%} %>
+						</td>
 						<td><%=membervo.getAllMatch()%></td>
 						<td><%=membervo.getSuccessMatch()%></td>
 						<td>수식</td>
 						<td><%=membervo.getKtid()%></td>
 						<%
-							if (list.get(i).getFlag() == 1) {
-						%>
-						<td>O</td>
-						<%
-							} else {
-						%>
-						<td>X</td>
-						<%
 							}
-								}
 						%>
 					</tr>
 				</tbody>

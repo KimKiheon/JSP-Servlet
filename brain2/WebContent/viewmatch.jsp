@@ -7,6 +7,13 @@
 <%@ page import="vo.MatchVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="dao.PeopleDAO" %>
+<%
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setDateHeader("Expires", 0L); // Do not cache in proxy server
+%>
 <%--
 viewmatch.jsp
 매치 리스트를 보여주는 페이지
@@ -14,7 +21,7 @@ viewmatch.jsp
 <!DOCTYPE html>
 <%
 	System.out.println("--------------------viewmatch.jsp--------------------");
-
+	String result = request.getParameter("result");
 	String id = (String) session.getAttribute("id");
 	System.out.printf("now id : %s\n", id);
 	if (id == null) {
@@ -32,7 +39,7 @@ viewmatch.jsp
 		avg = 0;
 	else
 		avg = (double) (succ / all) * 100;
-
+	
 	//BBS View
 	int seqNo = 1;
 	if (request.getParameter("seqNo") != null) {
@@ -45,6 +52,21 @@ viewmatch.jsp
 		out.println("</script>");
 	}
 	MatchVO match = new MatchDAO().getMatches(seqNo);
+	String teamF = null;
+	String flag1 = null;
+	if(match.getTeamflag() == 1){
+		teamF = "팀전";
+	}
+	else teamF = "개인전";
+	if(match.getFlag1() == 1){
+		flag1 = "Athletic Sports";
+	}
+	else flag1 = "Esports";
+	String state = null;
+	if(id != null){
+	state = PeopleDAO.matchstate(seqNo,id);
+	System.out.printf("%s\n",state);
+	}	
 %>
 <html>
 <head>
@@ -69,7 +91,13 @@ a:hover {
 	color: red;
 }
 </style>
-
+<%
+if(result != null){	%>
+<script language="javascript">
+alert("참가되었습니다!");
+state="joinman";
+</script>
+<%} %>
 </head>
 <body>
 
@@ -105,75 +133,67 @@ a:hover {
 		if (id != null) {
 	%>
 	<div class="container1">
-		<div class="row">
+		<div class="rrow">
 			<form action="JoinTheMatchProc" method="post">
 				<div class="hidden">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=match.getSeqNo()%>">
 				</div>
-				<table id="viewertable">
+				<div>
+				<h1>
+				<span><%=match.getTitle()%></span>
+				<span style=" height:30px; font-size:20px; background-color:#45a049; color:white;">&nbsp;&nbsp;<%=flag1%>&nbsp;&nbsp;</span>
+				<%if(state == null) {%>
+				<span><input type="submit" value="참가하기"></span>
+				<%} 
+				else {%>
+				<span><input type="Button" value="참가 중"></span>
+				<span><input type="Button" onclick="location.href='viewpeople.jsp?seqNo=<%=seqNo%>'" value="참가자 보기"></span>
+				<%} %>
+				
+				</h1>
+				</div>		
+				<div style="background-color:#f3f3f3; height:3px; width:100%;">
+				</div>
+				<table class="matchinfo">
 					<thead>
 						<tr>
-							<th colspan="3"
-								style="background-color: darkgray; text-align: center;">게시판
-								글</th>
+							<td >작성자</td>
+							<td >종목</td>
+							<td >시작시간</td>
+							<td>종료시간</td>
+							<td >장소</td>
+							<td>팀/개인전 구분</td>
+							<td>필요 인원 수</td>
+							<td >현재 신청자 수</td>
 						</tr>
-					</thead>
+					</thead>				
 					<tbody>
 						<tr>
-							<td colspan="2">글 제목</td>
-							<td colspan="2" id="title"><%=match.getTitle()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">작성자</td>
-							<td colspan="2" id="writer"><%=match.getWriter()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">flag1</td>
-							<td colspan="2" id="flag1"><%=match.getFlag1()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">flag2</td>
-							<td colspan="2" id="flag2"><%=match.getFlag2()%></td>
+							<td  id="writer"><%=match.getWriter()%></td>
+							<td id="flag2"><%=match.getFlag2()%></td>
+							<td  id="stime"><%=match.getStime()%></td>
+							<td  id="etime"><%=match.getEtime()%></td>
+							<td id="addr"><%=match.getAddr()%></td>
+							<td  id="teamflag"><%=teamF%></td>						
+							<td  id="needman"><%=match.getNeedman()%></td>		
+							<td id="nowman"><%=match.getNowman()%></td>
 						</tr>
 
-						<tr>
-							<td colspan="2">stime</td>
-							<td colspan="2" id="stime"><%=match.getStime()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">etime</td>
-							<td colspan="2" id="etime"><%=match.getEtime()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">contents</td>
-							<td colspan="2" id="contents"><%=match.getContents()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">addr</td>
-							<td colspan="2" id="addr"><%=match.getAddr()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">teamflag</td>
-							<td colspan="2" id="teamflag"><%=match.getTeamflag()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">needman</td>
-							<td colspan="2" id="needman"><%=match.getNeedman()%></td>
-						</tr>
-						<tr>
-							<td colspan="2">nowman</td>
-							<td colspan="2" id="nowman"><%=match.getNowman()%></td>
-						</tr>
 					</tbody>
+					
 				</table>
-				<br /> <a href="jointhematch.jsp"><p id="tablelist">목록</p></a> 
-						<input type="submit" value="참가하기">
-						<a href="viewpeople.jsp?seqNo=<%=seqNo%>">참가자</a>
-						<a href="updatematch.jsp?seqNo=<%=seqNo%>">수정</a>
+				<br><br><br><br>
+				<div style="height:300px; width:50%"><h3>추가사항</h3>
+				<div style="background-color:#f3f3f3; height:1px; width:100%;">
+				</div>
+							<%=match.getContents()%>
+							</div>
+				<br />
+				<a href="jointhematch.jsp"><p id="tablelist">목록</p></a>  
 			</form>
 		</div>
-	</div>
+		</div>
 	<%
 		} else {
 	%>

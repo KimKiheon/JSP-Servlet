@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf8"%>
+    <%
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setDateHeader("Expires", 0L); // Do not cache in proxy server
+%>
 ﻿<!DOCTYPE html>
 <%
 System.out.println("--------------------login.jsp--------------------");
@@ -28,6 +34,17 @@ if(result.equals("regisuccess"))
 alert("회원가입 성공했습니다 로그인 해 주세요");
 document.userinput.id.value="";
 </script>
+<script type="text/javascript">
+
+		window.history.forward();
+
+		function noBack() {
+
+			window.history.forward();
+
+		}
+
+         </script>
 <%}}%>
 <html>
 <head>
@@ -80,10 +97,14 @@ document.userinput.id.value="";
     		return false;
     	}
     }
-    
+    document.userinput.reset();
     </script>
+        <%if(session.getAttribute("id") != null){ %>
+	 <script language="javascript">
+           location.href="main.jsp";
+           </script> System.out.println("이미 로그인 되어 있습니다.");	<%}%>
 </head>
-<body>
+<body onload="document.userinput.reset();">
     <header>
         <div id="HL"> &nbsp;<a href="main.jsp">CUKBM</a></div>
         <div id="HR"><a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a> | <a href="alarm.jsp">ALARM</a></div>

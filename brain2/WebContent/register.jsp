@@ -85,6 +85,15 @@ System.out.println("--------------------register.jsp--------------------");
     	document.userinput.idchk.value="fail";
     }
     </script>
+    <%
+		if(session.getAttribute("id") != null) {
+	%>
+	<script language="javascript">
+		location.href = "main.jsp";
+	</script>
+	<%
+		}
+	%>
 </head>
 <body>
     <header>

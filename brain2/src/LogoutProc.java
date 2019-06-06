@@ -18,13 +18,15 @@ public class LogoutProc extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("<<<<<<<<<<<<<<<<<<< LogOutProc 실행 >>>>>>>>>>>>>>>>>>>>>");
 
+		
+		response.setHeader("Cache-Control","no-store"); 
+		response.setHeader("Pragma","no-cache"); 
 	
-
+		String logout = "success";
 		HttpSession session = request.getSession();
 		session.invalidate();
 		System.out.println("<<<<<<<<<<<<<<<<<<< LogOutProc 완료 >>>>>>>>>>>>>>>>>>>>>");
-
-		response.sendRedirect("main.jsp");
+		response.sendRedirect("main.jsp?logout="+logout);
 		System.out.println("main.jsp로 이동합니다....\n");
 	}
 

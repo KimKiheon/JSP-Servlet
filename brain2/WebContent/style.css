@@ -263,7 +263,7 @@ a {
 }
 
 td, th {
-	font-style: "¸¼Àº °íµñ";
+	font-style: "쨍쩌�쨘 째챠쨉챰";
 	text-align: left;
 	padding: 5px;
 	height: 15px;
@@ -346,14 +346,56 @@ input[type=submit], input[type=reset],input[type=button] {
     width: 45%;
     margin-top: 6px;
 }
-#viewertable{
-    width:100%;
-    margin:auto;
-    border-collapse:collapse;
+.viewertable{
+		border-top:1px solid #CCC;
+		border-collapse:collapse;
+		margin-top:40px;
+		width:100%;
+		text-align:center;
+	
 }
-#viewertable td, th{
-    padding:12px;text-align:left;
-    border-bottom:1px solid #ddd;
+.matchinfo {
+			border-collapse:collapse;
+	
+		width:100%;
+		text-align:center;
+}
+.matchinfo #title{
+	font-size:30px;
+}
+.matchinfo thead tr td{
+			text-align:center;
+	border-bottom:1px solid #f3f3f3; height:30px;
+}
+.matchinfo tbody tr td{
+			text-align:center;
+	border-bottom:1px solid #f3f3f3; height:30px;
+}
+.viewertable #title{
+		width:80%;
+		text-align:center;
+		border-bottom:1px solid #f3f3f3; 
+	
+}
+.viewertable thead th{
+	background-color:#c0c0c0;
+	padding:0;
+	height:40px;
+	font-weight: bold;
+	font-size: 17px;
+	text-align:center;
+}
+
+.viewertable tbody td{
+	text-align:center;
+	padding:10px 0;
+	border-bottom:1px solid #f3f3f3; height:30px;
+	font-size: 14px 
+}
+
+.viewertable #matches:hover{
+	border:1px solid #f3f3f3;
+	background-color:#f3f3f3;
 }
 .col-75 {
     float: left;
@@ -364,6 +406,19 @@ input[type=submit], input[type=reset],input[type=button] {
     content: "";
     display: table;
     clear: both;
+    
+}
+.row{
+	background-color:#f3f3f3;
+}
+.rrow:after {
+    content: "";
+    display: table;
+    clear: both;
+    
+}
+.rrow{
+	background-color:white;
 }
 #HR {
     font-size:10px;

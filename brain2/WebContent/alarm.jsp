@@ -9,8 +9,15 @@
 <%@ page import="vo.MatchVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
+<%
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setDateHeader("Expires", 0L); // Do not cache in proxy server
+%>
 <!DOCTYPE html>
 <%
+
 	System.out.println("--------------------main.jsp--------------------");
 	String id = (String) session.getAttribute("id");
 	if (id == null) {
@@ -33,6 +40,11 @@
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
 %>
+<%if(id == null){ %>
+ 	 <script language="javascript">
+            location.href="login.jsp";
+            </script>	<%}%>
+            
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8" />
@@ -72,33 +84,34 @@ tbody td:nth-child(3) {
 </style>
 </head>
 <body>
-<header>
-		<div id="HL"> &nbsp;<a href="main.jsp">CUKBM</a></div>
-        <div id="HR">
+	<header>
+		<div id="HL">
+			&nbsp;<a href="main.jsp">CUKBM</a>
+		</div>
+		<div id="HR">
         <%if (id == null) {%>
         <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
          <%} 
          else {%>
           <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
         <%} %> | <a href="alarm.jsp">ALARM</a></div>
-        <br />
-            <div class="header">
-		        <div class="title">&nbsp;Main Page</div>
-		       <div class="menu">
-           		 <div class="dropdown" style="float:right;">
-                <button class="dropbtn"><img src="image/menubar.png" width="30" height="30" /></button>
-                <div class="dropdown-content">
-                    <a href="login.jsp">로그인</a>
-                    <a href="register.jsp">회원 가입</a>
-                    <a href="alarm.jsp">알림</a>
-                    <a href="makethematch.jsp">매치 생성</a>
-                    <a href="jointhematch.jsp">매치 참가</a>
-                    <a href="mypage.jsp">마이 페이지</a>
-                </div>
-            </div>
-        </div>
-		    </div>
 		<br />
+		<div class="header">
+			<div class="title">&nbsp;My Alarm</div>
+			<div class="menu">
+				<div class="dropdown" style="float: right;">
+					<button class="dropbtn">
+						<img src="image/menubar.png" width="30" height="30" />
+					</button>
+					<div class="dropdown-content">
+						<a href="login.html">로그인</a> <a href="register.html">회원 가입</a> <a
+							href="alarm.html">알림</a> <a href="makethematch.html">매치 생성</a> <a
+							href="jointhematch.html">매치 참가</a> <a href="mypage.html">마이
+							페이지</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</header>
 
 
@@ -117,7 +130,6 @@ tbody td:nth-child(3) {
 				<th colspan="5">해당하는 스포츠의 종목</th>
 				<th colspan="5">제목</th>
 				<th colspan="5">현재인원</th>
-				<th colspan="5">알림종류</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -135,26 +147,6 @@ tbody td:nth-child(3) {
 					href="viewalarm.jsp?seqNo=<%=list.get(i).getSeqNo()%>"><%=match.getFlag2()%></a></td>
 				<td colspan="5"><%=match.getTitle()%></td>
 				<td colspan="5"><%=match.getNowman()%></td>
-				
-				<%
-				
-					if(list.get(i).getKind()==1){
-					
-				%>
-					<td colspan="5">인원 모집 완료</td>
-				<%
-				
-				} else if(list.get(i).getKind()==2){
-					
-				%>	
-					<td colspan="5">인원 신청</td>
-				<%
-				} else{
-				%>
-					<td colspan="5">매치 끝 </td>
-				<%
-				}
-				%>
 			</tr>
 			<%
 				}

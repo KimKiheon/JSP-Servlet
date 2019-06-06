@@ -12,7 +12,6 @@ import vo.Myconn;
  * 			DB에 삽입할때 nowman은 1의 상태로 들어가게됨
  * - Update 매치 정보중 인원이 참가했을때 그 게시글의 현재 참가인원을 +=1 해주는 함수
  * 			만약 참가인원이 최대인원과 일치한다면 작성자 알림테이블 삽입
- * - UpdateMatch 매치정보 수정 함수
  * - getCur MakeMatchProc.java에서 매치 생성자를 그 매치의 참가자로 넣을때 처리를 위한 함수, 매치 게시글의 가장 마지막을 반환함
  * - getNext getList를 위한 함수
  * - getList 매치정보를 리스트하기 위한 함수, 매치정보 10개를 리스트형태로 반환함
@@ -84,37 +83,6 @@ public class MatchDAO {
 		System.out.println("MatchDAO : Update 실패");
 		return 0;
 	}
-	
-	// 매치 수정 함수
-		public static int UpdateMatch(MatchVO vo) {
-			try {
-				System.out.println("[[[[[MatchDAO의  UpdateMatch 메소드 실행....]]]]]");
-
-				conn = Myconn.getConn();
-				String sql = "update matches set flag1 = ?, title = ?, stime = ?,etime = ?,contents = ?,"
-						+ "addr = ?, teamflag  = ?, needman = ? where seqNo = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, vo.getFlag1());
-				pstmt.setString(2, vo.getTitle());
-				pstmt.setString(3, vo.getStime());
-				pstmt.setString(4, vo.getEtime());
-				pstmt.setString(5, vo.getContents());
-				pstmt.setString(6, vo.getAddr());
-				pstmt.setInt(7, vo.getTeamflag());
-				pstmt.setInt(8, vo.getNeedman());
-				pstmt.setInt(9, vo.getSeqNo());
-				int result = pstmt.executeUpdate();
-				
-				if (result == 1) {
-					System.out.println("MatchDAO : Update 성공");
-					return 1;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			System.out.println("MatchDAO : Update 실패");
-			return 0;
-		}
 
 	public static int getCur() {
 		String SQL = "select seqNo from matches order by seqNo desc";

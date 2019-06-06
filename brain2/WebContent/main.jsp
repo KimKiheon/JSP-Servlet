@@ -1,9 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf8"%>
+<%
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setDateHeader("Expires", 0L); // Do not cache in proxy server
+%>
 ﻿<!DOCTYPE html>
 <%
 System.out.println("--------------------main.jsp--------------------");
 String id = (String)session.getAttribute("id");
+String logout = request.getParameter("logout");
+if(logout != null){
+System.out.println("뒤로가기 버튼 방지--");
+%>
+
+	<script language="javascript">
+	response.setHeader("Pragma", "No-cache"); 
+	response.setDateHeader("Expires", 0); 
+	response.setHeader("Cache-Control", "no-Cache"); 
+	history.pushState(null, null, location.href);
+
+	window.onpopstate = function(event) {
+
+		history.go(1);
+
+	};
+	</script>
+<%}
 if(id == null){
 	System.out.println("로그인 미완료 \n");
 }
@@ -62,7 +86,7 @@ alert("글 작성 성공!");
 					<td style="font-size:20px"><a href="joinematch.jsp">E-Sports</a></td>
 				</tr>
 				<tr>
-					<td><a href="joinamatch.jsp"><img src="image/soccer.png"  width="70" height="50"/><br />축구</a></td>
+					<td><a href="joinamatch.jsp"><img src="image/sccer.png"  width="70" height="50"/><br />축구</a></td>
 					<td><a href="joinematch.jsp"><img src="image/lol.png" width="70" height="50" /><br />롤</a></td>
 				</tr>
 				<tr>

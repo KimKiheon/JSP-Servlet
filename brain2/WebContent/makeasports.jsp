@@ -2,6 +2,12 @@
     pageEncoding="utf8"%>
     <%@page import="vo.MemberVO" %>
      <%@page import="dao.MemberDAO" %>
+     <%
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setDateHeader("Expires", 0L); // Do not cache in proxy server
+%>
 ﻿<!DOCTYPE html>
 <%
 System.out.println("--------------------makeasports.jsp--------------------");
@@ -74,9 +80,11 @@ else avg = (double)(succ/all)*100;
     		return false;
     	}
     }
+    document.userinput.reset();
+
     </script>
 </head>
-<body>
+<body onload="document.userinput.reset();">
     <header>
         <div id="HL"> &nbsp;<a href="main.jsp">CUKBM</a></div>
 

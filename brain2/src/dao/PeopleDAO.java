@@ -122,7 +122,29 @@ public class PeopleDAO {
 		System.out.println("[[[[[PeopleDAO의 getList 메소드 종....]]]]]");
 		return list;
 	}
-
+	
+	public static String matchstate(int seqNo, String id) {
+		System.out.println("[[[[[PeopleDAO의 getMatches 메소드 실행....]]]]]");
+		try {
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			System.out.printf("%s\n", id);
+			System.out.printf("%d\n", seqNo);
+			String SQL = "select * from people where matchseqNo = ? and joinman = ?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, seqNo);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				return "joined";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static boolean nextPage(int pageNumber) {
 		try {
 			Connection conn = Myconn.getConn();
@@ -168,4 +190,6 @@ public class PeopleDAO {
 		}
 		return null;
 	}
+	
+
 }

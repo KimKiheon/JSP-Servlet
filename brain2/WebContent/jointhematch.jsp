@@ -5,6 +5,12 @@
 <%@ page import="dao.MatchDAO" %>
 <%@ page import="vo.MatchVO" %>
 <%@ page import="java.util.ArrayList" %>
+<%
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setDateHeader("Expires", 0L); // Do not cache in proxy server
+%>
 ﻿<!DOCTYPE html>
 <%
 	System.out.println("--------------------jointhematch.jsp--------------------");
@@ -77,17 +83,18 @@ if(request.getParameter("pageNumber")!=null){
 		if(id != null){
 	%>
 	<div class="container1">
-	<div class="row">
-	<table id = "viewrtable" style="text-align: center; border: 1px solid #dddddd">
+	<div class="rrow">
+	<table class ="viewertable" >
 		<thead>
 			<tr>
-				<th style="background-color: #eeeeee; text-align:center;">번호</th>
-				<th style="background-color: #eeeeee; text-align:center;">제목</th>
-				<th style="background-color: #eeeeee; text-align:center;">시작</th>
-				<th style="background-color: #eeeeee; text-align:center;">종료</th>
-				<th style="background-color: #eeeeee; text-align:center;">최대인원</th>
-				<th style="background-color: #eeeeee; text-align:center;">참가인원</th>
-				<th style="background-color: #eeeeee; text-align:center;">작성자</th>
+				<th width="70">번호</th>
+				<th width="1000">제목</th>
+				<th width="100">종목</th>
+				<th width="120">시작</th>
+				<th width="100">종료</th>
+				<th width="100">최대인원</th>
+				<th width="100">참가인원</th>
+				<th width="100">작성자</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -96,14 +103,15 @@ if(request.getParameter("pageNumber")!=null){
 				ArrayList<MatchVO> list = MatchDAO.getList(pageNumber);
 				for(int i=0;i<list.size();i++){
 		%>
-			<tr>
-				<td><%=list.get(i).getSeqNo()%></td>
-				<td><a href="viewmatch.jsp?seqNo=<%=list.get(i).getSeqNo()%>"><%=list.get(i).getTitle()%></a></td>
-				<td><%=list.get(i).getStime()%></td>
-				<td><%=list.get(i).getEtime()%></td>
-				<td><%=list.get(i).getNeedman()%></td>
-				<td><%=list.get(i).getNowman()%></td>
-				<td><%=list.get(i).getWriter()%></td>
+			<tr id="matches">
+				<td height="1100" width="70"><%=list.get(i).getSeqNo()%></td>
+				<td width="500"><a href="viewmatch.jsp?seqNo=<%=list.get(i).getSeqNo()%>"><%=list.get(i).getTitle()%></a></td>
+				<td width="100"><%=list.get(i).getFlag2()%></td>
+				<td width="120"><%=list.get(i).getStime()%></td>
+				<td width="100"><%=list.get(i).getEtime()%></td>
+				<td width="100"><%=list.get(i).getNeedman()%></td>
+				<td width="100"><%=list.get(i).getNowman()%></td>
+				<td width="100"><%=list.get(i).getWriter()%></td>
 			</tr>
 			<%
 				}
