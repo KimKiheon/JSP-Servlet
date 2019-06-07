@@ -123,11 +123,11 @@ if(request.getParameter("pageNumber")!=null){
 	%>
 	<a href="jointhematch.jsp?pageNumber=<%=pageNumber-1%>">이전</a>
 	<%
-		} if(MatchDAO.nextPage(pageNumber+1)){
+		} System.out.println(pageNumber + " " + MatchDAO.fullPage()); if(MatchDAO.nextPage(pageNumber+1) && MatchDAO.fullPage() > pageNumber){
 	%>
 	<a href="jointhematch.jsp?pageNumber=<%=pageNumber+1 %>">다음</a>
 	<%
-	}
+	} 
 	%>
 	<a href="makethematch.jsp" class="btn btn-primary pull-right">글쓰기</a>
 	</div>
