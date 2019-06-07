@@ -7,16 +7,16 @@ import vo.MatchVO;
 import vo.Myconn;
 
 /*
- * MatchDAO ¸ÅÄ¡ DAO
- * - Insert ¸ÅÄ¡Á¤º¸¸¦ DB¿¡ »ğÀÔÇØÁÖ´Â ÇÔ¼ö
- * 			DB¿¡ »ğÀÔÇÒ¶§ nowmanÀº 1ÀÇ »óÅÂ·Î µé¾î°¡°ÔµÊ
- * - Update ¸ÅÄ¡ Á¤º¸Áß ÀÎ¿øÀÌ Âü°¡ÇßÀ»¶§ ±× °Ô½Ã±ÛÀÇ ÇöÀç Âü°¡ÀÎ¿øÀ» +=1 ÇØÁÖ´Â ÇÔ¼ö
- * 			¸¸¾à Âü°¡ÀÎ¿øÀÌ ÃÖ´ëÀÎ¿ø°ú ÀÏÄ¡ÇÑ´Ù¸é ÀÛ¼ºÀÚ ¾Ë¸²Å×ÀÌºí »ğÀÔ
- * - getCur MakeMatchProc.java¿¡¼­ ¸ÅÄ¡ »ı¼ºÀÚ¸¦ ±× ¸ÅÄ¡ÀÇ Âü°¡ÀÚ·Î ³ÖÀ»¶§ Ã³¸®¸¦ À§ÇÑ ÇÔ¼ö, ¸ÅÄ¡ °Ô½Ã±ÛÀÇ °¡Àå ¸¶Áö¸·À» ¹İÈ¯ÇÔ
- * - getNext getList¸¦ À§ÇÑ ÇÔ¼ö
- * - getList ¸ÅÄ¡Á¤º¸¸¦ ¸®½ºÆ®ÇÏ±â À§ÇÑ ÇÔ¼ö, ¸ÅÄ¡Á¤º¸ 10°³¸¦ ¸®½ºÆ®ÇüÅÂ·Î ¹İÈ¯ÇÔ
- * - nextPage 10°³°¡ ³Ñ¾î°¥ °æ¿ì ÆäÀÌÁö Ã³¸®¸¦ À§ÇÑ ÇÔ¼ö
- * - getMatches ¸ÅÄ¡Á¤º¸¸¦ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+ * MatchDAO ë§¤ì¹˜ DAO
+ * - Insert ë§¤ì¹˜ì •ë³´ë¥¼ DBì— ì‚½ì…í•´ì£¼ëŠ” í•¨ìˆ˜
+ * 			DBì— ì‚½ì…í• ë•Œ nowmanì€ 1ì˜ ìƒíƒœë¡œ ë“¤ì–´ê°€ê²Œë¨
+ * - Update ë§¤ì¹˜ ì •ë³´ì¤‘ ì¸ì›ì´ ì°¸ê°€í–ˆì„ë•Œ ê·¸ ê²Œì‹œê¸€ì˜ í˜„ì¬ ì°¸ê°€ì¸ì›ì„ +=1 í•´ì£¼ëŠ” í•¨ìˆ˜
+ * 			ë§Œì•½ ì°¸ê°€ì¸ì›ì´ ìµœëŒ€ì¸ì›ê³¼ ì¼ì¹˜í•œë‹¤ë©´ ì‘ì„±ì ì•Œë¦¼í…Œì´ë¸” ì‚½ì…
+ * - getCur MakeMatchProc.javaì—ì„œ ë§¤ì¹˜ ìƒì„±ìë¥¼ ê·¸ ë§¤ì¹˜ì˜ ì°¸ê°€ìë¡œ ë„£ì„ë•Œ ì²˜ë¦¬ë¥¼ ìœ„í•œ í•¨ìˆ˜, ë§¤ì¹˜ ê²Œì‹œê¸€ì˜ ê°€ì¥ ë§ˆì§€ë§‰ì„ ë°˜í™˜í•¨
+ * - getNext getListë¥¼ ìœ„í•œ í•¨ìˆ˜
+ * - getList ë§¤ì¹˜ì •ë³´ë¥¼ ë¦¬ìŠ¤íŠ¸í•˜ê¸° ìœ„í•œ í•¨ìˆ˜, ë§¤ì¹˜ì •ë³´ 10ê°œë¥¼ ë¦¬ìŠ¤íŠ¸í˜•íƒœë¡œ ë°˜í™˜í•¨
+ * - nextPage 10ê°œê°€ ë„˜ì–´ê°ˆ ê²½ìš° í˜ì´ì§€ ì²˜ë¦¬ë¥¼ ìœ„í•œ í•¨ìˆ˜
+ * - getMatches ë§¤ì¹˜ì •ë³´ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
  */
 public class MatchDAO {
 	static Connection conn = null;
@@ -27,11 +27,39 @@ public class MatchDAO {
 		java.util.Date today = new java.util.Date();
 		return new java.sql.Timestamp(today.getTime());
 	}
+	public static int UpdateMatch(MatchVO vo) {
+		try {
+			System.out.println("[[[[[MatchDAOï¿½ï¿½  UpdateMatch ï¿½Ş¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½....]]]]]");
 
-	// »õ·Î¿î ¸ÅÄ¡ »ı¼º½Ã DB¿¡ Ãß°¡
+			conn = Myconn.getConn();
+			String sql = "update matches set flag1 = ?, title = ?, stime = ?,etime = ?,contents = ?,"
+					+ "addr = ?, teamflag  = ?, needman = ? where seqNo = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getFlag1());
+			pstmt.setString(2, vo.getTitle());
+			pstmt.setString(3, vo.getStime());
+			pstmt.setString(4, vo.getEtime());
+			pstmt.setString(5, vo.getContents());
+			pstmt.setString(6, vo.getAddr());
+			pstmt.setInt(7, vo.getTeamflag());
+			pstmt.setInt(8, vo.getNeedman());
+			pstmt.setInt(9, vo.getSeqNo());
+			int result = pstmt.executeUpdate();
+			
+			if (result == 1) {
+				System.out.println("MatchDAO : Update ï¿½ï¿½ï¿½ï¿½");
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("MatchDAO : Update ï¿½ï¿½ï¿½ï¿½");
+		return 0;
+	}
+	// ìƒˆë¡œìš´ ë§¤ì¹˜ ìƒì„±ì‹œ DBì— ì¶”ê°€
 	public static int Insert(MatchVO vo) {
 		try {
-			System.out.println("[[[[[MatchDAOÀÇ  Insert ¸Ş¼Òµå ½ÇÇà....]]]]]");
+			System.out.println("[[[[[MatchDAOì˜  Insert ë©”ì†Œë“œ ì‹¤í–‰....]]]]]");
 
 			conn = Myconn.getConn();
 			String sql = "insert into matches(flag1, flag2, title,stime,etime,contents,"
@@ -50,21 +78,21 @@ public class MatchDAO {
 			pstmt.setString(11, vo.getWriter());
 			int result = pstmt.executeUpdate();
 			if (result == 1) {
-				System.out.println("MatchDAO : Insert ¼º°ø");
+				System.out.println("MatchDAO : Insert ì„±ê³µ");
 				return 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("MatchDAO : Insert ½ÇÆĞ");
+		System.out.println("MatchDAO : Insert ì‹¤íŒ¨");
 
 		return 0;
 	}
 
-	// »ç¿ëÀÚ Âü°¡½Ã nowman¼Ó¼º +1 ¾÷µ¥ÀÌÆ® ÇÔ¼ö
+	// ì‚¬ìš©ì ì°¸ê°€ì‹œ nowmanì†ì„± +1 ì—…ë°ì´íŠ¸ í•¨ìˆ˜
 	public static int Update(MatchVO vo) {
 		try {
-			System.out.println("[[[[[MatchDAOÀÇ  Update ¸Ş¼Òµå ½ÇÇà....]]]]]");
+			System.out.println("[[[[[MatchDAOì˜  Update ë©”ì†Œë“œ ì‹¤í–‰....]]]]]");
 
 			conn = Myconn.getConn();
 			String sql = "update matches set nowman = ? where seqNo = ?";
@@ -74,13 +102,13 @@ public class MatchDAO {
 			pstmt.setInt(2, vo.getSeqNo());
 			int result = pstmt.executeUpdate();
 			if (result == 1) {
-				System.out.println("MatchDAO : Update ¼º°ø");
+				System.out.println("MatchDAO : Update ì„±ê³µ");
 				return 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("MatchDAO : Update ½ÇÆĞ");
+		System.out.println("MatchDAO : Update ì‹¤íŒ¨");
 		return 0;
 	}
 
@@ -122,9 +150,9 @@ public class MatchDAO {
 		return -1;
 	}
 
-	// ¸ÅÄ¡ ¸®½ºÆ® Ãâ·Â ÇÔ¼ö
+	// ë§¤ì¹˜ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥ í•¨ìˆ˜
 	public static ArrayList<MatchVO> getList(int pageNumber) {
-		System.out.println("[[[[[MatchDAOÀÇ getList ¸Ş¼Òµå ½ÇÇà....]]]]]");
+		System.out.println("[[[[[MatchDAOì˜ getList ë©”ì†Œë“œ ì‹¤í–‰....]]]]]");
 		ArrayList<MatchVO> list = new ArrayList<MatchVO>();
 		try {
 			Connection conn = Myconn.getConn();
@@ -155,10 +183,10 @@ public class MatchDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("[[[[[MatchDAOÀÇ getList ¸Ş¼Òµå Á¾....]]]]]");
+		System.out.println("[[[[[MatchDAOì˜ getList ë©”ì†Œë“œ ì¢…....]]]]]");
 		return list;
 	}
-	//page 'ÀÌÀü','´ÙÀ½'  ¹öÆ° Áß ¸ğµÎ ´Ù º¸¿©Á³À»¶§ '´ÙÀ½' ¹öÆ° Á¦¾î.
+	//page 'ì´ì „','ë‹¤ìŒ'  ë²„íŠ¼ ì¤‘ ëª¨ë‘ ë‹¤ ë³´ì—¬ì¡Œì„ë•Œ 'ë‹¤ìŒ' ë²„íŠ¼ ì œì–´.
 		public static int fullPage() {
 			int checknum = 1;
 			try {
@@ -205,9 +233,9 @@ public class MatchDAO {
 		return false;
 	}
 
-	// ¸ÅÄ¡ Á¤º¸ ¹İÈ¯ ÇÔ¼ö
+	// ë§¤ì¹˜ ì •ë³´ ë°˜í™˜ í•¨ìˆ˜
 	public MatchVO getMatches(int seqNo) {
-		System.out.println("[[[[[MatchDAOÀÇ getMatches ¸Ş¼Òµå ½ÇÇà....]]]]]");
+		System.out.println("[[[[[MatchDAOì˜ getMatches ë©”ì†Œë“œ ì‹¤í–‰....]]]]]");
 		try {
 			Connection conn = Myconn.getConn();
 			PreparedStatement pstmt = null;
@@ -232,7 +260,7 @@ public class MatchDAO {
 				match.setNeedman(rs.getInt(11));
 				match.setNowman(rs.getInt(12));
 				match.setWriter(rs.getString(13));
-				System.out.println("[[[[[MatchDAOÀÇ getMatches ¸Ş¼Òµå Á¾·á....]]]]]");
+				System.out.println("[[[[[MatchDAOì˜ getMatches ë©”ì†Œë“œ ì¢…ë£Œ....]]]]]");
 				return match;
 			}
 		} catch (SQLException e) {

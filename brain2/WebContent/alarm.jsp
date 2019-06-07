@@ -115,7 +115,7 @@ tbody td:nth-child(3) {
 <div style="background-color:#f3f3f3; height:5px; width:100%;">
 				</div><br><br>
 
-	<div class="shadow_eff2">
+<div class="shadow_eff2">
 	<h2><%=id %>&nbsp;&nbsp;<span style="font-size:15px;">님 Alarm</span></h2>
 	<div style="background-color:#f3f3f3; height:2px; width:100%;">
 				</div>
@@ -152,14 +152,8 @@ tbody td:nth-child(3) {
 		</tbody>
 	</table>
 	</div>
- <br />
-   <br />
-   <br />
-   <br />
-   <br />
-   <br />
-   <br />
-	<div class="foot" style="position: fixed">
+	<Br><br><br><br>
+	<div class="foot" style="">
 		number : 010 - 1234 - 5678<br /> Facebook : object-oriented paradime
 		<br /> address : catholic university<br /> name : hong gil dong
 	</div>

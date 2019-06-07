@@ -96,15 +96,16 @@ System.out.println("--------------------register.jsp--------------------");
 	%>
 </head>
 <body>
-    <header>
-        <div id="HL"> &nbsp;<a href="main.jsp">CUKBM</a></div>
-        <div id="HR"><a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a> | <a href="alarm.jsp">ALARM</a></div>
-        <br />
-        <div class="header">
-        <div class="title">&nbsp;Make&nbsp;<span id="thematch">The&nbsp;Match</span></div>
-        <div class="menu">
-            <div class="dropdown" style="float:right;">
-                <button class="dropbtn"><img src="image/menubar.png" width="30" height="30" /></button>
+   <header>
+	<div id="HR">
+        <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
+       
+        </div>
+		<div class="menu">
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+           		 <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
                     <a href="login.jsp">로그인</a>
                     <a href="register.jsp">회원 가입</a>
@@ -113,14 +114,18 @@ System.out.println("--------------------register.jsp--------------------");
                     <a href="jointhematch.jsp">매치 참가</a>
                     <a href="mypage.jsp">마이 페이지</a>
                 </div>
-            </div>
-        </div>
-    </div>
-        <br />
-    </header>
+            	</div>
+        		</div>
+		</div>
+        
+		
+	</header>
+	<div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div>
 	<br />
 	<br />
-    <div class="container">
+    <div class="shadow_eff2">
+    
         <form name ="userinput" action="RegisterProc"
 		method="post"
         onsubmit="return checkIt()">
@@ -190,6 +195,8 @@ System.out.println("--------------------register.jsp--------------------");
     </div>
 	<br />
 	<br />
+	<br>
+	<br>
 	<div class="foot" style="position:fixed">
 		number : 010 - 1234 - 5678<br />
 		Facebook : object-oriented paradime	<br />

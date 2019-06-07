@@ -151,6 +151,7 @@ state="joinman";
 				<span><input type="submit" value="참가하기"></span>
 				<%} 
 				else {%>
+				<span><input type="Button" onclick="location.href='updatematch.jsp?seqNo=<%=seqNo%>'" value="수정"></span>
 				<span><input type="Button" value="참가 중"></span>
 				<span><input type="Button" onclick="location.href='viewpeople.jsp?seqNo=<%=seqNo%>'" value="참가자 보기"></span>
 				<%} %>

@@ -112,7 +112,7 @@ document.userinput.id.value="";
 				  <br /><br>
         <form action="LoginProc" method="post" name="userinput" id ="userinput"  onsubmit="return login()"> 
             <input type="text" name ="id" id="id" maxlength="50" title="id" placeholder="  아이디"><br /><br />
-            <input type="text" name="pw" id="pw" maxlength="50" placeholder="  비밀번호"/><br /><br />
+            <input type="password" name="pw" id="pw" maxlength="50" placeholder="  비밀번호"/><br /><br />
             <input type="submit" id="sb"value="로 그 인" /><br /><br />
         </form>
             <h6>아직 회원이 아니신가요? <a href="register.jsp">&nbsp;&nbsp;&nbsp;&nbsp;회원가입하기</a></h6>    

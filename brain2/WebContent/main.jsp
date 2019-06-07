@@ -109,7 +109,7 @@ alert("글 작성 성공!");
 					<td style="font-size:20px"><a href="joinematch.jsp">E-Sports</a></td>
 				</tr>
 				<tr>
-					<td><a href="joinamatch.jsp"><img src="image/sccer.png"  width="70" height="50"/><br />축구</a></td>
+					<td><a href="joinamatch.jsp"><img src="image/soccer.png"  width="70" height="50"/><br />축구</a></td>
 					<td><a href="joinematch.jsp"><img src="image/lol.png" width="70" height="50" /><br />롤</a></td>
 				</tr>
 				<tr>
