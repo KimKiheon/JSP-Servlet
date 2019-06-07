@@ -121,36 +121,35 @@ tbody td:nth-child(3) {
 				</div>
 	<br />
 	<br />
-	<table width="80%" style="margin: auto">
-		<thead>
-			<tr>
-				<th colspan="3">ATHlETIC OR ESPORTS</th>
-				<th colspan="5">해당하는 스포츠의 종목</th>
-				<th colspan="5">제목</th>
-				<th colspan="5">현재인원</th>
-			</tr>
-		</thead>
-		<tbody>
+	
 			<%
 				AlarmVO alarm = new AlarmVO();
 				ArrayList<AlarmVO> list = AlarmDAO.getList(pageNumber, id);
+			
 				for (int i = 0; i < list.size(); i++) {
+					String outs ="";
 					MatchVO match = new MatchVO();
 					MatchDAO matchdao = new MatchDAO();
 					match = matchdao.getMatches(list.get(i).getMatchseqNo());
+					if(list.get(i).getKind() == 1){
+						outs+=list.get(i).getJoinman()+"이 참가했어요!";
+					}
+					if(list.get(i).getKind() == 2){
+						outs += "필요한 참가자가 모두 모였어요!!";
+					}
 			%>
-			<tr>
-				<td colspan="3"><%=list.get(i).getSeqNo()%></td>
-				<td colspan="5"><a
-					href="viewalarm.jsp?seqNo=<%=list.get(i).getSeqNo()%>"><%=match.getFlag2()%></a></td>
-				<td colspan="5"><%=match.getTitle()%></td>
-				<td colspan="5"><%=match.getNowman()%></td>
-			</tr>
+			<div>
+				<span style="font-size:20px; color:blue; text-decoration:underline;"><%=match.getTitle() %></span>
+				<span>글에 &nbsp;&nbsp;<%=outs %></span>
+				</div>
+				<div style="background-color:#c0c0c0; height:2px; width:50%;">
+				</div>
+				<br>
+		<br>
 			<%
 				}
 			%>
-		</tbody>
-	</table>
+		
 	</div>
 	<Br><br><br><br>
 	<div class="foot" style="">

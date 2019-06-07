@@ -32,7 +32,7 @@ public class MatchDAO {
 			System.out.println("[[[[[MatchDAO��  UpdateMatch �޼ҵ� ����....]]]]]");
 
 			conn = Myconn.getConn();
-			String sql = "update matches set flag1 = ?, title = ?, stime = ?,etime = ?,contents = ?,"
+			String sql = "update matches set flag1 = ?,title = ?, stime = ?,etime = ?,contents = ?,"
 					+ "addr = ?, teamflag  = ?, needman = ? where seqNo = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, vo.getFlag1());
@@ -47,13 +47,13 @@ public class MatchDAO {
 			int result = pstmt.executeUpdate();
 			
 			if (result == 1) {
-				System.out.println("MatchDAO : Update ����");
+				System.out.println("MatchDAO : Update 성공");
 				return 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("MatchDAO : Update ����");
+		System.out.println("MatchDAO : Update 실패");
 		return 0;
 	}
 	// 새로운 매치 생성시 DB에 추가

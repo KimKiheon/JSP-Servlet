@@ -13,7 +13,7 @@ updatematch.jsp
  --%>
 <!DOCTYPE html>
 <%
-	System.out.println("--------------------viewmatch.jsp--------------------");
+	System.out.println("--------------------updatematch.jsp--------------------");
 
 	String id = (String) session.getAttribute("id");
 	System.out.printf("now id : %s\n", id);
@@ -74,107 +74,102 @@ a:hover {
 <body>
 
 	<header>
-		<div id="HL">
-			&nbsp;<a href="main.jsp">CUKBM</a>
-		</div>
-
-		<div id="HR">
-			<%
-				if (id == null) {
-			%>
-			<a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
-			<%
-				} else {
-			%>
-			<a href="mypage.jsp"><%=id%></a> | <a href="LogoutProc">로그아웃</a>
-			<%
-				}
-			%>
-			| <a href="alarm.jsp">ALARM</a>
-		</div>
-		<br />
-	</header>
-	<div class="header">
-		<div class="title">&nbsp;JOIN THE MATCH</div>
+	<div id="HR">
+        <%if (id == null) {%>
+        <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
+         <%} 
+         else {%>
+          <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
+        <%} %> | <a href="alarm.jsp">ALARM</a>
+        </div>
 		<div class="menu">
-			<img src="image/menubar.png" />
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+           		 <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
+                <div class="dropdown-content">
+                    <a href="login.jsp">로그인</a>
+                    <a href="register.jsp">회원 가입</a>
+                    <a href="alarm.jsp">알림</a>
+                    <a href="makethematch.jsp">매치 생성</a>
+                    <a href="jointhematch.jsp">매치 참가</a>
+                    <a href="mypage.jsp">마이 페이지</a>
+                </div>
+            	</div>
+        		</div>
 		</div>
-	</div>
+        
+		
+	</header>
+<div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div><br><br>
+
 	<br />
 	<%
 		if (id != null) {
 	%>
-	<div class="container1">
+	<div class="shadow_eff2">
 		<div class="row">
 			<form action="UpdateMatchProc" method="post">
 				<div class="hidden">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=match.getSeqNo()%>">
+						<input type="text" id="flag1" name="flag1" readonly value="<%=match.getFlag1() %>">
+						<input type="text" id="nowman" name="nowman" readonly value="<%=match.getNowman() %>">
+						<input type="text" id="flag2" name="flag2" readonly value="<%=match.getFlag2() %>">
+		
 				</div>
-				<table id="viewertable">
+					<div>
+				<h1>
+				<span><%=match.getTitle()%></span><span style="font-size:15px;">&nbsp;&nbsp;글 수정</span>
+				</h1>
+				</div>		
+				<div style="background-color:#f3f3f3; height:3px; width:100%;">
+				</div>
+				<br><br>
+				<table style="width:100%">
 					<thead>
-						<tr>
-							<th colspan="3"
-								style="background-color: darkgray; text-align: center;">게시판
-								글</th>
-						</tr>
+						
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="2">글 제목</td>
-							<td colspan="2"><input type="text" name="title"
+							<td id="leftT">글 제목</td>
+							<td><input type="text" name="title"
 								value="<%=match.getTitle()%>"></td>
 						</tr>
 						<tr>
-							<td colspan="2">작성자</td>
-							<td colspan="2"><input type="text" readonly name="writer"
+							<td id="leftT" >작성자</td>
+							<td ><input type="text" readonly name="writer"
 								value="<%=match.getWriter()%>"></td>
 						</tr>
 						<tr>
-							<td colspan="2">flag1</td>
-							<td colspan="2"><input type="text" name="flag1"
-								value="<%=match.getFlag1()%>"></td>
+							<td id="leftT">시작 시간</td>
+							<td ><input type="datetime-local" id="stime" name="stime" step="1"></td>
 						</tr>
 						<tr>
-							<td colspan="2">flag2</td>
-							<td colspan="2"><input type="text" name="flag2"
-								value="<%=match.getFlag2()%>"></td>
+							<td id="leftT">종료 시간</td>
+							<td ><input type="datetime-local" id="etime" name="etime" step="1"></td>
 						</tr>
-
+					
 						<tr>
-							<td colspan="2">stime</td>
-							<td colspan="2"><input type="text" name="stime"
-								value="<%=match.getStime()%>"></td>
-						</tr>
-						<tr>
-							<td colspan="2">etime</td>
-							<td colspan="2"><input type="text" name="etime"
-								value="<%=match.getEtime()%>"></td>
-						</tr>
-						<tr>
-							<td colspan="2">contents</td>
-							<td colspan="2"><input type="text" name="contents"
-								value="<%=match.getContents()%>"></td>
-						</tr>
-						<tr>
-							<td colspan="2">addr</td>
-							<td colspan="2"><input type="text" name="addr"
+							<td id="leftT">장소</td>
+							<td ><input type="text" name="addr"
 								value="<%=match.getAddr()%>"></td>
 						</tr>
 						<tr>
-							<td colspan="2">teamflag</td>
-							<td colspan="2"><input type="text" readonly name="teamflag"
+							<td id="leftT">팀/개인 유무</td>
+							<td><input type="text" readonly name="teamflag"
 								value="<%=match.getTeamflag()%>"></td>
 						</tr>
 						<tr>
-							<td colspan="2">needman</td>
-							<td colspan="2"><input type="text" name="needman"
+							<td id="leftT">필요 인원</td>
+							<td><input type="text" name="needman"
 								value="<%=match.getNeedman()%>"></td>
 						</tr>
 						<tr>
-							<td colspan="2">nowman</td>
-							<td colspan="2"><input type="text" readonly name="nowman"
-								value="<%=match.getNowman()%>"></td>
+							<td id="leftT" >추가 사항</td>
+							<td><input type="text" name="contents" style="width:90%; height:300px;"
+								value="<%=match.getContents()%>"></td>
 						</tr>
 					</tbody>
 				</table>

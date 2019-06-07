@@ -246,7 +246,9 @@ a {
 
 }
 
-
+#leftT{
+	width:20%;
+}
 
 .selectkind {
 	background: white;
