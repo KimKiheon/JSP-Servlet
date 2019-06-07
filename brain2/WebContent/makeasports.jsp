@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf8"
+﻿<%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf8"%>
     <%@page import="vo.MemberVO" %>
      <%@page import="dao.MemberDAO" %>
@@ -96,7 +96,7 @@ else avg = (double)(succ/all)*100;
         </div>
 		<div class="menu">
 				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+				<span style="color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
                 <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
@@ -214,10 +214,11 @@ else avg = (double)(succ/all)*100;
     </article>
     
 	<div class="foot">
-		number : 010 - 1234 - 5678<br />
+        상호명 : CUKBM / 대표 : 가플리<br />
+		전화 : 010 - 1234 - 5678<br />
 		Facebook : object-oriented paradime	<br />
-		address : catholic university<br />
-		name : hong gil dong
+		Address : Catholic University Of Korea<br />
+        Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
 	</div>
 </body>
 </html>

@@ -164,7 +164,7 @@ height: 100%;
 	margin-left : 15%;
 	text-align: left;
 	font-size: 40px;
-	font-color: orange;
+	color: orange;
 }
 
 a {
@@ -230,11 +230,11 @@ a {
 }
 
 .foot {
-	background: black;
-	padding: 10px;
-	border: 0px solid black;
-	color: lightgray;
-	font: italic normal bold 15px sans-serif;
+	background: rgb(20,20,20);
+	padding: 8px;
+	border: 2px solid black;
+	color: rgb(150,150,150);
+	font:  normal bold 15px sans-serif;
 	bottom: 0px;
 	left: 0px;
 	right: 0px;
@@ -243,8 +243,8 @@ a {
 	position: relative;
 	height: auto;
 	width: 100%;
-
 }
+
 
 #leftT{
 	width:20%;
