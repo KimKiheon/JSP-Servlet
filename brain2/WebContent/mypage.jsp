@@ -125,34 +125,38 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 </head>
 <body>
 
-   <header>
-      <div id="HL">
-         &nbsp;<a href="main.jsp">CUKBM</a>
-      </div>
+ <header>
+	<div id="HR">
+        <%if (id == null) {%>
+        <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
+         <%} 
+         else {%>
+          <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
+        <%} %> | <a href="alarm.jsp">ALARM</a>
+        </div>
+		<div class="menu">
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+           		 <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
+                <div class="dropdown-content">
+                    <a href="login.jsp">로그인</a>
+                    <a href="register.jsp">회원 가입</a>
+                    <a href="alarm.jsp">알림</a>
+                    <a href="makethematch.jsp">매치 생성</a>
+                    <a href="jointhematch.jsp">매치 참가</a>
+                    <a href="mypage.jsp">마이 페이지</a>
+                </div>
+            	</div>
+        		</div>
+		</div>
+        
+		
+	</header>
 
-      <div id="HR">
-         <%
-            if (id == null) {
-         %>
-         <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
-         <%
-            } else {
-         %>
-         <a href="mypage.jsp"><%=id%></a> | <a href="LogoutProc">로그아웃</a>
-         <%
-            }
-         %>
-         | <a href="alarm.jsp">ALARM</a>
-      </div>
-      <br />
-      <div class="header">
-         <div class="title">&nbsp;MYPage</div>
-         <div class="menu">
-            <img src="image/menubar.png" />
-         </div>
-      </div>
-      <br />
-   </header>
+	<div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div>
+				<br><br>
    <%
       if (id == null) {
    %>
@@ -162,19 +166,21 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
    <%
       } else {
    %>
+   <div class="shadow_eff2">
    <form method="get">
-      <table class="t" border="1">
          <!--getParameter-->
-         <tr>
-            <td style="text-align: center"><strong
-               style="font-size: 20px; color: blue; text-align: center"><%=id%></strong>님</td>
-         </tr>
-      </table>
+        <div class="makeinner">
+	<h2><%=id %>&nbsp;&nbsp;<span style="font-size:15px;">님 MyPage</span></h2>
+	<div style="background-color:#f3f3f3; height:2px; width:100%;">
+				</div></div>
+   
       <br />
+        <div class="makeinner" style="vertical-align:middle; text-align:center;">
+	<h2 style="text-align:center;"><span style="font-size:15px;">RATIO</span></h2>
+	<div style="background-color:#8080ff; height:2px; width:30%; margin:auto;">
+				</div></div>
+				<br><br>
       <table class="t" border="1">
-         <caption>
-            <h2 style="color: darkblue">MYPAGE information</h2>
-         </caption>
          <tr>
             <td style="background: lightgray;">전체 매칭 시도수</td>
             <td><%=all%> 회</td>
@@ -189,9 +195,10 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
             <td><%=avg%> %</td>
       </table>
       <br />
-      <div class="Wheader">
-         <div class="circle">현재 참가중인 매칭</div>
-      </div>
+     <div class="makeinner" style="vertical-align:middle; text-align:center;">
+	<h2 style="text-align:center;"><span style="font-size:15px;">현재 참가중인 매치</span></h2>
+	<div style="background-color:#8080ff; height:2px; width:30%; margin:auto;">
+				</div></div>
       <br />
       <hr style="MARGIN: auto; width: 80%; border-style: solid" />
 
@@ -233,6 +240,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
       </table>
 
    </form>
+   </div>
    <%
       }
    %>

@@ -26,6 +26,7 @@ System.out.println("뒤로가기 버튼 방지--");
 		history.go(1);
 
 	};
+	
 	</script>
 <%}
 if(id == null){
@@ -49,20 +50,19 @@ alert("글 작성 성공!");
 </head>
 <body>
 	<header>
-		<div id="HL"> &nbsp;<a href="main.jsp">CUKBM</a></div>
-        <div id="HR">
+	<div id="HR">
         <%if (id == null) {%>
         <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
          <%} 
          else {%>
           <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
-        <%} %> | <a href="alarm.jsp">ALARM</a></div>
-        <br />
-            <div class="header">
-		        <div class="title">&nbsp;Main Page</div>
-		       <div class="menu">
+        <%} %> | <a href="alarm.jsp">ALARM</a>
+        </div>
+		<div class="menu">
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
-                <button class="dropbtn"><img src="image/menubar.png" width="30" height="30" /></button>
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
                     <a href="login.jsp">로그인</a>
                     <a href="register.jsp">회원 가입</a>
@@ -71,13 +71,36 @@ alert("글 작성 성공!");
                     <a href="jointhematch.jsp">매치 참가</a>
                     <a href="mypage.jsp">마이 페이지</a>
                 </div>
-            </div>
-        </div>
-		    </div>
-		<br />
+            	</div>
+        		</div>
+		</div>
+        
+		
 	</header>
 
 	<article>
+	<div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div>
+	<div class="Carousel">
+			<ol class="dots"></ol>
+			<ol class="slides">
+				<li class="slide link">
+					<img src="image/축구.jpg" alt="매칭 생성 이미지" />
+				</li>
+				<li class="slide link">
+					<img src="image/농구.jpg" alt="매칭 참가 이미지" />
+				</li>
+				<li class="slide link">
+					<img src="image/게임.jpg" alt="My Page 이미지" />
+				</li>
+			</ol>
+			<div class="next">
+				<div class="button"></div>
+			</div>
+			<div class="prev">
+				<div class="button"></div>
+			</div>
+		</div>
 		<table id="mainimage" border="0">
 			<tbody>
 				<tr>
@@ -107,26 +130,7 @@ alert("글 작성 성공!");
 
 		<br />
 
-		<div class="Carousel">
-			<ol class="dots"></ol>
-			<ol class="slides">
-				<li class="slide link">
-					<img src="image/생성.png" alt="매칭 생성 이미지" />
-				</li>
-				<li class="slide link">
-					<img src="image/참가.png" alt="매칭 참가 이미지" />
-				</li>
-				<li class="slide link">
-					<img src="image/마이페이지.png" alt="My Page 이미지" />
-				</li>
-			</ol>
-			<div class="next">
-				<div class="button"></div>
-			</div>
-			<div class="prev">
-				<div class="button"></div>
-			</div>
-		</div>
+		
 		<script type="text/javascript" src="script.js"></script>
 
 		<table id="Category">

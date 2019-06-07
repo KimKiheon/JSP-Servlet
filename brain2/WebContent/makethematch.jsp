@@ -51,62 +51,157 @@ System.out.printf("[%s]의 매치 성사율 = %f\n",id,avg);
 			color:red;
 		}
 	</style>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      if(<%=all%> != 0){
+         google.charts.setOnLoadCallback(drawChart);
+      }
+      else{
+         google.charts.setOnLoadCallback(defaultDrawChart);
+      }
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Effort', 'Amount given'],
+          ['참석', <%=succ%>],
+          ['불참', <%=all - succ%>]
+        ]);
+        var options = {
+          title: 'Match Success Rate',
+          pieHole: 0.5,
+          'width': 350,
+          chartArea:{
+               left:10,
+               right:10, // !!! works !!!
+               bottom:20,  // !!! works !!!
+               top:20,
+               width:"100%",
+               height:"80%"
+             },
+          pieSliceTextStyle: {
+            color: 'white',
+            fontSize: 9,
+          },
 
+          tooltip: {trigger: 'selection'},
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+        chart.draw(data, options);
+      }
+      
+      function defaultDrawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Effort', 'Amount given'],
+            ['no match', 1],
+            ['no 1', 0],
+            ['no 2', 0],
+            ['no 3', 0],
+            ['no 4', 0],
+          ]);
+
+          var options = {
+                title: '아직 매치를 실시하지 않으셨습니다.',
+                pieHole: 0.5,
+                  'width': 350,
+                  chartArea:{
+                       left:10,
+                       right:10, // !!! works !!!
+                       bottom:20,  // !!! works !!!
+                       top:20,
+                       width:"80%",
+                       height:"80%",
+                     },
+                  pieSliceText: 'none',
+                  pieSliceTextStyle: {
+                    color: 'white',
+                  },
+                  legend: 'none',
+                  tooltip: {trigger: 'none',},
+                  enableInteractivity:'false',
+                  
+                  colors: ['grey','green'],
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+          chart.draw(data, options);
+        }
+    </script>
 </head>
 <body>
 
-    <header>
-        <div id="HL"> &nbsp;<a href="main.jsp">CUKBM</a></div>
-
-        <div id="HR"><%if (id == null) {%>
+   <header>
+	<div id="HR">
+        <%if (id == null) {%>
         <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
          <%} 
          else {%>
           <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
-        <%} %> | <a href="alarm.jsp">ALARM</a></div>
-        <br />
-    </header>
-	<div class="header">
-		<div class="title">&nbsp;MAKE THE MATCH</div>
-		<div class="menu"><img src="image/menubar.png" /></div>
-	</div>
+        <%} %> | <a href="alarm.jsp">ALARM</a>
+        </div>
+		<div class="menu">
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+           		 <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
+                <div class="dropdown-content">
+                    <a href="login.jsp">로그인</a>
+                    <a href="register.jsp">회원 가입</a>
+                    <a href="alarm.jsp">알림</a>
+                    <a href="makethematch.jsp">매치 생성</a>
+                    <a href="jointhematch.jsp">매치 참가</a>
+                    <a href="mypage.jsp">마이 페이지</a>
+                </div>
+            	</div>
+        		</div>
+		</div>
+        
+		
+	</header>
+	<div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div>
 	<br />
 	<%if(id != null){ %>
+	<div class="shadow_eff2">
 	<form>
-		<table class="t"border="1">
-			<tr>
-				<td style="text-align:center;">자신의 매치 성사율</td>
-				<td style="text-align:center;">생성중인 매치</td>
-			</tr>
-
-		</table>
-		<br />
-		<table class="t"border="1">
-			<tr>
-				<td style="background:lightgreen; color:black; font-size:35px; text-align:center; "><%=avg %></td>
-				<td style="background:lightgreen; color:black; font-size:35px; text-align:center; "><%= succ%></td>
-			</tr>
-			<tr>
-				<td style="background:lightgray;">매칭 성공 수</td>
-				<td><%=succ %></td>
-			</tr>
-			<tr>
-				<td style="background:lightgray;">매칭 성공률</td>
-				<td><%=avg %></td>
-		</table>
+	<div class="makeinner">
+	<h2><%=id %>&nbsp;&nbsp;<span style="font-size:15px;">의 매칭 내역</span></h2>
+	<div style="background-color:#f3f3f3; height:2px; width:100%;">
+				</div>
+				<br><br><br>
+	 <table class="t" border="1">
+         <tr>
+            <td style="background: lightgray;">전체 매칭 시도수</td>
+            <td><%=all%> 회</td>
+            <td rowspan="3"><div id="donut_single" style=" margin:0%; width:50px; float:auto;"></div></td>
+         </tr>
+         <tr>
+            <td style="background: lightgray;">매칭 성공 수</td>
+            <td><%=succ%> 회</td>
+         </tr>
+         <tr>
+            <td style="background: lightgray;">매칭 성공률</td>
+            <td><%=avg%> %</td>
+      </table>
 		<br />
 		<br />
-		<hr style="margin-right:auto; border-style:solid" />
-
 		<br />
-		<p style="text-align:center; font-size:20px;border-radius:0px; width:400px; padding:20px; margin:auto; background:orange; color:black;">생성하고 싶은 종목을 선택하세요</p>
+			</div>
+			<h2 style="font-size:20px;">매칭 생성</h2>
+	<div style="background-color:#f3f3f3; height:2px; width:100%;">
+				</div>
+	<br><br>
 		<br />
-		<div class="Wheader">
-			<div class="circle"><a href="makeasports.jsp">ATHLETIC SPORTS</a></div>
-			<div class="circle"><a href="makeesports.jsp">E-SPORTS</a></div>
-		</div>
+		 <table class="tt">
+         <tr>
+            <td style="vertical-align:center; background-color:#f4f4f4;"><a href="makeasports.jsp">ATHLETIC SPORTS</a></td>
+            <th style="width : 20px;"></th>
+            <td style="background-color:#f4f4f4;"> <a href="makeesports.jsp">E-SPORTS</a></td>
+         </tr>
+      	</table>
 
 	</form>
+	</div>
 	<%}else{ %>
  	 <script language="javascript">
             location.href="login.jsp";
@@ -114,6 +209,8 @@ System.out.printf("[%s]의 매치 성사율 = %f\n",id,avg);
 		<br />
 	<br />
 	<br />
+	
+	
 	<div class="foot">
 		number : 010 - 1234 - 5678<br />
 		Facebook : object-oriented paradime	<br />

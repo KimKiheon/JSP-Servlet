@@ -55,11 +55,14 @@
  * carousel
  */
 .Carousel {
-  max-width: 300px;
   margin: 2em auto;
   position: relative;
 }
-
+.Carousel img {
+ position: absolute; top:0; left: 0;
+width: 100%;
+height: 100%;
+}
 .Carousel .link {
   cursor: pointer;
 }
@@ -125,6 +128,7 @@
   z-index: 255;
 }
 #articleheader {
+	font-family:sans-serif;
     font-size: 30px;
     background-color: white;
 }
@@ -150,19 +154,23 @@
   opacity: 1;
 }
 #HR {
+	margin-right:6%;
 	text-align: right;
+}
+
+#HL {
+	font-weight:bold;
+	font-family:sans-serif;
+	margin-left : 15%;
+	text-align: left;
+	font-size: 40px;
+	font-color: orange;
 }
 
 a {
 	text-decoration: none;
 	color: black;
 }
-#HL {
-	text-align: center;
-	font-size: 40px;
-	color: orange;
-}
-
 #mainimage {
 	position: relative;
 	margin: auto;
@@ -182,20 +190,21 @@ a {
 }
 .header {
 	display: flex;
-	background: darkgray;
-    border-radius:8px 8px 8px 8px;
+	font-color:black;
 }
 
 .title {
 	margin-right: auto;
-	color: white;
+	color: black;
 	font-size: 30px;
     padding:3px;
     margin-top:8px;
 }
 .menu{
+	margin-bottom:20px;
+	font-size:10px;
     margin-top:6px;
-    margin-right:6px;
+    margin-right:7%;
 }
 .mySlides {
 	display: none;
@@ -232,19 +241,17 @@ a {
 	margin: 10px auto;
 	text-align: center;
 	position: relative;
-	height: 10%;
+	height: auto;
 	width: 100%;
 }
 
 
 
-.circle {
+.selectkind {
 	background: white;
 	width: 400px;
 	padding: 20px;
-	border-radius: 50px;
 	text-align: center;
-	border-style: solid;
 	margin: auto;
 }
 
@@ -254,12 +261,34 @@ a {
 }
 
 .t {
+	vertical-align:middle;
 	width: 80%;
 	border-collapse: collapse;
 	border-left: none;
 	border-right: none;
 	text-align: left;
 	margin: auto;
+	overflow:hidden;
+}
+
+.tt{
+	vertical-align:middle;
+	width: 80%;
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	text-align: left;
+	margin: auto;
+	overflow:hidden;
+}
+.tt td{
+	height:100px;
+	text-align: center;
+
+}
+
+.tt td:hover{
+	background-color:white;
 }
 
 td, th {
@@ -287,9 +316,51 @@ input[type=text], input[type=password], textarea {
     resize: vertical;
 }
       #loginarea{
-          margin-left:30%;
-          margin-right:30%;
+      max-width:50%;
+      margin-left : 40px;
+      margin-right : 40px;
+          margin-top:30%;
+          margin-bottom:30%;
       }
+      .shadow_eff{
+      padding:40px;
+      vertical-align:middle;
+      max-width:20%;
+       max-width:60%;
+       margin:auto;
+      widht:auto;
+      min-height:300px;
+      height:auto;
+      background:white;
+     color:#002F2F;
+      position:relative;
+      
+          -webkit-box-shadow: 0px 3px 13px 3px rgba(0,0,0,0.45);
+-moz-box-shadow: 0px 3px 13px 3px rgba(0,0,0,0.45);
+box-shadow: 0px 3px 13px 3px rgba(0,0,0,0.45);
+      }
+      .dounut_single{
+      	widht:auto;
+      	height:auto;
+      	vertical-align:middle;
+      }
+   .shadow_eff2{
+      padding:40px;
+      vertical-align:middle;
+      max-width:90%;
+       margin:auto;
+      widht:auto;
+      min-height:300px;
+      height:auto;
+      background:;
+     color:#002F2F;
+      position:relative;
+     
+          -webkit-box-shadow: 0px 3px 13px 3px rgba(0,0,0,0.45);
+-moz-box-shadow: 0px 3px 13px 3px rgba(0,0,0,0.45);
+box-shadow: 0px 3px 13px 3px rgba(0,0,0,0.45);
+      }
+
 select{
    width: 30%;
     padding: 12px;
@@ -409,7 +480,7 @@ input[type=submit], input[type=reset],input[type=button] {
     
 }
 .row{
-	background-color:#f3f3f3;
+	background-color:white;
 }
 .rrow:after {
     content: "";
@@ -445,10 +516,10 @@ input[type=submit], input[type=reset],input[type=button] {
     margin: auto;
 }
 .dropbtn {
-  background-color: darkgray;
+	background-color:white;
   color: white;
-  padding: 16px;
-  font-size: 16px;
+  padding: 20px;
+  font-size: 20px;
   border: none;
   cursor: pointer;
 }
@@ -472,6 +543,8 @@ input[type=submit], input[type=reset],input[type=button] {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
+  font-size:3px;
+  font-family:sans-serif;
   display: block;
 }
 
@@ -481,6 +554,26 @@ input[type=submit], input[type=reset],input[type=button] {
   display: block;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown:hover {
   background-color: lightgray;
 }
+ *{margin:0;padding:0;}
+    ul,li{list-style:none;}
+    .slide{height:300px;overflow:hidden;}
+    .slide ul{width:calc(100% * 4);display:flex;animation:slide 8s infinite;} /* slide를 8초동안 진행하며 무한반복 함 */
+    .slide li{width:calc(100% / 4);height:300px;}
+    .slide li:nth-child(1){background:#ffa;}
+    .slide li:nth-child(2){background:#faa;}
+    .slide li:nth-child(3){background:#afa;}
+    .slide li:nth-child(4){background:#aaf;}
+    @keyframes slide {
+      0% {margin-left:0;} /* 0 ~ 10  : 정지 */
+      10% {margin-left:0;} /* 10 ~ 25 : 변이 */
+      25% {margin-left:-100%;} /* 25 ~ 35 : 정지 */
+      35% {margin-left:-100%;} /* 35 ~ 50 : 변이 */
+      50% {margin-left:-200%;}
+      60% {margin-left:-200%;}
+      75% {margin-left:-300%;}
+      85% {margin-left:-300%;}
+      100% {margin-left:0;}
+    }

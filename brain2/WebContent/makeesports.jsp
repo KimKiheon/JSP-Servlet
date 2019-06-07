@@ -79,36 +79,40 @@ else avg = (double)(succ/all)*100;
 </head>
 <body onload="document.userinput.reset();">
     <header>
-        <div id="HL"> &nbsp;<a href="main.html">CUKBM</a></div>
-
-        <div id="HR"><%if (id == null) {%>
+	<div id="HR">
+        <%if (id == null) {%>
         <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
          <%} 
          else {%>
           <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
-        <%} %> | <a href="alarm.jsp">ALARM</a></div></div>
-        <br />
-    </header>
-    <div class="header">
-        <div class="title">&nbsp;Make&nbsp;<span id="thematch">The&nbsp;Match</span></div>
-        <div class="menu">
-            <div class="dropdown" style="float:right;">
-                <button class="dropbtn"><img src="image/menubar.png" width="30" height="30" /></button>
-                <div class="dropdown-content">
-                    <a href="login.html">로그인</a>
-                    <a href="register.html">회원 가입</a>
-                    <a href="alarm.html">알림</a>
-                    <a href="makethematch.html">매치 생성</a>
-                    <a href="jointhematch.html">매치 참가</a>
-                    <a href="mypage.html">마이 페이지</a>
-                </div>
-            </div>
+        <%} %> | <a href="alarm.jsp">ALARM</a>
         </div>
-    </div>
-    <article>
-        <div id="articleheader">E-Sports</div>
-        <hr id="hr" />
-        <div class="container">  <%if(id != null){ %>
+		<div class="menu">
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+           		 <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
+                <div class="dropdown-content">
+                    <a href="login.jsp">로그인</a>
+                    <a href="register.jsp">회원 가입</a>
+                    <a href="alarm.jsp">알림</a>
+                    <a href="makethematch.jsp">매치 생성</a>
+                    <a href="jointhematch.jsp">매치 참가</a>
+                    <a href="mypage.jsp">마이 페이지</a>
+                </div>
+            	</div>
+        		</div>
+		</div>
+	</header>
+     <article>
+    <div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div>
+         <br><br>
+       	<div class="shadow_eff2">  <%if (id != null) {%>
+       	   <div id="articleheader">Match Making...&nbsp;&nbsp;<span style=" height:30px; font-size:20px; background-color:#ff6262; color:white;">&nbsp;&nbsp;E-Sports&nbsp;&nbsp;</span></div>
+       	    <div style="background-color:#f3f3f3; height:2px; width:100%;">
+				</div>
+				<br><br>
 		<form action="MakeMatchProc" method="post" name="userinput" onsubmit="return checkIt()">            
 		<div style="display:none;">
              <input type="number" id="flag1" name="flag1" readonly value="2">
@@ -195,5 +199,11 @@ else avg = (double)(succ/all)*100;
             <%} %>
         </div>
     </article>
+    <div class="foot">
+		number : 010 - 1234 - 5678<br />
+		Facebook : object-oriented paradime	<br />
+		address : catholic university<br />
+		name : hong gil dong
+	</div>
 </body>
 </html>

@@ -87,39 +87,42 @@ if(state == null){
 <body>
 <%} %>
 	<header>
-		<div id="HL">
-			&nbsp;<a href="main.jsp">CUKBM</a>
-		</div>
-
-		<div id="HR">
-			<%
-				if (id == null) {
-			%>
-			<a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
-			<%
-				} else {
-			%>
-			<a href="mypage.jsp"><%=id%></a> | <a href="LogoutProc">로그아웃</a>
-			<%
-				}
-			%>
-			| <a href="alarm.jsp">ALARM</a>
-		</div>
-		<br />
-	</header>
-	<div class="header">
-		<div class="title">&nbsp;참가자 정보</div>
+	<div id="HR">
+        <%if (id == null) {%>
+        <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
+         <%} 
+         else {%>
+          <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
+        <%} %> | <a href="alarm.jsp">ALARM</a>
+        </div>
 		<div class="menu">
-			<img src="image/menubar.png" />
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+           		 <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
+                <div class="dropdown-content">
+                    <a href="login.jsp">로그인</a>
+                    <a href="register.jsp">회원 가입</a>
+                    <a href="alarm.jsp">알림</a>
+                    <a href="makethematch.jsp">매치 생성</a>
+                    <a href="jointhematch.jsp">매치 참가</a>
+                    <a href="mypage.jsp">마이 페이지</a>
+                </div>
+            	</div>
+        		</div>
 		</div>
-	</div>
+        
+		
+	</header>
+	<div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div>
 	<br />
 	<%
 		if (id != null) {
 	%>
-	<div class="container1">
+	<div class="shadow_eff2">
 		<div class="rrow">
-		<div>
+		<div style="text-align:center;">
 				<h1>
 				<span><%=match.getTitle()%></span> 
 <span style=" height:30px; font-size:20px; background-color:#45a049; color:white;">&nbsp;&nbsp;참가자 정보&nbsp;&nbsp;</span>				</h1>

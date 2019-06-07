@@ -158,34 +158,33 @@ public class MatchDAO {
 		System.out.println("[[[[[MatchDAO의 getList 메소드 종....]]]]]");
 		return list;
 	}
-
 	//page '이전','다음'  버튼 중 모두 다 보여졌을때 '다음' 버튼 제어.
-	public static int fullPage() {
-		int checknum = 1;
-		try {
-			Connection conn = Myconn.getConn();
-			Statement stmt = null;
-			ResultSet rs = null;
+		public static int fullPage() {
+			int checknum = 1;
+			try {
+				Connection conn = Myconn.getConn();
+				Statement stmt = null;
+				ResultSet rs = null;
 
-			String SQL = "select count(*) as count from matches";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(SQL);
-			
-			while (rs.next() != false) {
-				String name = rs.getString(1);
-				System.out.println(name);
-				checknum = Integer.parseInt(name);
-				}
-			System.out.println(checknum);
-		} catch (SQLException e) {
-			e.printStackTrace();
+				String SQL = "select count(*) as count from matches";
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(SQL);
+
+				while (rs.next() != false) {
+					String name = rs.getString(1);
+					System.out.println(name);
+					checknum = Integer.parseInt(name);
+					}
+				System.out.println(checknum);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if(checknum % 10 == 0) {
+				return (checknum/10);
+			}
+			return (checknum / 10) + 1;
 		}
-		if(checknum % 10 == 0) {
-			return (checknum/10);
-		}
-		return (checknum / 10) + 1;
-	}
-	
+
 	public static boolean nextPage(int pageNumber) {
 		try {
 			Connection conn = Myconn.getConn();

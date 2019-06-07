@@ -85,43 +85,41 @@ tbody td:nth-child(3) {
 </head>
 <body>
 	<header>
-		<div id="HL">
-			&nbsp;<a href="main.jsp">CUKBM</a>
-		</div>
-		<div id="HR">
+	<div id="HR">
         <%if (id == null) {%>
         <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
          <%} 
          else {%>
           <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
-        <%} %> | <a href="alarm.jsp">ALARM</a></div>
-		<br />
-		<div class="header">
-			<div class="title">&nbsp;My Alarm</div>
-			<div class="menu">
-				<div class="dropdown" style="float: right;">
-					<button class="dropbtn">
-						<img src="image/menubar.png" width="30" height="30" />
-					</button>
-					<div class="dropdown-content">
-						<a href="login.html">로그인</a> <a href="register.html">회원 가입</a> <a
-							href="alarm.html">알림</a> <a href="makethematch.html">매치 생성</a> <a
-							href="jointhematch.html">매치 참가</a> <a href="mypage.html">마이
-							페이지</a>
-					</div>
-				</div>
-			</div>
+        <%} %> | <a href="alarm.jsp">ALARM</a>
+        </div>
+		<div class="menu">
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+           		 <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
+                <div class="dropdown-content">
+                    <a href="login.jsp">로그인</a>
+                    <a href="register.jsp">회원 가입</a>
+                    <a href="alarm.jsp">알림</a>
+                    <a href="makethematch.jsp">매치 생성</a>
+                    <a href="jointhematch.jsp">매치 참가</a>
+                    <a href="mypage.jsp">마이 페이지</a>
+                </div>
+            	</div>
+        		</div>
 		</div>
+        
+		
 	</header>
+<div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div><br><br>
 
-
-	<div class="Wheader">
-		<div class="circle" style="margin-left: 10px; margin-top: 15px;"><%=id%>
-			님의 알림목록
-		</div>
-	</div>
+	<div class="shadow_eff2">
+	<h2><%=id %>&nbsp;&nbsp;<span style="font-size:15px;">님 Alarm</span></h2>
+	<div style="background-color:#f3f3f3; height:2px; width:100%;">
+				</div>
 	<br />
-	<hr style="border-style: solid" />
 	<br />
 	<table width="80%" style="margin: auto">
 		<thead>
@@ -153,10 +151,18 @@ tbody td:nth-child(3) {
 			%>
 		</tbody>
 	</table>
-
+	</div>
+ <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
 	<div class="foot" style="position: fixed">
 		number : 010 - 1234 - 5678<br /> Facebook : object-oriented paradime
 		<br /> address : catholic university<br /> name : hong gil dong
 	</div>
+
 </body>
 </html>

@@ -51,39 +51,7 @@ document.userinput.id.value="";
     <link rel="stylesheet" type="text/css" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-    <style>
-      #HEADER {
-         background: white;
-      }
-
-      a {
-         text-decoration: none;
-         color: black;
-      }
-
-      #HL {
-         text-align: center;
-         font-size: 35px;
-      }
-      
-      #loginarea{
-          margin-left:30%;
-          margin-right:30%;
-      }
-      .menubar {
-         display: flex;
-         background: black;
-      }
-
-      .title {
-         margin-right: auto;
-         color: white;
-         font-size: 30px;
-      }
-      a:hover{
-          color:blue;
-      }
-    </style>
+    
     <script language ="javascript">
     function login(){
     	if(!document.userinput.id.value){
@@ -106,14 +74,19 @@ document.userinput.id.value="";
 </head>
 <body onload="document.userinput.reset();">
     <header>
-        <div id="HL"> &nbsp;<a href="main.jsp">CUKBM</a></div>
-        <div id="HR"><a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a> | <a href="alarm.jsp">ALARM</a></div>
-        <br />
-        <div class="header">
-            <div class="title">&nbsp;Main Page</div>
-            <div class="menu">
-            <div class="dropdown" style="float:right;">
-                <button class="dropbtn"><img src="image/menubar.png" width="30" height="30" /></button>
+	<div id="HR">
+        <%if (id == null) {%>
+        <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
+         <%} 
+         else {%>
+          <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
+        <%} %> | <a href="alarm.jsp">ALARM</a>
+        </div>
+		<div class="menu">
+				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+           		 <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
                     <a href="login.jsp">로그인</a>
                     <a href="register.jsp">회원 가입</a>
@@ -122,19 +95,28 @@ document.userinput.id.value="";
                     <a href="jointhematch.jsp">매치 참가</a>
                     <a href="mypage.jsp">마이 페이지</a>
                 </div>
-            </div>
-        </div>
-        </div>
-    </header>
+            	</div>
+        		</div>
+		</div>
+	</header>
+	
     <article>
-        <h2>로그인</h2><br /><br />
-        <div id="loginarea">
+    <div style="background-color:#f3f3f3; height:5px; width:100%;">
+				</div>
+				<br><br><br><br>
+        <div class="shadow_eff"> 
+        <div class="loginarea"> 
+        <h2 style="text-align:center;">Login</h2><br />
+         <div style="background-color:#f3f3f3; height:2px; width:100%;">
+				</div>
+				  <br /><br>
         <form action="LoginProc" method="post" name="userinput" id ="userinput"  onsubmit="return login()"> 
             <input type="text" name ="id" id="id" maxlength="50" title="id" placeholder="  아이디"><br /><br />
             <input type="text" name="pw" id="pw" maxlength="50" placeholder="  비밀번호"/><br /><br />
             <input type="submit" id="sb"value="로 그 인" /><br /><br />
         </form>
             <h6>아직 회원이 아니신가요? <a href="register.jsp">&nbsp;&nbsp;&nbsp;&nbsp;회원가입하기</a></h6>    
+		</div>
         </div>
     </article>
 </body>
