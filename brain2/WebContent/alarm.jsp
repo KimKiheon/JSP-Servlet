@@ -41,10 +41,11 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 	}
 %>
 <%if(id == null){ %>
- 	 <script language="javascript">
+<script language="javascript">
             location.href="login.jsp";
-            </script>	<%}%>
-            
+            </script>
+<%}%>
+
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8" />
@@ -81,51 +82,69 @@ tbody td:nth-child(3) {
 	border-left: 1px dashed red;
 	border-right: 1px dashed darkgray;
 }
-.alarmA:link { color: red; text-decoration: none;}
-.alarmA:visited { color: blue; text-decoration: none;}
-.alarmA:hover { color: blue; text-decoration: underline;}
+
+.alarmA:link {
+	color: red;
+	text-decoration: none;
+}
+
+.alarmA:visited {
+	color: blue;
+	text-decoration: none;
+}
+
+.alarmA:hover {
+	color: blue;
+	text-decoration: underline;
+}
 </style>
 </head>
 <body>
 	<header>
-	<div id="HR">
-        <%if (id == null) {%>
-        <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
-         <%} 
+		<div id="HR">
+			<%if (id == null) {%>
+			<a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
+			<%} 
          else {%>
-          <a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
-        <%} %> | <a href="alarm.jsp">ALARM</a>
-        </div>
-		<div class="menu">
-				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
-           		 <div class="dropdown" style="float:right;">
-                <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
-                <div class="dropdown-content">
-                    <a href="login.jsp">로그인</a>
-                    <a href="register.jsp">회원 가입</a>
-                    <a href="alarm.jsp">알림</a>
-                    <a href="makethematch.jsp">매치 생성</a>
-                    <a href="jointhematch.jsp">매치 참가</a>
-                    <a href="mypage.jsp">마이 페이지</a>
-                </div>
-            	</div>
-        		</div>
+			<a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
+			<%} %>
+			| <a href="alarm.jsp">ALARM</a>
 		</div>
-        
-		
-	</header>
-<div style="background-color:#f3f3f3; height:5px; width:100%;">
-				</div><br><br>
-
-<div class="shadow_eff2">
-	<h2><%=id %>&nbsp;&nbsp;<span style="font-size:15px;">님 Alarm</span></h2>
-	<div style="background-color:#f3f3f3; height:2px; width:100%;">
+		<div class="menu">
+			<div id="HL">
+				<img src="image/basketball.png" width="30" height="30" />&nbsp;<a
+					href="main.jsp">CUKBM</a> <span
+					style="font-color: gray; font-size: 10px; font-family: 고딕">가톨릭대학교
+					Sports Matching Service</span>
+				<div class="dropdown" style="float: right;">
+					<button class="dropbtn">
+						<img src="image/menubar.png" width="20" height="20" />
+					</button>
+					<div class="dropdown-content">
+						<a href="login.jsp">로그인</a> <a href="register.jsp">회원 가입</a> <a
+							href="alarm.jsp">알림</a> <a href="makethematch.jsp">매치 생성</a> <a
+							href="jointhematch.jsp">매치 참가</a> <a href="mypage.jsp">마이 페이지</a>
+					</div>
 				</div>
-	<br />
-	<br />
-	
-			<%
+			</div>
+		</div>
+
+
+	</header>
+	<div style="background-color: #f3f3f3; height: 5px; width: 100%;">
+	</div>
+	<br>
+	<br>
+
+	<div class="shadow_eff2">
+		<h2><%=id %>&nbsp;&nbsp;<span style="font-size: 15px;">님
+				Alarm</span>
+		</h2>
+		<div style="background-color: #f3f3f3; height: 2px; width: 100%;">
+		</div>
+		<br /> <br />
+
+		<%
 				AlarmVO alarm = new AlarmVO();
 				ArrayList<AlarmVO> list = AlarmDAO.getList(pageNumber, id);
 			
@@ -142,31 +161,50 @@ tbody td:nth-child(3) {
 					if(list.get(i).getKind() == 2){
 						outs += "필요한 참가자가 모두 모였어요!!";
 					}
+					if(list.get(i).getKind() == 3){
+						outs += "매치가 종료되었어요!!";
+					}
 			%>
-			<div>
-			<div style="background-color:#c0c0c0; height:2px; width:50%;">
-				</div>
-				<span style="font-size:20px; color:blue; ">
-				<a class="alarmA" href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>">
-                  <%=match.getTitle() %></a>
-                  </span>
-				<span>매치에 &nbsp;&nbsp;<span style="color:blue;"><%=joinUser%></span><%=outs %></span>
-				</div>
-				
-				<br>
-		<br>
-			<%
-				}
+		<%
+		//매치종료라면 평가페이지로이동
+				if(list.get(i).getKind()==3){
 			%>
-		
+		<div>
+			<div style="background-color: #c0c0c0; height: 2px; width: 50%;">
+			</div>
+			<span style="font-size: 20px; color: blue;"> <a class="alarmA"
+				href="matchresult.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>"> <%=match.getTitle() %></a>
+			</span> <span>매치에 &nbsp;&nbsp;<span style="color: blue;"><%=joinUser%></span><%=outs %></span>
+		</div>
+
+		<br> <br>
+		<%
+		//아니라면 매치 게시글로이동
+				}else{
+		%>
+		<div>
+			<div style="background-color: #c0c0c0; height: 2px; width: 50%;">
+			</div>
+			<span style="font-size: 20px; color: blue;"> <a class="alarmA"
+				href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>"> <%=match.getTitle() %></a>
+			</span> <span>매치에 &nbsp;&nbsp;<span style="color: blue;"><%=joinUser%></span><%=outs %></span>
+		</div>
+
+		<br> <br>
+		<%
+				}}
+			%>
+
 	</div>
-	<Br><br><br><br>
-<div class="foot">
-        상호명 : CUKBM / 대표 : 가플리<br />
-		전화 : 010 - 1234 - 5678<br />
-		Facebook : object-oriented paradime	<br />
-		Address : Catholic University Of Korea<br />
-        Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
+	<Br>
+	<br>
+	<br>
+	<br>
+	<div class="foot">
+		상호명 : CUKBM / 대표 : 가플리<br /> 전화 : 010 - 1234 - 5678<br /> Facebook :
+		object-oriented paradime <br /> Address : Catholic University Of
+		Korea<br /> Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail :
+		cukbm2@catholic.ac.kr
 	</div>
 </body>
 </html>

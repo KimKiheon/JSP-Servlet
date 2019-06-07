@@ -65,4 +65,28 @@ public class MemberDAO {
 		System.out.println("[[[[[MemberDAO의 getInfo 메소드 종료....]]]]]");
 		return vo;
 	}
+	
+	
+	public void updateInfo(String id) {
+		System.out.println("[[[[[MemberDAO의 updateInfo 메소드 실행....]]]]]");
+
+		MemberVO vo = new MemberVO();
+		MemberDAO memberdao = new MemberDAO();
+		vo = memberdao.getInfo(id);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = Myconn.getConn();
+			String sql = "update members set successMatch = ? where id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getSuccessMatch() + 1);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("[[[[[MemberDAO의 updateInfo 메소드 종료....]]]]]");
+	}
 }
