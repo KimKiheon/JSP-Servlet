@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -58,6 +58,23 @@ viewpeople.jsp
 <title>매치 게시글</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
 <style>
+.circle {
+	background: aliceblue;
+	width: 400px;
+	padding: 20px;
+	border-radius: 50px;
+	text-align: center;
+	border-style: solid;
+	margin: auto;
+}
+
+.hidden {
+	display: none;
+}
+
+a:hover {
+	color: red;
+}
 </style>
 
 </head>
@@ -80,7 +97,7 @@ if(state == null){
         </div>
 		<div class="menu">
 				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
                 <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
@@ -117,12 +134,9 @@ if(state == null){
 				<thead>
 					<tr>
 						<th style="background-color: #eeeeee; text-align: center;">참가자</th>
-						<th style="background-color: #eeeeee; text-align: center;">전체
-							매칭 시도수</th>
-						<th style="background-color: #eeeeee; text-align: center;">매칭
-							성공 수</th>
-						<th style="background-color: #eeeeee; text-align: center;">매칭
-							성공률</th>
+						<th style="background-color: #eeeeee; text-align: center;">전체 매치 수</th>
+						<th style="background-color: #eeeeee; text-align: center;">참가</th>
+						<th style="background-color: #eeeeee; text-align: center;">신뢰율</th>
 						<th style="background-color: #eeeeee; text-align: center;">카카오톡
 							ID</th>
 					</tr>
@@ -141,13 +155,19 @@ if(state == null){
 						<%
 							if (list.get(i).getFlag() == 1) {
 						%>
-						<span style=" height:30px; font-size:15px; background-color:#45a049; color:white;">&nbsp;&nbsp; 방장 &nbsp;&nbsp;</span>				</h1>
-						
+						<span style=" height:30px; font-size:15px; background-color:#45a049; color:white;">&nbsp;&nbsp; 방장 &nbsp;&nbsp;</span>	
 						<%} %>
 						</td>
 						<td><%=membervo.getAllMatch()%></td>
 						<td><%=membervo.getSuccessMatch()%></td>
-						<td>수식</td>
+						<%
+						int msucc = membervo.getSuccessMatch();
+						int mall = membervo.getAllMatch();
+						double mavg;
+						if(mall == 0 || msucc == 0)mavg = 0;
+						else mavg = msucc/mall*100;
+						%>
+						<td><%=mavg%>%</td>
 						<td><%=membervo.getKtid()%></td>
 						<%
 							}
@@ -170,14 +190,12 @@ if(state == null){
 	<br />
 	<br />
 	<br />
-	<div class="foot">
+<div class="foot">
         상호명 : CUKBM / 대표 : 가플리<br />
 		전화 : 010 - 1234 - 5678<br />
 		Facebook : object-oriented paradime	<br />
 		Address : Catholic University Of Korea<br />
         Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
 	</div>
-
-
 </body>
 </html>

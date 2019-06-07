@@ -1,4 +1,4 @@
-﻿* {
+* {
   margin: 0;
   padding: 0;
 }
@@ -171,7 +171,7 @@ height: 100%;
 	margin-left : 15%;
 	text-align: left;
 	font-size: 40px;
-	color: orange;
+	font-color: orange;
 }
 
 a {
@@ -250,8 +250,8 @@ a {
 	position: relative;
 	height: auto;
 	width: 100%;
-}
 
+}
 
 #leftT{
 	width:20%;
@@ -459,7 +459,7 @@ input[type=submit], input[type=reset],input[type=button] {
 	
 }
 .viewertable thead th{
-	background-color:#c0c0c0;
+	border-bottom:1px solid #f3f3f3;
 	padding:0;
 	height:40px;
 	font-weight: bold;
@@ -587,6 +587,7 @@ input[type=submit], input[type=reset],input[type=button] {
       85% {margin-left:-300%;}
       100% {margin-left:0;}
     }
+        }
 .hidden {
 	display: none;
 }

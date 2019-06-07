@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -73,6 +73,23 @@ viewmatch.jsp
 <title>매치 게시글</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
 <style>
+.circle {
+	background: aliceblue;
+	width: 400px;
+	padding: 20px;
+	border-radius: 50px;
+	text-align: center;
+	border-style: solid;
+	margin: auto;
+}
+
+.hidden {
+	display: none;
+}
+
+a:hover {
+	color: red;
+}
 </style>
 <%
 if(result != null){	%>
@@ -95,7 +112,7 @@ state="joinman";
         </div>
 		<div class="menu">
 				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
                 <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
@@ -134,7 +151,13 @@ state="joinman";
 				<span><input type="submit" value="참가하기"></span>
 				<%} 
 				else {%>
+				
+				<%
+				System.out.printf("%s\n",match.getWriter());
+				System.out.printf("%s\n",id);
+				if(id.equals(match.getWriter())) {%>
 				<span><input type="Button" onclick="location.href='updatematch.jsp?seqNo=<%=seqNo%>'" value="수정"></span>
+				<%} %>
 				<span><input type="Button" value="참가 중"></span>
 				<span><input type="Button" onclick="location.href='viewpeople.jsp?seqNo=<%=seqNo%>'" value="참가자 보기"></span>
 				<%} %>
@@ -201,7 +224,5 @@ state="joinman";
 		Address : Catholic University Of Korea<br />
         Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
 	</div>
-
-
 </body>
 </html>
