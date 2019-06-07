@@ -186,6 +186,42 @@ public class MatchDAO {
 		System.out.println("[[[[[MatchDAO의 getList 메소드 종....]]]]]");
 		return list;
 	}
+	public static ArrayList<MatchVO> getList(int pageNumber,String flag2) {
+		System.out.println("[[[[[MatchDAO�쓽 getList 硫붿냼�뱶 �떎�뻾....]]]]]");
+		ArrayList<MatchVO> list = new ArrayList<MatchVO>();
+		try {
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			String SQL = "select * from matches where seqNo < ? and flag2 like ? order by seqNo desc LIMIT 10";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			pstmt.setString(2, flag2);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MatchVO match = new MatchVO();
+				match.setSeqNo(rs.getInt(1));
+				match.setSeqDate(rs.getTimestamp(2));
+				match.setFlag1(rs.getInt(3));
+				match.setFlag2(rs.getString(4));
+				match.setTitle(rs.getString(5));
+				match.setStime(rs.getTimestamp(6).toString());
+				match.setEtime(rs.getTimestamp(7).toString());
+				match.setContents(rs.getString(8));
+				match.setAddr(rs.getString(9));
+				match.setTeamflag(rs.getInt(10));
+				match.setNeedman(rs.getInt(11));
+				match.setNowman(rs.getInt(12));
+				match.setWriter(rs.getString(13));
+				list.add(match);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("[[[[[MatchDAO�쓽 getList 硫붿냼�뱶 醫�....]]]]]");
+		return list;
+	}
 	//page '이전','다음'  버튼 중 모두 다 보여졌을때 '다음' 버튼 제어.
 		public static int fullPage() {
 			int checknum = 1;
