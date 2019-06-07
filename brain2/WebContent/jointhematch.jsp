@@ -15,6 +15,7 @@
 ﻿
 <!DOCTYPE html>
 <%
+	String flag2 = request.getParameter("flag2");
 	System.out.println("--------------------jointhematch.jsp--------------------");
 	String id = (String) session.getAttribute("id");
 	if (id == null) {
@@ -158,13 +159,13 @@ a:hover {
 			<%
 				if (pageNumber != 1) {
 			%>
-			<a href="jointhematch.jsp?pageNumber=<%=pageNumber - 1%>">이전</a>
+			<a href="jointhematch.jsp?pageNumber=<%=pageNumber - 1%>&flag2=<%=flag2%>">이전</a>
 			<%
 				}
 					System.out.println(pageNumber + " " + MatchDAO.fullPage());
 					if (MatchDAO.nextPage(pageNumber + 1) && MatchDAO.fullPage() > pageNumber) {
 			%>
-			<a href="jointhematch.jsp?pageNumber=<%=pageNumber + 1%>">다음</a>
+			<a href="jointhematch.jsp?pageNumber=<%=pageNumber + 1%>&flag2=<%=flag2%>">다음</a>
 			<%
 				}
 			%>

@@ -139,11 +139,15 @@ tbody td:nth-child(3) {
 					}
 			%>
 			<div>
-				<span style="font-size:20px; color:blue; text-decoration:underline;"><%=match.getTitle() %></span>
+			<div style="background-color:#c0c0c0; height:2px; width:50%;">
+				</div>
+				<span style="font-size:20px; color:blue; text-decoration:underline;">
+				<a style="color:blue " href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>">
+                  <%=match.getTitle() %></a>
+                  </span>
 				<span>글에 &nbsp;&nbsp;<%=outs %></span>
 				</div>
-				<div style="background-color:#c0c0c0; height:2px; width:50%;">
-				</div>
+				
 				<br>
 		<br>
 			<%
