@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf8"
+﻿<%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf8"%>
 <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
@@ -105,7 +105,7 @@ alert("글 작성 성공!");
 			<tbody>
 				<tr>
 					<td style="font-size:20px"><a href="joinamatch.jsp">Sports</a></td>
-					<td rowspan="5"><img src="image/12345.png" width="300" height="340" /></td>
+					<td rowspan="5"><img src="image/main.png" width="300" height="340" /></td>
 					<td style="font-size:20px"><a href="joinematch.jsp">E-Sports</a></td>
 				</tr>
 				<tr>

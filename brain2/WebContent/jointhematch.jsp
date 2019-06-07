@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf8"
+﻿<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -45,19 +45,6 @@
 <title>매치 참가</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
 <style>
-.circle {
-	background: aliceblue;
-	width: 400px;
-	padding: 20px;
-	border-radius: 50px;
-	text-align: center;
-	border-style: solid;
-	margin: auto;
-}
-
-a:hover {
-	color: red;
-}
 </style>
 
 </head>

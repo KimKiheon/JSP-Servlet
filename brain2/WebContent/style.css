@@ -1,4 +1,4 @@
-* {
+﻿* {
   margin: 0;
   padding: 0;
 }
@@ -580,3 +580,6 @@ input[type=submit], input[type=reset],input[type=button] {
       85% {margin-left:-300%;}
       100% {margin-left:0;}
     }
+.hidden {
+	display: none;
+}

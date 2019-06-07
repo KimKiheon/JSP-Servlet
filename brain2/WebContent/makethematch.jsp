@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf8"
+﻿<%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf8"%>
     <%@page import="vo.MemberVO" %>
      <%@page import="dao.MemberDAO" %>
@@ -38,18 +38,7 @@ System.out.printf("[%s]의 매치 성사율 = %f\n",id,avg);
 	<title>매치생성</title>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<style>
-		.circle {
-			background: aliceblue;
-			width: 400px;
-			padding: 20px;
-			border-radius: 50px;
-			text-align: center;
-			border-style: solid;
-			margin: auto;
-		}
-		a:hover {
-			color:red;
-		}
+		
 	</style>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <script type="text/javascript">
