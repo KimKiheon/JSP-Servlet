@@ -109,20 +109,20 @@ alert("글 작성 성공!");
 					<td style="font-size:20px"><a href="joinematch.jsp">E-Sports</a></td>
 				</tr>
 				<tr>
-					<td><a href="joinamatch.jsp"><img src="image/soccer.png"  width="70" height="50"/><br />축구</a></td>
-					<td><a href="joinematch.jsp"><img src="image/lol.png" width="70" height="50" /><br />롤</a></td>
+					<td><a href="jointhematch.jsp?flag2=축구"><img src="image/soccer.png"  width="70" height="50"/><br />축구</a></td>
+					<td><a href="jointhematch.jsp?flag2=롤"><img src="image/lol.png" width="70" height="50" /><br />롤</a></td>
 				</tr>
 				<tr>
-					<td><a href="joinamatch.jsp"><img src="image/basketball.png" width="70" height="50" /><br />농구</a></td>
-					<td><a href="joinematch.jsp"><img src="image/battleground.png" width="70" height="50" /><br />배틀그라운드</a></td>
+					<td><a href="jointhematch.jsp?flag2=농구"><img src="image/basketball.png" width="70" height="50" /><br />농구</a></td>
+					<td><a href="jointhematch.jsp?flag2=배틀그라운드"><img src="image/battleground.png" width="70" height="50" /><br />배틀그라운드</a></td>
 				</tr>
 				<tr>
-					<td><a href="joinamatch.jsp"><img src="image/badminton.png" width="70" height="50" /><br />배드민턴</a></td>
-					<td><a href="joinematch.jsp"><img src="image/kartrider.png" width="70" height="50" /><br />카트라이더</a></td>
+					<td><a href="jointhematch.jsp?flag2=배드민턴"><img src="image/badminton.png" width="70" height="50" /><br />배드민턴</a></td>
+					<td><a href="jointhematch.jsp?flag2=카트라이더"><img src="image/kartrider.png" width="70" height="50" /><br />카트라이더</a></td>
 				</tr>
 				<tr>
-					<td><a href="joinamatch.jsp"><img src="image/tennis.png" width="70" height="50" /><br />테니스</a></td>
-					<td><a href="joinematch.jsp"><img src="image/overwatch.png" width="70" height="50" /><br />오버워치</a></td>
+					<td><a href="jointhematch.jsp?flag2=테니스"><img src="image/tennis.png" width="70" height="50" /><br />테니스</a></td>
+					<td><a href="jointhematch.jsp?flag2=오버워치"><img src="image/overwatch.png" width="70" height="50" /><br />오버워치</a></td>
 
 				</tr>
 			</tbody>
