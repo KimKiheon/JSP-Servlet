@@ -89,7 +89,7 @@ else avg = (double)(succ/all)*100;
         </div>
 		<div class="menu">
 				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
                 <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
@@ -199,7 +199,7 @@ else avg = (double)(succ/all)*100;
             <%} %>
         </div>
     </article>
-    <div class="foot">
+  <div class="foot">
         상호명 : CUKBM / 대표 : 가플리<br />
 		전화 : 010 - 1234 - 5678<br />
 		Facebook : object-oriented paradime	<br />

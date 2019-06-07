@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
    pageEncoding="utf8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -136,7 +136,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
         </div>
 		<div class="menu">
 				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
                 <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
@@ -182,16 +182,16 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 				<br><br>
       <table class="t" border="1">
          <tr>
-            <td style="background: lightgray;">전체 매칭 시도수</td>
+            <td style="background: lightgray;">전체 매치 수</td>
             <td><%=all%> 회</td>
             <td rowspan="3"><div id="donut_single" style=" margin:0%; width:50px; float:auto;"></div></td>
          </tr>
          <tr>
-            <td style="background: lightgray;">매칭 성공 수</td>
+            <td style="background: lightgray;">참가 수</td>
             <td><%=succ%> 회</td>
          </tr>
          <tr>
-            <td style="background: lightgray;">매칭 성공률</td>
+            <td style="background: lightgray;">신뢰도</td>
             <td><%=avg%> %</td>
       </table>
       <br />
@@ -199,22 +199,18 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 	<h2 style="text-align:center;"><span style="font-size:15px;">현재 참가중인 매치</span></h2>
 	<div style="background-color:#8080ff; height:2px; width:30%; margin:auto;">
 				</div></div>
-      <br />
-      <hr style="MARGIN: auto; width: 80%; border-style: solid" />
-
-      <table class="t" border="1">
+      <table class="viewertable" >
          <thead>
-            <tr>
-               <th style="background-color: #eeeeee; text-align: center;">게시글
-                  번호</th>
-               <th style="background-color: #eeeeee; text-align: center;">제목</th>
-               <th style="background-color: #eeeeee; text-align: center;">시작</th>
-               <th style="background-color: #eeeeee; text-align: center;">종료</th>
-               <th style="background-color: #eeeeee; text-align: center;">최대인원</th>
-               <th style="background-color: #eeeeee; text-align: center;">참가인원</th>
-               <th style="background-color: #eeeeee; text-align: center;">작성자</th>
-            </tr>
-         </thead>
+					<tr>
+						<th style="width:5%;">번호</th>
+						<th style="width:40%;">제목</th>
+						<th width="100">종목</th>
+						<th width="120">시작</th>
+						<th width="100">종료</th>
+						<th style="width:7%;">최대인원</th>
+						<th style="width:7%;">생성자</th>
+					</tr>
+				</thead>
          <tbody>
             <%
                ArrayList<PeopleVO> list = PeopleDAO.getList(pageNumber, id);
@@ -226,7 +222,15 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
             <tr>
                <td style="width:9%; text-align: center;"><%=list.get(i).getSeqNo()%></td>
                <td style="text-align: center;"><a
-                  href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>"><%=match.getTitle()%></a></td>
+                  href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>">
+                  <%if(id.equals(match.getWriter())){ %>
+							<span style=" height:30px; font-size:10px; background-color:#45a049; color:white;">&nbsp; My &nbsp;</span>	
+							<%} %>
+								<%if(match.getNowman() >= match.getNeedman()) {%>
+					<span style=" height:30px; font-size:10px; background-color:red; color:white;">&nbsp;Hot!&nbsp;</span>	
+						
+						<%} %>
+                  <%=match.getTitle()%></a></td>
                <td style="text-align: center;"><%=match.getStime()%></td>
                <td style="text-align: center;"><%=match.getEtime()%></td>
                <td style="width:8%; text-align: center;"><%=match.getNeedman()%></td>
@@ -241,6 +245,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 
    </form>
    </div>
+   
    <%
       }
    %>
@@ -251,13 +256,12 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
    <br />
    <br />
    <br />
-   <div class="foot">
+ <div class="foot">
         상호명 : CUKBM / 대표 : 가플리<br />
 		전화 : 010 - 1234 - 5678<br />
 		Facebook : object-oriented paradime	<br />
 		Address : Catholic University Of Korea<br />
         Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
 	</div>
-
 </body>
 </html>

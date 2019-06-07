@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -44,8 +44,7 @@
 <head>
 <title>매치 참가</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
-<style>
-</style>
+
 
 </head>
 <body>
@@ -69,7 +68,7 @@
 			<div id="HL">
 				<img src="image/basketball.png" width="30" height="30" />&nbsp;<a
 					href="main.jsp">CUKBM</a> <span
-					style="color: gray; font-size: 10px; font-family: 고딕">가톨릭대학교
+					style="font-color: gray; font-size: 10px; font-family: 고딕">가톨릭대학교
 					Sports Matching Service</span>
 				<div class="dropdown" style="float: right;">
 					<button class="dropbtn">
@@ -91,14 +90,30 @@
 	</div>
 	<br />
 	<%
-		if (id != null) {
+		if (id == null) {
 	%>
+		<script language="javascript">
+		location.href = "login.jsp";
+	</script>
+	<%} %>
 	<div class="shadow_eff2">
 		<div id="articleheader">
-			Join Match...&nbsp;&nbsp;<span
-				style="height: 30px; font-size: 20px; background-color: #45a049; color: white;">&nbsp;&nbsp;Athletic
-				Sports&nbsp;&nbsp;</span> &nbsp;<span
+			Join Match...&nbsp;&nbsp;
+			<%request.setCharacterEncoding("utf8");
+			if(request.getParameter("flag2")==null){%>
+			<span style="height: 30px; font-size: 20px; background-color:#45a049; color: white;">&nbsp;&nbsp;Athletic Sports&nbsp;&nbsp;</span>
+			<span style="height: 30px; font-size: 20px; background-color: #ff6262; color: white;">&nbsp;&nbsp;E-Sports&nbsp;&nbsp;</span>
+			<%}
+			else{
+			if(request.getParameter("flag2").equals("축구") || 
+					request.getParameter("flag2").equals("농구") ||
+					request.getParameter("flag2").equals("배드민턴") || 
+					request.getParameter("flag2").equals("테니스")){%>
+			<span style="height: 30px; font-size: 20px; background-color: #45a049; color: white;">&nbsp;&nbsp;Athletic
+				Sports&nbsp;&nbsp;</span>
+				<% }else{ %>&nbsp;<span
 				style="height: 30px; font-size: 20px; background-color: #ff6262; color: white;">&nbsp;&nbsp;E-Sports&nbsp;&nbsp;</span>
+				<%}} %>
 		</div>
 		<div style="background-color: #f3f3f3; height: 2px; width: 100%;">
 		</div>
@@ -106,13 +121,13 @@
 			<table class="viewertable">
 				<thead>
 					<tr>
-						<th width="70">번호</th>
-						<th width="1000">제목</th>
+						<th style="width:5%;">번호</th>
+						<th style="width:40%;">제목</th>
 						<th width="100">종목</th>
 						<th width="120">시작</th>
 						<th width="100">종료</th>
-						<th width="100">최대인원</th>
-						<th width="100">참가인원</th>
+						<th style="width:7%;">최대인원</th>
+						<th style="width:7%;">참가</th>
 						<th width="100">작성자</th>
 					</tr>
 				</thead>
@@ -128,14 +143,26 @@
 							for (int i = 0; i < list.size(); i++) {
 					%>
 					<tr id="matches">
-						<td height="1100" width="70"><%=list.get(i).getSeqNo()%></td>
+						<td height="1100" width="30"><%=list.get(i).getSeqNo()%></td>
 						<td width="500"><a
-							href="viewmatch.jsp?seqNo=<%=list.get(i).getSeqNo()%>"><%=list.get(i).getTitle()%></a></td>
+							href="viewmatch.jsp?seqNo=<%=list.get(i).getSeqNo()%>">
+							<%if(id.equals(list.get(i).getWriter())){ %>
+							<span style=" height:30px; font-size:10px; background-color:#45a049; color:white;">&nbsp; My &nbsp;</span>	
+							<%} %>
+								<%if(list.get(i).getNowman() >= list.get(i).getNeedman()) {%>
+					<span style=" height:30px; font-size:10px; background-color:red; color:white;">&nbsp;Hot!&nbsp;</span>	
+						
+						<%} %>
+							<%=list.get(i).getTitle()%></a>
+							</td>
 						<td width="100"><%=list.get(i).getFlag2()%></td>
 						<td width="120"><%=list.get(i).getStime()%></td>
 						<td width="100"><%=list.get(i).getEtime()%></td>
 						<td width="100"><%=list.get(i).getNeedman()%></td>
-						<td width="100"><%=list.get(i).getNowman()%></td>
+						<td width="100">
+					
+						<%=list.get(i).getNowman()%>
+						</td>
 						<td width="100"><%=list.get(i).getWriter()%></td>
 					</tr>
 					<%
@@ -159,15 +186,7 @@
 			<a href="makethematch.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
-	<%
-		} else {
-	%>
-	<script language="javascript">
-		location.href = "login.jsp";
-	</script>
-	<%
-		}
-	%>
+
 	<br />
 	<br />
 	<br />
@@ -178,7 +197,6 @@
 		Address : Catholic University Of Korea<br />
         Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
 	</div>
-
 
 </body>
 </html>

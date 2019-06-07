@@ -78,13 +78,15 @@ public class JoinTheMatchProc extends HttpServlet {
 				AlarmVO alarmvo = new AlarmVO();
 				alarmvo.setCreateman(vo.getWriter());
 				alarmvo.setJoinman(session.getAttribute("id").toString());
-				if(vo.getNowman() == vo.getNeedman()) {
-				alarmvo.setKind(2);
-				}
-				else alarmvo.setKind(1);
+
 				alarmvo.setFinishtime(java.sql.Timestamp.valueOf(vo.getEtime()));
 				alarmvo.setFlag(0);
 				alarmvo.setMatchseqNo(vo.getSeqNo());
+				if(vo.getNowman() == vo.getNeedman()) {
+				alarmvo.setKind(2);
+				AlarmDAO.Insert(alarmvo);
+				}
+				alarmvo.setKind(1);
 				AlarmDAO.Insert(alarmvo);
 				result = "success";
 			

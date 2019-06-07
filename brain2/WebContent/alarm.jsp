@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 ﻿<%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -81,6 +81,9 @@ tbody td:nth-child(3) {
 	border-left: 1px dashed red;
 	border-right: 1px dashed darkgray;
 }
+.alarmA:link { color: red; text-decoration: none;}
+.alarmA:visited { color: blue; text-decoration: none;}
+.alarmA:hover { color: blue; text-decoration: underline;}
 </style>
 </head>
 <body>
@@ -95,7 +98,7 @@ tbody td:nth-child(3) {
         </div>
 		<div class="menu">
 				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
                 <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
@@ -128,11 +131,13 @@ tbody td:nth-child(3) {
 			
 				for (int i = 0; i < list.size(); i++) {
 					String outs ="";
+					String joinUser="";
 					MatchVO match = new MatchVO();
 					MatchDAO matchdao = new MatchDAO();
 					match = matchdao.getMatches(list.get(i).getMatchseqNo());
 					if(list.get(i).getKind() == 1){
-						outs+=list.get(i).getJoinman()+"이 참가했어요!";
+						joinUser+=list.get(i).getJoinman();
+						outs+="님이 참가했어요!";
 					}
 					if(list.get(i).getKind() == 2){
 						outs += "필요한 참가자가 모두 모였어요!!";
@@ -141,11 +146,11 @@ tbody td:nth-child(3) {
 			<div>
 			<div style="background-color:#c0c0c0; height:2px; width:50%;">
 				</div>
-				<span style="font-size:20px; color:blue; text-decoration:underline;">
-				<a style="color:blue " href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>">
+				<span style="font-size:20px; color:blue; ">
+				<a class="alarmA" href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>">
                   <%=match.getTitle() %></a>
                   </span>
-				<span>글에 &nbsp;&nbsp;<%=outs %></span>
+				<span>매치에 &nbsp;&nbsp;<span style="color:blue;"><%=joinUser%></span><%=outs %></span>
 				</div>
 				
 				<br>
@@ -156,13 +161,12 @@ tbody td:nth-child(3) {
 		
 	</div>
 	<Br><br><br><br>
-	<div class="foot">
+<div class="foot">
         상호명 : CUKBM / 대표 : 가플리<br />
 		전화 : 010 - 1234 - 5678<br />
 		Facebook : object-oriented paradime	<br />
 		Address : Catholic University Of Korea<br />
         Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
 	</div>
-
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -51,8 +51,72 @@ updatematch.jsp
 <title>매치 게시글</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
 <style>
-</style>
+.circle {
+	background: aliceblue;
+	width: 400px;
+	padding: 20px;
+	border-radius: 50px;
+	text-align: center;
+	border-style: solid;
+	margin: auto;
+}
 
+.hidden {
+	display: none;
+}
+
+a:hover {
+	color: red;
+}
+</style>
+<script language="javascript">
+function checkIt(){
+	if(!document.userinput.title.value){
+		alert("제목을 입력하세요");
+		document.userinput.title.focus();
+		return false;
+	}
+	if(!document.userinput.addr.value){
+		alert("장소를 입력하세요");
+		document.userinput.addr.focus();
+		return false;
+	}
+	if(!document.userinput.teamflag.value){
+		alert("팀/개인 여부를 입력하세요");
+		document.userinput.teamflag.focus();
+		return false;
+	}
+	if(!document.userinput.stime.value){
+		alert("시작 시간을 입력하세요");
+		document.userinput.stime.focus();
+		return false;
+	}
+	if(!document.userinput.etime.value){
+		alert("종료시간을 입력해주세요");
+		document.userinput.etime.focus();
+		return false;
+	}
+ 	if(document.userinput.stime.value > 
+ 	document.userinput.etime.value){
+ 		console.log(document.userinput.stime.value);
+ 		console.log(document.userinput.etime.value);
+		alert("종료시간이 시작시간보다 빠릅니다!");
+		document.userinput.etime.value="";
+		document.userinput.etime.focus();
+		return false;
+	}
+	if(!document.userinput.needman.value){
+		alert("목표인원을 입력해주세요");
+		document.userinput.needman.focus();
+		return false;
+	}
+	if(!document.userinput.contents.value){
+		alert("추가 사항을 입력해주세요");
+		document.userinput.contents.focus();
+		return false;
+	}
+}
+</script>
 </head>
 <body>
 
@@ -67,7 +131,7 @@ updatematch.jsp
         </div>
 		<div class="menu">
 				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
+				<span style="font-color:gray; font-size:10px; font-family:고딕">가톨릭대학교 Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
                 <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
@@ -93,7 +157,7 @@ updatematch.jsp
 	%>
 	<div class="shadow_eff2">
 		<div class="row">
-			<form action="UpdateMatchProc" method="post">
+			<form action="UpdateMatchProc" method="post"  name="userinput" onsubmit="return checkIt()">
 				<div class="hidden">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=match.getSeqNo()%>">
