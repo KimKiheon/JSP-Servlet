@@ -95,7 +95,7 @@
 		<script language="javascript">
 		location.href = "login.jsp";
 	</script>
-	<%} %>
+	<%}else{ %>
 	<div class="shadow_eff2">
 		<div id="articleheader">
 			Join Match...&nbsp;&nbsp;
@@ -186,7 +186,7 @@
 			<a href="makethematch.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
-
+<%} %>
 	<br />
 	<br />
 	<br />

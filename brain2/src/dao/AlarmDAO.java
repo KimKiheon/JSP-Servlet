@@ -4,15 +4,16 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import vo.AlarmVO;
+import vo.MatchVO;
 import vo.Myconn;
 
 /*
 	ALarmDAO
-	- Insert ¾Ë¶÷ Å×ÀÌºí¿¡ Á¤º¸¸¦ »ğÀÔÇÔ
-	- getAlarm seqNo¸¦ ±âº»Å°·Î Å×ÀÌºí¿¡¼­ ¾Ë¶÷Á¤º¸¸¦ ¹İÈ¯ 
-	- getNext getList¸¦ À§ÇÑ ÇÔ¼ö
-	- getList ¾Ë¶÷À» ¸®½ºÆ®ÇØÁÖ±âÀ§ÇØ °Ë»öÇÑ 10°³ÀÇ ¾Ë¶÷À» ¸®½ºÆ®·Î ¹İÈ¯ÇØÁÜ
-	- nextPage ¾Ë¶÷Á¤º¸°¡ 10°³¸¦ ³Ñ¾î°¥ ¶§ Ã³¸®¸¦ À§ÇÑ ÇÔ¼ö
+	- Insert ì•ŒëŒ í…Œì´ë¸”ì— ì •ë³´ë¥¼ ì‚½ì…í•¨
+	- getAlarm seqNoë¥¼ ê¸°ë³¸í‚¤ë¡œ í…Œì´ë¸”ì—ì„œ ì•ŒëŒì •ë³´ë¥¼ ë°˜í™˜ 
+	- getNext getListë¥¼ ìœ„í•œ í•¨ìˆ˜
+	- getList ì•ŒëŒì„ ë¦¬ìŠ¤íŠ¸í•´ì£¼ê¸°ìœ„í•´ ê²€ìƒ‰í•œ 10ê°œì˜ ì•ŒëŒì„ ë¦¬ìŠ¤íŠ¸ë¡œ ë°˜í™˜í•´ì¤Œ
+	- nextPage ì•ŒëŒì •ë³´ê°€ 10ê°œë¥¼ ë„˜ì–´ê°ˆ ë•Œ ì²˜ë¦¬ë¥¼ ìœ„í•œ í•¨ìˆ˜
 */
 public class AlarmDAO {
 	static Connection conn = null;
@@ -26,7 +27,7 @@ public class AlarmDAO {
 
 	public static int Insert(AlarmVO vo) {
 		try {
-			System.out.println("[[[[[AlarmDAOÀÇ  Insert ¸Ş¼Òµå ½ÇÇà....]]]]]");
+			System.out.println("[[[[[AlarmDAOì˜  Insert ë©”ì†Œë“œ ì‹¤í–‰....]]]]]");
 
 			conn = Myconn.getConn();
 
@@ -40,17 +41,36 @@ public class AlarmDAO {
 			pstmt.setInt(6, vo.getMatchseqNo());
 			int result = pstmt.executeUpdate();
 			if (result == 1) {
-				System.out.println("AlarmDAO : Insert ¼º°ø");
+				System.out.println("AlarmDAO : Insert ì„±ê³µ");
 				return 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("AlarmDAO : Insert ½ÇÆĞ");
+		System.out.println("AlarmDAO : Insert ì‹¤íŒ¨");
 
 		return 0;
 	}
+	public static int UpdateAlarm(int asn) {
+		try {
+			System.out.println("[[[[[MatchDAOï¿½ï¿½  UpdateMatch ï¿½Ş¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½....]]]]]");
 
+			conn = Myconn.getConn();
+			String sql = "update alarm set flag = 1 where seqNo = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, asn);
+			int result = pstmt.executeUpdate();
+			if (result == 1) {
+				System.out.println("AlarmDAO : Update ì„±ê³µ");
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("AlarmDAO : Update ì‹¤íŒ¨");
+		return 0;
+	}
+	
 	public static int getNext() {
 		String SQL = "select seqNo from alarm order by seqNo desc";
 		try {
@@ -71,7 +91,7 @@ public class AlarmDAO {
 	}
 
 	public static ArrayList<AlarmVO> getList(int pageNumber, String id) {
-		System.out.println("[[[[[AlarmDAOÀÇ getList ¸Ş¼Òµå ½ÇÇà....]]]]]");
+		System.out.println("[[[[[AlarmDAOì˜ getList ë©”ì†Œë“œ ì‹¤í–‰....]]]]]");
 		ArrayList<AlarmVO> list = new ArrayList<AlarmVO>();
 		try {
 			Connection conn = Myconn.getConn();
@@ -97,7 +117,7 @@ public class AlarmDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("[[[[[AlarmDAOÀÇ getList ¸Ş¼Òµå Á¾....]]]]]");
+		System.out.println("[[[[[AlarmDAOì˜ getList ë©”ì†Œë“œ ì¢…....]]]]]");
 		return list;
 	}
 
@@ -122,7 +142,7 @@ public class AlarmDAO {
 	}
 
 	public static AlarmVO getAlarm(int seqNo) {
-		System.out.println("[[[[[AlarmDAOÀÇ getAlarm ¸Ş¼Òµå ½ÇÇà....]]]]]");
+		System.out.println("[[[[[AlarmDAOì˜ getAlarm ë©”ì†Œë“œ ì‹¤í–‰....]]]]]");
 		try {
 			Connection conn = Myconn.getConn();
 			PreparedStatement pstmt = null;
@@ -141,12 +161,34 @@ public class AlarmDAO {
 				vo.setFinishtime(rs.getTimestamp(5));
 				vo.setFlag(rs.getInt(6));
 				vo.setMatchseqNo(rs.getInt(7));
-				System.out.println("[[[[[AlarmDAOÀÇ getAlarm ¸Ş¼Òµå Á¾·á....]]]]]");
+				System.out.println("[[[[[AlarmDAOì˜ getAlarm ë©”ì†Œë“œ ì¢…ë£Œ....]]]]]");
 				return vo;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static boolean getAlarmBytitle(int matchseqNo) {
+		System.out.println("[[[[[AlarmDAOì˜ getAlarm ë©”ì†Œë“œ ì‹¤í–‰....]]]]]");
+		try {
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			System.out.printf("%d\n",matchseqNo);
+			String SQL = "select * from alarm where matchseqNo = ? and kind = 3";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, matchseqNo);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				System.out.println("ì´ë¯¸ ìˆëŠ” ì•ŒëŒ ì‚½ì… x");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("ì—†ëŠ” ì•ŒëŒì…ë‹ˆë‹¤!");
+		return false;
 	}
 }

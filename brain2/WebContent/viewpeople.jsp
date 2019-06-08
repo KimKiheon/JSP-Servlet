@@ -9,6 +9,7 @@
 <%@ page import="vo.PeopleVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="dao.AlarmDAO" %>
 <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
@@ -40,42 +41,25 @@ viewpeople.jsp
 		avg = 0;
 	else
 		avg = (double) (succ / all) * 100;
-	String state = null;
+
 	//BBS View
 	int pageNumber = 1;
 	int seqNo = 1;
 	if (request.getParameter("seqNo") != null) {
 		seqNo = Integer.parseInt(request.getParameter("seqNo"));
 	}
+	String state = null;
 	if(id != null){
 		state = PeopleDAO.matchstate(seqNo,id);
 		System.out.printf("%s\n",state);
 	}	
 	MatchVO match = new MatchDAO().getMatches(seqNo);
+	
 %>
 <html>
 <head>
 <title>매치 게시글</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
-<style>
-.circle {
-	background: aliceblue;
-	width: 400px;
-	padding: 20px;
-	border-radius: 50px;
-	text-align: center;
-	border-style: solid;
-	margin: auto;
-}
-
-.hidden {
-	display: none;
-}
-
-a:hover {
-	color: red;
-}
-</style>
 
 </head>
 <%

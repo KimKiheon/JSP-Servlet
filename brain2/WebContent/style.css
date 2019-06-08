@@ -318,6 +318,14 @@ input[type=text], input[type=password], textarea {
     border-radius: 4px;
     resize: vertical;
 }
+input[type=textbox]{
+    width:25%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius : 4px;
+    resize:vertical;
+}
+  
       #loginarea{
       max-width:50%;
       margin-left : 40px;

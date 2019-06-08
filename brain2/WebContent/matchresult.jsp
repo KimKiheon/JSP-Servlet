@@ -9,6 +9,8 @@
 <%@ page import="vo.PeopleVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="dao.PeopleDAO" %>
+<%@ page import="dao.AlarmDAO" %>
 <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
@@ -52,6 +54,15 @@ viewpeople.jsp
 		System.out.printf("%s\n",state);
 	}	
 	MatchVO match = new MatchDAO().getMatches(seqNo);
+	String sasn = null;
+	sasn = (String)request.getParameter("asn");
+
+	System.out.printf("읽은 매치는 : %s\n",sasn);
+	if(sasn != null){
+		int asn = Integer.parseInt(sasn);
+		System.out.printf("%d\n",asn);
+		AlarmDAO.UpdateAlarm(asn);
+	}
 %>
 <html>
 <head>
@@ -83,6 +94,7 @@ if(state == null){
 %>
 <script language="javascript">
 		location.href = "jointhematch.jsp";
+		
 	</script>
 <body>
 	<%} %>
@@ -135,7 +147,7 @@ if(state == null){
 			</div>
 			<div style="background-color: #f3f3f3; height: 3px; width: 100%;">
 			</div>
-				<form action="UpdatePeopleProc" method="post">
+				<form action="UpdatePeopleProc" method="post" onsubmit="return checkIt()">
 				<div class="hidden">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=seqNo%>">		

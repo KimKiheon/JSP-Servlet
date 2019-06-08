@@ -8,6 +8,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="dao.PeopleDAO" %>
+<%@ page import="dao.AlarmDAO"%>
 <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
@@ -67,6 +68,14 @@ viewmatch.jsp
 	state = PeopleDAO.matchstate(seqNo,id);
 	System.out.printf("%s\n",state);
 	}	
+	String sasn = null;
+	sasn = (String)request.getParameter("asn");
+	System.out.printf("읽은 매치는 : %s\n",sasn);
+	if(sasn != null){
+		int asn = Integer.parseInt(sasn);
+		System.out.printf("%d\n",asn);
+		AlarmDAO.UpdateAlarm(asn);
+	}
 %>
 <html>
 <head>

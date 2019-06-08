@@ -7,6 +7,7 @@
 <%@ page import="vo.MatchVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="dao.PeopleDAO" %>
 <%--
 updatematch.jsp
 매치 수정 페이지
@@ -45,6 +46,11 @@ updatematch.jsp
 		out.println("</script>");
 	}
 	MatchVO match = new MatchDAO().getMatches(seqNo);
+	String state = null;
+	if(id != null){
+		state = PeopleDAO.matchstate(seqNo,id);
+		System.out.printf("%s\n",state);
+	}	
 %>
 <html>
 <head>
@@ -118,11 +124,17 @@ function checkIt(){
 }
 </script>
 </head>
+<% if(state == null){	
+%>
+<script language="javascript">
+		location.href = "jointhematch.jsp";
+	</script>
+	<%}else {%>
 <body>
 
 	<header>
 	<div id="HR">
-        <%if (id == null) {%>
+        <%if (id == null) { %>
         <a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
          <%} 
          else {%>
@@ -230,9 +242,7 @@ function checkIt(){
 	<script language="javascript">
 		location.href = "login.jsp";
 	</script>
-	<%
-		}
-	%>
+<%} }%>
 	<br />
 	<br />
 	<br />
@@ -243,7 +253,6 @@ function checkIt(){
 		Address : Catholic University Of Korea<br />
         Copyrightⓒ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
 	</div>
-
-
 </body>
+
 </html>

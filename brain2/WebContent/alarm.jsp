@@ -9,6 +9,11 @@
 <%@ page import="vo.MatchVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="vo.PeopleVO" %>
+<%@ page import="dao.PeopleDAO" %>
 <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
@@ -105,7 +110,38 @@ tbody td:nth-child(3) {
 			<%if (id == null) {%>
 			<a href="login.jsp">로그인</a> | <a href="register.jsp">회원가입</a>
 			<%} 
-         else {%>
+         else {
+        	 ArrayList<PeopleVO> Plist = PeopleDAO.getList(pageNumber, id);
+        	 SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        	 Calendar cal = Calendar.getInstance();
+        	 String today = null;
+        	 today = formatter.format(cal.getTime());
+        	 Timestamp ts = Timestamp.valueOf(today);
+        	
+        	 for (int i = 0; i < Plist.size(); i++) {
+                MatchVO match = new MatchVO();
+                MatchDAO matchdao = new MatchDAO();
+                match = matchdao.getMatches(Plist.get(i).getMatchseqNo());
+                AlarmVO av = new AlarmVO();	
+                java.sql.Timestamp matchEt = java.sql.Timestamp.valueOf(match.getEtime());
+                if(ts.compareTo(matchEt) > 0){
+                	System.out.printf("%s 글 종료되었습니다. \n",match.getTitle()) ;  
+                	if(!AlarmDAO.getAlarmBytitle(match.getSeqNo()))
+                       {
+                	AlarmVO alarmvo = new AlarmVO();
+    				alarmvo.setCreateman(match.getWriter());
+    				alarmvo.setJoinman(session.getAttribute("id").toString());
+    				 System.out.printf("%s\n",match.getTitle());
+                	 System.out.println("알람 삽입 합니다.");
+    				alarmvo.setFinishtime(java.sql.Timestamp.valueOf(match.getEtime()));
+    				alarmvo.setFlag(0);
+    				alarmvo.setMatchseqNo(match.getSeqNo());
+    				alarmvo.setKind(3);
+    				AlarmDAO.Insert(alarmvo);
+                }
+        	 }
+        	}
+         %>
 			<a href="mypage.jsp"><%=id %></a> | <a href="LogoutProc">로그아웃</a>
 			<%} %>
 			| <a href="alarm.jsp">ALARM</a>
@@ -149,6 +185,8 @@ tbody td:nth-child(3) {
 				ArrayList<AlarmVO> list = AlarmDAO.getList(pageNumber, id);
 			
 				for (int i = 0; i < list.size(); i++) {
+					if(list.get(i).getFlag() == 0){
+					int asn = list.get(i).getSeqNo();
 					String outs ="";
 					String joinUser="";
 					MatchVO match = new MatchVO();
@@ -162,8 +200,66 @@ tbody td:nth-child(3) {
 						outs += "필요한 참가자가 모두 모였어요!!";
 					}
 					if(list.get(i).getKind() == 3){
-						outs += "매치가 종료되었어요!!";
+						outs += "참가자들의 참불여부를 알려주세요~ 매치가 종료되었어요!";
 					}
+			%>
+		<%
+		//매치종료라면 평가페이지로이동
+				if(list.get(i).getKind()==3){
+			%>
+		<div>
+			<div style="background-color: #c0c0c0; height: 2px; width: 50%;">
+			</div>
+			<span style="font-size: 20px; color: blue;"> <a class="alarmA"
+				href="matchresult.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>&asn=<%=asn%>"> <%=match.getTitle() %></a>
+			</span> <span>매치에 &nbsp;&nbsp;<span style="color: blue;"><%=joinUser%></span><%=outs %></span>
+		</div>
+
+		<br> <br>
+		<%
+		//아니라면 매치 게시글로이동
+				}else{
+		%>
+		<div>
+			<div style="background-color: #c0c0c0; height: 2px; width: 50%;">
+			</div>
+			<span style="font-size: 20px; color: blue;"> <a class="alarmA"
+				href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>&asn=<%=asn%>"> <%=match.getTitle() %></a>
+			</span> <span>매치에 &nbsp;&nbsp;<span style="color: blue;"><%=joinUser%></span><%=outs %></span>
+		</div>
+
+		<br> <br>
+		<%
+				}}}
+			%>
+		<h2><span style="font-size: 15px;">이미 본 알람</span>
+		</h2>
+		<div style="background-color: #f3f3f3; height: 2px; width: 100%;">
+		</div>
+		<br /> <br />
+		<%
+				AlarmVO chkalarm = new AlarmVO();
+				ArrayList<AlarmVO> chklist = AlarmDAO.getList(pageNumber, id);
+			
+				for (int i = 0; i < list.size(); i++) {
+					if(list.get(i).getFlag() == 1){
+						String outs ="";
+						String joinUser="";
+					MatchVO match = new MatchVO();
+					MatchDAO matchdao = new MatchDAO();
+					match = matchdao.getMatches(list.get(i).getMatchseqNo());
+					if(list.get(i).getKind() == 1){
+						joinUser+=list.get(i).getJoinman();
+						outs+="님이 참가했어요!";
+					}
+					if(list.get(i).getKind() == 2){
+						outs += "필요한 참가자가 모두 모였어요!!";
+					}
+					if(list.get(i).getKind() == 3){
+						outs += "참가자들의 참불여부를 알려주세요~ 매치가 종료되었어요!";
+					}
+					
+					
 			%>
 		<%
 		//매치종료라면 평가페이지로이동
@@ -192,9 +288,8 @@ tbody td:nth-child(3) {
 
 		<br> <br>
 		<%
-				}}
+				}}}
 			%>
-
 	</div>
 	<Br>
 	<br>
