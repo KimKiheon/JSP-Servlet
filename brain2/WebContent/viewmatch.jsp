@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf8"
+﻿<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -97,23 +97,6 @@ viewmatch.jsp
 	}
 </script>
 <style>
-.circle {
-	background: aliceblue;
-	width: 400px;
-	padding: 20px;
-	border-radius: 50px;
-	text-align: center;
-	border-style: solid;
-	margin: auto;
-}
-
-.hidden {
-	display: none;
-}
-
-a:hover {
-	color: red;
-}
 </style>
 <%
 if(result != null){	%>
