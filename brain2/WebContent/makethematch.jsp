@@ -28,8 +28,10 @@ int all = vo.getAllMatch();
 System.out.printf("[%s]의 성사된 매치 수 = %d\n",id,succ);
 System.out.printf("[%s]의 총 매치 시도수 = %d\n",id,all);
 double avg=0;
-if(succ == 0)avg=0;
-else avg = (double)(succ/all)*100;
+if (succ == 0 || all == 0)
+	avg = 0;
+else
+	avg = (double) (succ / all) * 100;
 System.out.printf("[%s]의 매치 성사율 = %f\n",id,avg);
 
 %>

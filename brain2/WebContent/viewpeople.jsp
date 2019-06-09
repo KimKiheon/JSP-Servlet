@@ -37,11 +37,10 @@ viewpeople.jsp
 	int succ = vo.getSuccessMatch();
 	int all = vo.getAllMatch();
 	double avg = 0;
-	if (succ == 0)
+	if (succ == 0 || all == 0)
 		avg = 0;
 	else
 		avg = (double) (succ / all) * 100;
-
 	//BBS View
 	int pageNumber = 1;
 	int seqNo = 1;
