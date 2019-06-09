@@ -41,6 +41,7 @@ viewpeople.jsp
 		avg = 0;
 	else
 		avg = (double) (succ / all) * 100;
+
 	//BBS View
 	int pageNumber = 1;
 	int seqNo = 1;

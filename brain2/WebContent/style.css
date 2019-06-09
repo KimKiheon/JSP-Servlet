@@ -19,7 +19,13 @@
 	display: flex;
 	justify-content: flex-end;
 }
-
+input[type=textbox]{
+    width:25%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius : 4px;
+    resize:vertical;
+}
 .Site-header .user-menu .item {
   margin-right: .5rem;
 }
@@ -295,7 +301,7 @@ a {
 }
 
 td, th {
-	font-style: "쨍쩌�쨘 째챠쨉챰";
+	font-style: "夷띿찈占쎌쮼 吏몄콬夷됱굅";
 	text-align: left;
 	padding: 5px;
 	height: 15px;
@@ -571,17 +577,17 @@ input[type=submit], input[type=reset],input[type=button] {
  *{margin:0;padding:0;}
     ul,li{list-style:none;}
     .slide{height:300px;overflow:hidden;}
-    .slide ul{width:calc(100% * 4);display:flex;animation:slide 8s infinite;} /* slide를 8초동안 진행하며 무한반복 함 */
+    .slide ul{width:calc(100% * 4);display:flex;animation:slide 8s infinite;} /* slide瑜� 8珥덈룞�븞 吏꾪뻾�븯硫� 臾댄븳諛섎났 �븿 */
     .slide li{width:calc(100% / 4);height:300px;}
     .slide li:nth-child(1){background:#ffa;}
     .slide li:nth-child(2){background:#faa;}
     .slide li:nth-child(3){background:#afa;}
     .slide li:nth-child(4){background:#aaf;}
     @keyframes slide {
-      0% {margin-left:0;} /* 0 ~ 10  : 정지 */
-      10% {margin-left:0;} /* 10 ~ 25 : 변이 */
-      25% {margin-left:-100%;} /* 25 ~ 35 : 정지 */
-      35% {margin-left:-100%;} /* 35 ~ 50 : 변이 */
+      0% {margin-left:0;} /* 0 ~ 10  : �젙吏� */
+      10% {margin-left:0;} /* 10 ~ 25 : 蹂��씠 */
+      25% {margin-left:-100%;} /* 25 ~ 35 : �젙吏� */
+      35% {margin-left:-100%;} /* 35 ~ 50 : 蹂��씠 */
       50% {margin-left:-200%;}
       60% {margin-left:-200%;}
       75% {margin-left:-300%;}

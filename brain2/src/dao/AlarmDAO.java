@@ -9,11 +9,11 @@ import vo.Myconn;
 
 /*
 	ALarmDAO
-	- Insert 알람 테이블에 정보를 삽입함
-	- getAlarm seqNo를 기본키로 테이블에서 알람정보를 반환 
-	- getNext getList를 위한 함수
-	- getList 알람을 리스트해주기위해 검색한 10개의 알람을 리스트로 반환해줌
-	- nextPage 알람정보가 10개를 넘어갈 때 처리를 위한 함수
+	- Insert �븣�엺 �뀒�씠釉붿뿉 �젙蹂대�� �궫�엯�븿
+	- getAlarm seqNo瑜� 湲곕낯�궎濡� �뀒�씠釉붿뿉�꽌 �븣�엺�젙蹂대�� 諛섑솚 
+	- getNext getList瑜� �쐞�븳 �븿�닔
+	- getList �븣�엺�쓣 由ъ뒪�듃�빐二쇨린�쐞�빐 寃��깋�븳 10媛쒖쓽 �븣�엺�쓣 由ъ뒪�듃濡� 諛섑솚�빐以�
+	- nextPage �븣�엺�젙蹂닿� 10媛쒕�� �꽆�뼱媛� �븣 泥섎━瑜� �쐞�븳 �븿�닔
 */
 public class AlarmDAO {
 	static Connection conn = null;
@@ -27,10 +27,10 @@ public class AlarmDAO {
 
 	public static int Insert(AlarmVO vo) {
 		try {
-			System.out.println("[[[[[AlarmDAO의  Insert 메소드 실행....]]]]]");
+			System.out.println("[[[[[AlarmDAO�쓽  Insert 硫붿냼�뱶 �떎�뻾....]]]]]");
 
 			conn = Myconn.getConn();
-
+			
 			String sql = "insert into alarm(joinman,createman,kind,finishtime,flag,matchseqNo) values(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getJoinman());
@@ -41,19 +41,19 @@ public class AlarmDAO {
 			pstmt.setInt(6, vo.getMatchseqNo());
 			int result = pstmt.executeUpdate();
 			if (result == 1) {
-				System.out.println("AlarmDAO : Insert 성공");
+				System.out.println("AlarmDAO : Insert �꽦怨�");
 				return 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("AlarmDAO : Insert 실패");
+		System.out.println("AlarmDAO : Insert �떎�뙣");
 
 		return 0;
 	}
 	public static int UpdateAlarm(int asn) {
 		try {
-			System.out.println("[[[[[MatchDAO��  UpdateMatch �޼ҵ� ����....]]]]]");
+			System.out.println("[[[[[MatchDAO占쏙옙  UpdateMatch 占쌨소듸옙 占쏙옙占쏙옙....]]]]]");
 
 			conn = Myconn.getConn();
 			String sql = "update alarm set flag = 1 where seqNo = ?";
@@ -61,13 +61,13 @@ public class AlarmDAO {
 			pstmt.setInt(1, asn);
 			int result = pstmt.executeUpdate();
 			if (result == 1) {
-				System.out.println("AlarmDAO : Update 성공");
+				System.out.println("AlarmDAO : Update �꽦怨�");
 				return 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("AlarmDAO : Update 실패");
+		System.out.println("AlarmDAO : Update �떎�뙣");
 		return 0;
 	}
 	
@@ -91,7 +91,7 @@ public class AlarmDAO {
 	}
 
 	public static ArrayList<AlarmVO> getList(int pageNumber, String id) {
-		System.out.println("[[[[[AlarmDAO의 getList 메소드 실행....]]]]]");
+		System.out.println("[[[[[AlarmDAO�쓽 getList 硫붿냼�뱶 �떎�뻾....]]]]]");
 		ArrayList<AlarmVO> list = new ArrayList<AlarmVO>();
 		try {
 			Connection conn = Myconn.getConn();
@@ -117,7 +117,7 @@ public class AlarmDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("[[[[[AlarmDAO의 getList 메소드 종....]]]]]");
+		System.out.println("[[[[[AlarmDAO�쓽 getList 硫붿냼�뱶 醫�....]]]]]");
 		return list;
 	}
 
@@ -142,7 +142,7 @@ public class AlarmDAO {
 	}
 
 	public static AlarmVO getAlarm(int seqNo) {
-		System.out.println("[[[[[AlarmDAO의 getAlarm 메소드 실행....]]]]]");
+		System.out.println("[[[[[AlarmDAO�쓽 getAlarm 硫붿냼�뱶 �떎�뻾....]]]]]");
 		try {
 			Connection conn = Myconn.getConn();
 			PreparedStatement pstmt = null;
@@ -161,7 +161,7 @@ public class AlarmDAO {
 				vo.setFinishtime(rs.getTimestamp(5));
 				vo.setFlag(rs.getInt(6));
 				vo.setMatchseqNo(rs.getInt(7));
-				System.out.println("[[[[[AlarmDAO의 getAlarm 메소드 종료....]]]]]");
+				System.out.println("[[[[[AlarmDAO�쓽 getAlarm 硫붿냼�뱶 醫낅즺....]]]]]");
 				return vo;
 			}
 		} catch (SQLException e) {
@@ -171,7 +171,7 @@ public class AlarmDAO {
 	}
 	
 	public static boolean getAlarmBytitle(int matchseqNo) {
-		System.out.println("[[[[[AlarmDAO의 getAlarm 메소드 실행....]]]]]");
+		System.out.println("[[[[[AlarmDAO�쓽 getAlarm 硫붿냼�뱶 �떎�뻾....]]]]]");
 		try {
 			Connection conn = Myconn.getConn();
 			PreparedStatement pstmt = null;
@@ -182,13 +182,13 @@ public class AlarmDAO {
 			pstmt.setInt(1, matchseqNo);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				System.out.println("이미 있는 알람 삽입 x");
+				System.out.println("�씠誘� �엳�뒗 �븣�엺 �궫�엯 x");
 				return true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("없는 알람입니다!");
+		System.out.println("�뾾�뒗 �븣�엺�엯�땲�떎!");
 		return false;
 	}
 }

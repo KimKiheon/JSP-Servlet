@@ -14,9 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import dao.AlarmDAO;
 import dao.MatchDAO;
+import dao.MemberDAO;
 import dao.PeopleDAO;
 import vo.AlarmVO;
 import vo.MatchVO;
+import vo.MemberVO;
 import vo.Myconn;
 import vo.PeopleVO;
 
@@ -34,6 +36,7 @@ public class JoinMatchCancelProc extends HttpServlet {
 
 		MatchDAO matchdao = new MatchDAO();
 		MatchVO vo = new MatchVO();
+		MemberVO mvo = new MemberVO();
 		vo = matchdao.getMatches(Integer.parseInt(request.getParameter("seqNo")));
 
 		PeopleVO peoplevo = new PeopleVO();
@@ -41,6 +44,7 @@ public class JoinMatchCancelProc extends HttpServlet {
 		String jm = (String) session.getAttribute("id");
 		int msn = Integer.parseInt(request.getParameter("seqNo"));
 		int f = 0;
+		boolean bool;
 		String result=null;
 		try {
 			// 참가자 DB삽입
@@ -53,6 +57,12 @@ public class JoinMatchCancelProc extends HttpServlet {
 			// Match nowman-=1
 			MatchDAO.UpdateDelete(vo);
 			System.out.println("JoinTheMatchProc : DB Update 성공!");
+			
+			mvo.setId(jm);
+			bool = MemberDAO.deleteMatch(mvo);
+			if(bool == true) System.out.println("해당 member all decrease success");
+			else System.out.println("해당 member all decrease fail");
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

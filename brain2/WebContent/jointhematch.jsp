@@ -1,3 +1,4 @@
+<%@page import="vo.AlarmVO"%>
 <%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@page import="vo.MemberVO"%>
@@ -26,6 +27,7 @@
 
 	MemberVO vo = new MemberVO();
 	MemberDAO dao = new MemberDAO();
+	AlarmVO avo = new AlarmVO();
 	vo = dao.getInfo(id);
 	int succ = vo.getSuccessMatch();
 	int all = vo.getAllMatch();
@@ -153,10 +155,7 @@
 						<td width="500"><a
 							href="viewmatch.jsp?seqNo=<%=list.get(i).getSeqNo()%>">
 							<%if(id.equals(list.get(i).getWriter())){ %>
-							<span style=" height:30px; font-size:10px; background-color:#45a049; color:white;">&nbsp; My &nbsp;</span>	
-							<%} %>
-								<%if(list.get(i).getNowman() >= list.get(i).getNeedman()) {%>
-					<span style=" height:30px; font-size:10px; background-color:red; color:white;">&nbsp;Hot!&nbsp;</span>	
+							<span style=" height:30px; font-size:10px; background-color:#45a049; color:white;">&nbsp; My &nbsp;</span>		
 						
 						<%} %>
 							<%=list.get(i).getTitle()%></a>

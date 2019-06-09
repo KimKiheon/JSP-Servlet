@@ -32,14 +32,17 @@ viewmatch.jsp
 
 	MemberVO vo = new MemberVO();
 	MemberDAO dao = new MemberDAO();
+	MatchDAO mdao = new MatchDAO();
 	vo = dao.getInfo(id);
 	int succ = vo.getSuccessMatch();
 	int all = vo.getAllMatch();
+	boolean bool = false;
 	double avg = 0;
 	if (succ == 0 || all == 0)
 		avg = 0;
 	else
 		avg = (double) (succ / all) * 100;
+	
 	
 	//BBS View
 	int seqNo = 1;
@@ -53,6 +56,7 @@ viewmatch.jsp
 		out.println("</script>");
 	}
 	MatchVO match = new MatchDAO().getMatches(seqNo);
+	bool = mdao.MatchFull(match.getSeqNo());
 	String teamF = null;
 	String flag1 = null;
 	if(match.getTeamflag() == 1){
@@ -84,7 +88,7 @@ viewmatch.jsp
 <script>
 	function joincancel(){
 		if (confirm("참가 취소 하시겠습니까?")) {
-            // 확인 버튼 누르면 서블릿으로 이동
+			// 확인 버튼 누르면 서블릿으로 이동
 			JoinMatchCancelControl.action = "JoinMatchCancelProc";
 			JoinMatchCancelControl.method = "post";
 			JoinMatchCancelControl.submit();
@@ -167,18 +171,39 @@ state="joinman";
 				<h1>
 				<span><%=match.getTitle()%></span>
 				<span style=" height:30px; font-size:20px; background-color:#45a049; color:white;">&nbsp;&nbsp;<%=flag1%>&nbsp;&nbsp;</span>
-				<%if(state == null) {%>
+				<%if(state == null && bool == false) {%>
 				<span><input type="submit" value="참가하기"></span>
-				<%} 
-				else {%>
-				
-				<%
+				<%}else if(state == null && bool == true) {%>
+				<span><input type="Button" value="참가 마감"></span>
+				<%}
+				else {
 				System.out.printf("%s\n",match.getWriter());
 				System.out.printf("%s\n",id);
 				if(id.equals(match.getWriter())) {%>
 				<span><input type="Button" onclick="location.href='updatematch.jsp?seqNo=<%=seqNo%>'" value="수정"></span>
-				<%} %>
-				<span><input type="Button" onclick="javascript:joincancel()" value="참가 중"></span>
+				<%}
+				if(id.equals(match.getWriter())){
+					%>
+					<script>function alertJoinCancel(){
+						alert("생성자는 매치를 취소할 수 없습니다.");
+					}</script>
+					<span><input type="Button" onclick="javascript:alertJoinCancel()" value="참가 중"></span>
+				<%
+				}
+				else if(bool == true){%>
+					<script>function full(){
+						alert("매치가 확정되어 취소할 수 없습니다.");
+					}</script>
+					<span><input type="Button" onclick="javascript:full()" value="참가 중"></span>
+				<%	
+				}
+				else{%>
+					<span><input type="Button" onclick="javascript:joincancel()" value="참가 중"></span>
+				<% 
+				}
+				%>	
+				
+				
 				<span><input type="Button" onclick="location.href='viewpeople.jsp?seqNo=<%=seqNo%>'" value="참가자 보기"></span>
 				<%} %>
 				
@@ -226,7 +251,8 @@ state="joinman";
 		</div>
 		</div>
 	<%
-		} else {
+		}
+		else {
 	%>
 	<script language="javascript">
 		location.href = "login.jsp";

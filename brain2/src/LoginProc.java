@@ -45,7 +45,6 @@ public class LoginProc extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("id", id);
 					System.out.println("<<<<<<<<<<<<<<<<<<< LoginProc ¼º°ø >>>>>>>>>>>>>>>>>>>>>");
-
 					response.sendRedirect("main.jsp");
 				}
 				else {

@@ -17,6 +17,7 @@ import dao.MemberDAO;
 import dao.PeopleDAO;
 import dao.AlarmDAO;
 import vo.MatchVO;
+import vo.MemberVO;
 import vo.Myconn;
 import vo.PeopleVO;
 import vo.AlarmVO;
@@ -51,6 +52,7 @@ public class JoinTheMatchProc extends HttpServlet {
 
 		MatchDAO matchdao = new MatchDAO();
 		MatchVO vo = new MatchVO();
+		MemberVO mvo = new MemberVO();
 		vo = matchdao.getMatches(Integer.parseInt(request.getParameter("seqNo")));
 
 		PeopleVO peoplevo = new PeopleVO();
@@ -58,6 +60,7 @@ public class JoinTheMatchProc extends HttpServlet {
 		String jm = (String) session.getAttribute("id");
 		int msn = Integer.parseInt(request.getParameter("seqNo"));
 		int f = 0;
+		boolean bool;
 		String result=null;
 		try {
 			// 참가자 DB삽입
@@ -72,6 +75,10 @@ public class JoinTheMatchProc extends HttpServlet {
 			MatchDAO.Update(vo);
 			System.out.println("JoinTheMatchProc : DB Update 성공!");
 			
+			mvo.setId(jm);
+			bool = MemberDAO.attendMatch(mvo);
+			if(bool == true) System.out.println("해당 member all increase success");
+			else System.out.println("해당 member all increase fail");
 			//매치인원 충족 확인 매치 완료 알람
 			vo = matchdao.getMatches(Integer.parseInt(request.getParameter("seqNo")));
 			

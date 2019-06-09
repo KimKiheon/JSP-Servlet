@@ -2,6 +2,15 @@
     pageEncoding="utf8"%>
     <%@page import="vo.MemberVO" %>
      <%@page import="dao.MemberDAO" %>
+<%@page import="vo.MatchVO"%>
+<%@page import="dao.MatchDAO"%>
+<%@page import="vo.PeopleVO"%>
+<%@page import="dao.PeopleDAO"%>
+<%@page import="vo.AlarmVO"%>
+<%@page import="dao.AlarmDAO"%>
+ <%@page import="java.sql.*"%>
+ <%@page import="java.text.*"%>
+ <%@page import="java.util.*"%>
      <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
@@ -23,6 +32,7 @@ System.out.println("MemberDAO 객체 생성중 ........\n");
 MemberDAO dao = new MemberDAO();
 System.out.printf("[%s]의 정보 불러오는중 .......\n",id);
 vo = dao.getInfo(id);
+
 int succ = vo.getSuccessMatch();
 int all = vo.getAllMatch();
 System.out.printf("[%s]의 성사된 매치 수 = %d\n",id,succ);

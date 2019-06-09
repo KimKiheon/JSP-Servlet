@@ -29,7 +29,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
    int succ = vo.getSuccessMatch();
    int all = vo.getAllMatch();
    double avg = 0;
-	if (succ == 0 || all == 0)
+   if (succ == 0 || all == 0)
 		avg = 0;
 	else
 		avg = (double) (succ / all) * 100;
@@ -208,6 +208,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 						<th width="120">시작</th>
 						<th width="100">종료</th>
 						<th style="width:7%;">최대인원</th>
+						<th style="width:7%;">현재인원</th>
 						<th style="width:7%;">생성자</th>
 					</tr>
 				</thead>
@@ -226,11 +227,9 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
                   <%if(id.equals(match.getWriter())){ %>
 							<span style=" height:30px; font-size:10px; background-color:#45a049; color:white;">&nbsp; My &nbsp;</span>	
 							<%} %>
-								<%if(match.getNowman() >= match.getNeedman()) {%>
-					<span style=" height:30px; font-size:10px; background-color:red; color:white;">&nbsp;Hot!&nbsp;</span>	
-						
-						<%} %>
                   <%=match.getTitle()%></a></td>
+               
+               <td style="text-align: center;"><%=match.getFlag2()%></td>
                <td style="text-align: center;"><%=match.getStime()%></td>
                <td style="text-align: center;"><%=match.getEtime()%></td>
                <td style="width:8%; text-align: center;"><%=match.getNeedman()%></td>

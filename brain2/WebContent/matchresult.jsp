@@ -42,7 +42,6 @@ viewpeople.jsp
 		avg = 0;
 	else
 		avg = (double) (succ / all) * 100;
-
 	String state = null;
 	//BBS View
 	int pageNumber = 1;

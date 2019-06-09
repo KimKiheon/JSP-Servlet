@@ -89,4 +89,51 @@ public class MemberDAO {
 		}
 		System.out.println("[[[[[MemberDAO의 updateInfo 메소드 종료....]]]]]");
 	}
+	
+	public static boolean attendMatch(MemberVO mvo) {
+		System.out.println("[[[[[MemberDAO의 attendMatch 메소드 실행....]]]]]");
+		Connection conns = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		System.out.printf("받아온 아이디 %s\n", mvo.getId());
+		try {
+			conns = Myconn.getConn();
+			String sql = "update members set allMatch=allMatch+1 where id='" + mvo.getId() + "'";
+			pstmt = conns.prepareStatement(sql);
+			int result = pstmt.executeUpdate();
+			if (result == 1) {
+				System.out.println("[[[[[MemberDAO의 attendMatch 메소드 성공!!]]]]]");
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("[[[[[MemberDAO의 attendMatch 메소드 실패!!]]]]]");
+		return false;
+	}
+	
+	public static boolean deleteMatch(MemberVO mvo) {
+		System.out.println("[[[[[MemberDAO의 deleteMatch 메소드 실행....]]]]]");
+		Connection conns = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		System.out.printf("받아온 아이디 %s\n", mvo.getId());
+		try {
+			conns = Myconn.getConn();
+			String sql = "update members set allMatch=allMatch-1 where id='" + mvo.getId() + "'";
+			pstmt = conns.prepareStatement(sql);
+			int result = pstmt.executeUpdate();
+			if (result == 1) {
+				System.out.println("[[[[[MemberDAO의 deleteMatch 메소드 성공!!]]]]]");
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("[[[[[MemberDAO의 deleteMatch 메소드 실패!!]]]]]");
+		return false;
+	}
+	
 }

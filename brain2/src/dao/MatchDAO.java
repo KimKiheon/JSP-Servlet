@@ -414,4 +414,27 @@ public class MatchDAO {
 		}
 		return null;
 	}
+	
+	public static boolean MatchFull(int matchseqNo) {
+		System.out.println("[[[[[MatchDAO의  MatchFull 시작!!!! ....]]]]]");
+		try {
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			System.out.printf("%d\n",matchseqNo);
+			String SQL = "select * from alarm where matchseqNo = ? and kind = 2";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, matchseqNo);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				System.out.println("해당 매치는 꽉 찼네요?!");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("해당 매치는 아직 괜찮아요!");
+		return false;
+	}
+	
 }
