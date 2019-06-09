@@ -15,6 +15,7 @@
 ﻿
 <!DOCTYPE html>
 <%
+	String flag1 = request.getParameter("flag1");
 	String flag2 = request.getParameter("flag2");
 	System.out.println("--------------------jointhematch.jsp--------------------");
 	String id = (String) session.getAttribute("id");
@@ -100,12 +101,13 @@
 		<div id="articleheader">
 			Join Match...&nbsp;&nbsp;
 			<%request.setCharacterEncoding("utf8");
-			if(request.getParameter("flag2")==null){%>
+			if(request.getParameter("flag1")==null || request.getParameter("flag2")==null){%>
 			<span style="height: 30px; font-size: 20px; background-color:#45a049; color: white;">&nbsp;&nbsp;Athletic Sports&nbsp;&nbsp;</span>
 			<span style="height: 30px; font-size: 20px; background-color: #ff6262; color: white;">&nbsp;&nbsp;E-Sports&nbsp;&nbsp;</span>
 			<%}
 			else{
-			if(request.getParameter("flag2").equals("축구") || 
+			if(request.getParameter("flag1").equals("1") ||
+					request.getParameter("flag2").equals("축구") || 
 					request.getParameter("flag2").equals("농구") ||
 					request.getParameter("flag2").equals("배드민턴") || 
 					request.getParameter("flag2").equals("테니스")){%>
@@ -137,9 +139,13 @@
 							MatchVO match = new MatchVO();
 							if (request.getParameter("flag2") != null) {
 								list = MatchDAO.getList(pageNumber, request.getParameter("flag2"));
-							} else {
+							}else if(request.getParameter("flag1") != null){
+								list = MatchDAO.getListFlag1(pageNumber, Integer.parseInt(request.getParameter("flag1")));
+							}else {
 								list = MatchDAO.getList(pageNumber);
 							}
+							
+							
 							for (int i = 0; i < list.size(); i++) {
 					%>
 					<tr id="matches">
@@ -168,20 +174,43 @@
 					<%
 						}
 					%>
+					
+
 				</tbody>
 			</table>
 			<%
 				if (pageNumber != 1) {
+					if(flag2 != null){
 			%>
 			<a href="jointhematch.jsp?pageNumber=<%=pageNumber - 1%>&flag2=<%=flag2%>">이전</a>
 			<%
 				}
-					System.out.println(pageNumber + " " + MatchDAO.fullPage());
-					if (MatchDAO.nextPage(pageNumber + 1) && MatchDAO.fullPage() > pageNumber) {
+				else if(flag1 != null) {%>
+					<a href="jointhematch.jsp?pageNumber=<%=pageNumber - 1%>&flag1=<%=flag1%>">이전</a>
+					<%
+				}
+				else {%>
+					<a href="jointhematch.jsp?pageNumber=<%=pageNumber - 1%>">이전</a>
+				<%	
+				}
+				}
+					
+					if (MatchDAO.nextPage(pageNumber + 1) && MatchDAO.fullPage(flag1, flag2) > pageNumber) {
+						System.out.println(pageNumber + " " + MatchDAO.fullPage(flag1, flag2));
+						if(flag2 != null){
 			%>
 			<a href="jointhematch.jsp?pageNumber=<%=pageNumber + 1%>&flag2=<%=flag2%>">다음</a>
 			<%
-				}
+						}
+						else if(flag1 != null){%>
+							<a href="jointhematch.jsp?pageNumber=<%=pageNumber + 1%>&flag1=<%=flag1%>">다음</a>
+						<%
+						}
+						else {%>
+							<a href="jointhematch.jsp?pageNumber=<%=pageNumber + 1%>">다음</a>
+							<%
+						}
+						}
 			%>
 			<a href="makethematch.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>

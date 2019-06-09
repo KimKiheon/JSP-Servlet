@@ -244,18 +244,105 @@ public class MatchDAO {
 		System.out.println("[[[[[MatchDAO�쓽 getList 硫붿냼�뱶 醫�....]]]]]");
 		return list;
 	}
+	public static ArrayList<MatchVO> getListFlag1(int pageNumber,int flag1) {
+		System.out.println("[[[[[MatchDAO�쓽 getListFlag1 硫붿냼�뱶 �떎�뻾....]]]]]");
+		ArrayList<MatchVO> list = new ArrayList<MatchVO>();
+		try {
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			String SQL = "select * from matches where seqNo < ? and flag1 like ? order by seqNo desc LIMIT 10";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			pstmt.setInt(2, flag1);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MatchVO match = new MatchVO();
+				match.setSeqNo(rs.getInt(1));
+				match.setSeqDate(rs.getTimestamp(2));
+				match.setFlag1(rs.getInt(3));
+				match.setFlag2(rs.getString(4));
+				match.setTitle(rs.getString(5));
+				match.setStime(rs.getTimestamp(6).toString());
+				match.setEtime(rs.getTimestamp(7).toString());
+				match.setContents(rs.getString(8));
+				match.setAddr(rs.getString(9));
+				match.setTeamflag(rs.getInt(10));
+				match.setNeedman(rs.getInt(11));
+				match.setNowman(rs.getInt(12));
+				match.setWriter(rs.getString(13));
+				list.add(match);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("[[[[[MatchDAO�쓽 getListFlag1 硫붿냼�뱶 醫�....]]]]]");
+		return list;
+	}
 	//page '이전','다음'  버튼 중 모두 다 보여졌을때 '다음' 버튼 제어.
-		public static int fullPage() {
+		public static int fullPage(String flag1, String flag2) {
 			int checknum = 1;
 			try {
 				Connection conn = Myconn.getConn();
-				Statement stmt = null;
+				//Statement stmt = null;
+				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-
-				String SQL = "select count(*) as count from matches";
-				stmt = conn.createStatement();
-				rs = stmt.executeQuery(SQL);
-
+				String SQL = new String();;
+				System.out.println("flag1vlaue "+ flag1);
+				System.out.println("flag2value "+ flag2);
+				if(flag1 != null) {
+					System.out.println("flag1 check!!!!");
+					SQL = "select count(if(flag1 = ?, flag1, NULL)) as count from matches";
+					System.out.println("flag1 SQL!!!!");
+					pstmt = conn.prepareStatement(SQL);
+					System.out.println("flag1 pstmt!!!!");
+					pstmt.setInt(1, Integer.parseInt(flag1));
+					System.out.println("flag1 check!!!!");
+					/*
+					if(flag1 == "1")
+						SQL = "select count(if(flag1 == 1, flag1, NULL)) as count from matches";
+					else
+						SQL = "select count(if(flag1 == 2, flag1, NULL)) as count from matches";
+						*/
+				}else if(flag2 != null) {
+					System.out.println("flag2 check!!!!");
+					SQL = "select count(if(flag2 = ?, flag2, NULL)) as count from matches";
+					pstmt = conn.prepareStatement(SQL);
+					pstmt.setString(1, flag2);
+					/*
+					if(flag2 == "축구")
+						SQL = "select count(if(flag2 == 축구, flag2, NULL)) as count from matches";
+					else if(flag2 == "농구") {
+						SQL = "select count(if(flag2 == 농구, flag2, NULL)) as count from matches";
+					}
+					else if(flag2 == "테니스") {
+						SQL = "select count(if(flag2 == 테니스, flag2, NULL)) as count from matches";
+					}
+					else if(flag2 == "배드민턴") {
+						SQL = "select count(if(flag2 == 배드민턴, flag2, NULL)) as count from matches";
+					}
+					else if(flag2 == "lol") {
+						SQL = "select count(if(flag2 == lol, flag2, NULL)) as count from matches";
+					}
+					else if(flag2 == "overwatch") {
+						SQL = "select count(if(flag2 == overwatch, flag2, NULL)) as count from matches";
+					}
+					else if(flag2 == "kartrider") {
+						SQL = "select count(if(flag2 == kartrider, flag2, NULL)) as count from matches";
+					}
+					else if(flag2 == "battleground") {
+						SQL = "select count(if(flag2 == battleground, flag2, NULL)) as count from matches";
+					}
+					*/
+				}else {
+					SQL = "select count(*) as count from matches";
+					pstmt = conn.prepareStatement(SQL);
+				}
+				//stmt = conn.createStatement();
+				//rs = stmt.executeQuery(SQL);
+				rs = pstmt.executeQuery();
+				
 				while (rs.next() != false) {
 					String name = rs.getString(1);
 					System.out.println(name);
@@ -270,6 +357,7 @@ public class MatchDAO {
 			}
 			return (checknum / 10) + 1;
 		}
+		
 
 	public static boolean nextPage(int pageNumber) {
 		try {
