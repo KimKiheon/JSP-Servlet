@@ -111,6 +111,28 @@ public class MatchDAO {
 		System.out.println("MatchDAO : Update 실패");
 		return 0;
 	}
+	
+	public static int UpdateDelete(MatchVO vo) {
+		try {
+			System.out.println("[[[[[MatchDAO의  UpdateDelete 메소드 실행....]]]]]");
+
+			conn = Myconn.getConn();
+			String sql = "update matches set nowman = ? where seqNo = ?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getNowman() - 1);
+			pstmt.setInt(2, vo.getSeqNo());
+			int result = pstmt.executeUpdate();
+			if (result == 1) {
+				System.out.println("MatchDAO : UpdateDelete 성공");
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("MatchDAO : UpdateDelete 실패");
+		return 0;
+	}
 
 	public static int getCur() {
 		String SQL = "select seqNo from matches order by seqNo desc";

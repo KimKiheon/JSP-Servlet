@@ -81,6 +81,17 @@ viewmatch.jsp
 <head>
 <title>매치 게시글</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
+<script>
+	function joincancel(){
+		if (confirm("참가 취소 하시겠습니까?")) {
+            // 확인 버튼 누르면 서블릿으로 이동
+			JoinMatchCancelControl.action = "JoinMatchCancelProc";
+			JoinMatchCancelControl.method = "post";
+			JoinMatchCancelControl.submit();
+        } else {
+        }
+	}
+</script>
 <style>
 .circle {
 	background: aliceblue;
@@ -147,7 +158,7 @@ state="joinman";
 	<div class="shadow_eff2">
 
 		<div class="rrow">
-			<form action="JoinTheMatchProc" method="post">
+			<form id = "JoinMatchCancelControl" action="JoinTheMatchProc" method="post">
 				<div class="hidden">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=match.getSeqNo()%>">
@@ -167,7 +178,7 @@ state="joinman";
 				if(id.equals(match.getWriter())) {%>
 				<span><input type="Button" onclick="location.href='updatematch.jsp?seqNo=<%=seqNo%>'" value="수정"></span>
 				<%} %>
-				<span><input type="Button" value="참가 중"></span>
+				<span><input type="Button" onclick="javascript:joincancel()" value="참가 중"></span>
 				<span><input type="Button" onclick="location.href='viewpeople.jsp?seqNo=<%=seqNo%>'" value="참가자 보기"></span>
 				<%} %>
 				

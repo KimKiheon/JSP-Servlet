@@ -48,6 +48,42 @@ public class PeopleDAO {
 		System.out.println("PeopleDAO : Insert 실패");
 		return 0;
 	}
+	
+	public static int Delete(PeopleVO vo) {
+		Statement stmt = null;
+		Statement stmt1 = null;
+		try {
+			System.out.println("[[[[[PeopleDAO의  Delete 메소드 실행....]]]]]");
+
+			conn = Myconn.getConn();
+			stmt = conn.createStatement();
+			String sql = "select * from people where joinman ='"+ vo.getJoinman() + "'and matchseqNo = '" + vo.getMatchseqNo()+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+			System.out.println("PeopleDAO : 쿼리 생성");
+			if(rs.next()) {
+				vo.setSeqNo(rs.getInt("seqNo"));
+				vo.setFlag(rs.getInt("flag"));
+			}
+			System.out.println("PeopleDAO : 불러오기 성공");
+			if(vo.getFlag() == 1) {
+				System.out.println("PeopleDAO : delete 실패");
+				System.out.println("현재 유저는 생성자라 불가능합니다.");
+				return 0;
+			}
+			stmt.close();
+			stmt1 = conn.createStatement();
+			sql = "delete from people where seqNo = " + vo.getSeqNo();
+			int result = stmt1.executeUpdate(sql);
+			if (result == 1) {
+				System.out.println("PeopleDAO : delete 성공");
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("PeopleDAO : delete 실패");
+		return 0;
+	}
 
 	public static int getNext() {
 		String SQL = "select seqNo from people order by seqNo desc";
