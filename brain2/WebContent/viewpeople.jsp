@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
-	pageEncoding="utf8"%>
+	pageEncoding="utf-8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
 <%@ page import="java.io.PrintWriter"%>
@@ -149,7 +149,7 @@ if(state == null){
 						int mall = membervo.getAllMatch();
 						double mavg;
 						if(mall == 0 || msucc == 0)mavg = 0;
-						else mavg = msucc/mall*100;
+						else mavg = msucc*100/mall;
 						%>
 						<td><%=mavg%>%</td>
 						<td><%=membervo.getKtid()%></td>

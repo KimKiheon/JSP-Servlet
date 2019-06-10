@@ -1,5 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf8"
-    pageEncoding="utf8"%>
+    pageEncoding="utf-8"%>
     <%@page import="vo.MemberVO" %>
      <%@page import="dao.MemberDAO" %>
 <%@page import="vo.MatchVO"%>

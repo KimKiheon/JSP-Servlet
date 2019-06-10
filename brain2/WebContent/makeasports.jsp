@@ -1,5 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf8"
-    pageEncoding="utf8"%>
+    pageEncoding="utf-8"%>
     <%@page import="vo.MemberVO" %>
      <%@page import="dao.MemberDAO" %>
      <%
@@ -27,7 +27,7 @@ double avg=0;
 if (succ == 0 || all == 0)
 	avg = 0;
 else
-	avg = (double) (succ / all) * 100;
+	avg = (double) (succ* 100 / all) ;
 %>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>

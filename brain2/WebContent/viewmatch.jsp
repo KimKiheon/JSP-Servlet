@@ -1,5 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf8"
-	pageEncoding="utf8"%>
+	pageEncoding="utf-8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
 <%@ page import="java.io.PrintWriter"%>
@@ -146,7 +146,7 @@ state="joinman";
 
 		<div class="rrow">
 			<form id = "JoinMatchCancelControl" action="JoinTheMatchProc" method="post">
-				<div class="hidden">
+				<div class="hidden" style="display:none;">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=match.getSeqNo()%>">
 				</div>

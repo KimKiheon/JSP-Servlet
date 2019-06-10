@@ -1,5 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf8"
-	pageEncoding="utf8"%>
+	pageEncoding="utf-8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
 <%@ page import="java.io.PrintWriter"%>
@@ -154,7 +154,7 @@ function checkIt(){
 	<div class="shadow_eff2">
 		<div class="row">
 			<form action="UpdateMatchProc" method="post"  name="userinput" onsubmit="return checkIt()">
-				<div class="hidden">
+				<div class="hidden" style="display:none;">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=match.getSeqNo()%>">
 						<input type="text" id="flag1" name="flag1" readonly value="<%=match.getFlag1() %>">

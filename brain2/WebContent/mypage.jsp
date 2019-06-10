@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
-   pageEncoding="utf8"%>
+   pageEncoding="utf-8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
 <%@page import="vo.MatchVO"%>
@@ -32,7 +32,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
    if (succ == 0 || all == 0)
 		avg = 0;
 	else
-		avg = (double) (succ / all) * 100;
+		avg = (double) (succ* 100 / all) ;
 
    //BBS View
    int pageNumber = 1;

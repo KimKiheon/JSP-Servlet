@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
-    pageEncoding="utf8"%>
+    pageEncoding="utf-8"%>
     <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
