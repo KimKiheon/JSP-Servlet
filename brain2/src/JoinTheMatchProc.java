@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -89,12 +90,20 @@ public class JoinTheMatchProc extends HttpServlet {
 				alarmvo.setFinishtime(java.sql.Timestamp.valueOf(vo.getEtime()));
 				alarmvo.setFlag(0);
 				alarmvo.setMatchseqNo(vo.getSeqNo());
-				if(vo.getNowman() == vo.getNeedman()) {
-				alarmvo.setKind(2);
-				AlarmDAO.Insert(alarmvo);
-				}
+				ArrayList<PeopleVO> plist = PeopleDAO.getList(1, vo.getSeqNo());
 				alarmvo.setKind(1);
 				AlarmDAO.Insert(alarmvo);
+				if(vo.getNowman() == vo.getNeedman()) {
+					for(int cnt = 0 ; cnt < plist.size(); cnt ++) {
+						MemberVO membervo = new MemberVO();
+						MemberDAO memberdao = new MemberDAO();
+						membervo = memberdao.getInfo(plist.get(cnt).getJoinman());
+						System.out.println(membervo.getId());
+						alarmvo.setJoinman(membervo.getId());
+						alarmvo.setKind(2);
+						AlarmDAO.Insert(alarmvo);
+					}
+				}
 				result = "success";
 			
 		} catch (Exception e) {

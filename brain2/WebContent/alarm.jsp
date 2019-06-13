@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf8" 
+	pageEncoding="utf-8"%>%>
 ﻿<%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
 <%@ page import="java.io.PrintWriter"%>
@@ -41,6 +41,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 
 	//list View
 	int pageNumber = 1;
+	boolean bool = false;
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
@@ -124,7 +125,7 @@ tbody td:nth-child(3) {
                 match = matchdao.getMatches(Plist.get(i).getMatchseqNo());
                 AlarmVO av = new AlarmVO();	
                 java.sql.Timestamp matchEt = java.sql.Timestamp.valueOf(match.getEtime());
-                if(ts.compareTo(matchEt) > 0){
+                if(ts.compareTo(matchEt) > 0 && matchdao.MatchFull(match.getSeqNo()) == true){
                 	System.out.printf("%s 글 종료되었습니다. \n",match.getTitle()) ;  
                 	if(!AlarmDAO.getAlarmBytitle(match.getSeqNo()))
                        {
@@ -183,7 +184,7 @@ tbody td:nth-child(3) {
 		<%
 				AlarmVO alarm = new AlarmVO();
 				ArrayList<AlarmVO> list = AlarmDAO.getList(pageNumber, id);
-			
+				
 				for (int i = 0; i < list.size(); i++) {
 					if(list.get(i).getFlag() == 0){
 					int asn = list.get(i).getSeqNo();
@@ -199,8 +200,11 @@ tbody td:nth-child(3) {
 					if(list.get(i).getKind() == 2){
 						outs += "필요한 참가자가 모두 모였어요!!";
 					}
-					if(list.get(i).getKind() == 3){
+					if(list.get(i).getKind() == 3 ){
 						outs += "참가자들의 참불여부를 알려주세요~ 매치가 종료되었어요!";
+					}
+					if(list.get(i).getKind() == 4){
+						outs += "조건에 충족되지 않아 취소됬어요!";
 					}
 			%>
 		<%
@@ -220,17 +224,21 @@ tbody td:nth-child(3) {
 		//아니라면 매치 게시글로이동
 				}else{
 		%>
+		<%if(list.get(i).getJoinman().equals(id) == false && list.get(i).getKind() == 2){ }
+		else if(list.get(i).getJoinman().equals(id) == false && list.get(i).getKind() == 4){ }
+		else {%>	
 		<div>
+		<% %>
 			<div style="background-color: #c0c0c0; height: 2px; width: 50%;">
 			</div>
 			<span style="font-size: 20px; color: blue;"> <a class="alarmA"
 				href="viewmatch.jsp?seqNo=<%=list.get(i).getMatchseqNo()%>&asn=<%=asn%>"> <%=match.getTitle() %></a>
 			</span> <span>매치에 &nbsp;&nbsp;<span style="color: blue;"><%=joinUser%></span><%=outs %></span>
 		</div>
-
+		<%%>
 		<br> <br>
 		<%
-				}}}
+				}}}}
 			%>
 		<h2><span style="font-size: 15px;">이미 본 알람</span>
 		</h2>
@@ -252,11 +260,14 @@ tbody td:nth-child(3) {
 						joinUser+=list.get(i).getJoinman();
 						outs+="님이 참가했어요!";
 					}
-					if(list.get(i).getKind() == 2){
+					if(list.get(i).getKind() == 2 && list.get(i).getJoinman() == id){
 						outs += "필요한 참가자가 모두 모였어요!!";
 					}
 					if(list.get(i).getKind() == 3){
 						outs += "참가자들의 참불여부를 알려주세요~ 매치가 종료되었어요!";
+					}
+					if(list.get(i).getKind() == 4){
+						outs += "조건에 충족되지 않아 취소됬어요!";
 					}
 					
 					

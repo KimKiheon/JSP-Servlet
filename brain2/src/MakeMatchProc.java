@@ -9,10 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import java.sql.*;
 import java.sql.Date;
+import java.util.ArrayList;
+
 import vo.Myconn;
 import vo.MatchVO;
 import vo.MemberVO;
 import vo.PeopleVO;
+import vo.AlarmVO;
+import dao.AlarmDAO;
 import dao.MatchDAO;
 import dao.MemberDAO;
 import dao.PeopleDAO;
@@ -65,6 +69,7 @@ public class MakeMatchProc extends HttpServlet {
 			peoplevo.setMatchseqNo(MatchDAO.getCur());
 			peoplevo.setFlag(1);
 			PeopleDAO.Insert(peoplevo);
+			
 			//////////////////////////////
 			String pr = null;
 			if (result == 1) {

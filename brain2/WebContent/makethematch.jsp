@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf-8"%>
     <%@page import="vo.MemberVO" %>
      <%@page import="dao.MemberDAO" %>
@@ -32,6 +32,45 @@ System.out.println("MemberDAO 객체 생성중 ........\n");
 MemberDAO dao = new MemberDAO();
 System.out.printf("[%s]의 정보 불러오는중 .......\n",id);
 vo = dao.getInfo(id);
+MemberVO vo1 = new MemberVO();
+
+AlarmVO alarm = new AlarmVO();
+AlarmDAO adao = new AlarmDAO();
+boolean bool = false;
+
+SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+Calendar cal = Calendar.getInstance();
+String today = null;
+today = formatter.format(cal.getTime());
+Timestamp ts = Timestamp.valueOf(today);
+int pg = 1;
+ArrayList<PeopleVO> MatchList = PeopleDAO.getList(pg, id);
+boolean checkbool = false;
+for (int i = 0; i < MatchList.size(); i++) {
+   MatchVO mvo = new MatchVO();
+   MatchDAO mdao = new MatchDAO();
+   mvo = mdao.getMatches(MatchList.get(i).getMatchseqNo());
+   	
+   java.sql.Timestamp matchSt = java.sql.Timestamp.valueOf(mvo.getStime());
+   vo.setId(mvo.getWriter());
+   if(ts.compareTo(matchSt) > 0 && mdao.MatchFull(mvo.getSeqNo()) == false){
+   	System.out.printf("%s 글 시간 초과로 종료되었습니다. \n",mvo.getTitle()) ;
+   	if(checkbool == false ){
+   		vo1.setId(mvo.getWriter());
+   		dao.deleteMatch(vo1);
+   		checkbool =true;
+   		System.out.println("생성자 감소 완료");
+   	}
+   	if(adao.checkAlarm(mvo.getSeqNo()) == false){
+   	  bool = adao.incompletion(mvo.getSeqNo());
+   	  if(bool == true){
+   		  System.out.println("수정 완료");
+   		  dao.deleteMatch(vo);
+   	  }
+   	  else System.out.println("수정 실패");
+   	}
+	 }
+}
 
 int succ = vo.getSuccessMatch();
 int all = vo.getAllMatch();
@@ -41,7 +80,7 @@ double avg=0;
 if (succ == 0 || all == 0)
 	avg = 0;
 else
-	avg = (double) (succ / all) * 100;
+	avg = (double) (succ* 100 / all) ;
 System.out.printf("[%s]의 매치 성사율 = %f\n",id,avg);
 
 %>
@@ -50,6 +89,18 @@ System.out.printf("[%s]의 매치 성사율 = %f\n",id,avg);
 	<title>매치생성</title>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<style>
+		.circle {
+			background: aliceblue;
+			width: 400px;
+			padding: 20px;
+			border-radius: 50px;
+			text-align: center;
+			border-style: solid;
+			margin: auto;
+		}
+		a:hover {
+			color:red;
+		}
 	</style>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <script type="text/javascript">

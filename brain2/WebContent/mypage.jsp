@@ -6,7 +6,12 @@
 <%@page import="dao.MatchDAO"%>
 <%@page import="vo.PeopleVO"%>
 <%@page import="dao.PeopleDAO"%>
+<%@page import="vo.AlarmVO"%>
+<%@page import="dao.AlarmDAO"%>
  <%@ page import="java.util.ArrayList"%>
+ <%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
 <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
@@ -25,7 +30,55 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 
    MemberVO vo = new MemberVO();
    MemberDAO dao = new MemberDAO();
+   MemberVO vo1 = new MemberVO();
    vo = dao.getInfo(id);
+   AlarmVO alarm = new AlarmVO();
+   AlarmDAO adao = new AlarmDAO();
+   boolean bool = false;
+   boolean checkbool = false;
+   
+   SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+   Calendar cal = Calendar.getInstance();
+   String today = null;
+   today = formatter.format(cal.getTime());
+   Timestamp ts = Timestamp.valueOf(today);
+   int pg = 1;
+   ArrayList<PeopleVO> MatchList = PeopleDAO.getList(pg, id);
+   System.out.printf("글 시간 초과로 종료되었습니다.1 \n") ;
+   for (int i = 0; i < MatchList.size(); i++) {
+	   System.out.printf("글 시간 초과로 종료되었습니다.2 \n") ;
+      MatchVO mvo = new MatchVO();
+      MatchDAO mdao = new MatchDAO();
+      mvo = mdao.getMatches(MatchList.get(i).getMatchseqNo());
+      System.out.printf("글 시간 초과로 종료되었습니다.3 \n") ;
+      java.sql.Timestamp matchSt = java.sql.Timestamp.valueOf(mvo.getStime());
+      vo.setId(mvo.getWriter());
+      System.out.println("글 시간 초과로 종료되었습니다.4" + ts.compareTo(matchSt)) ;
+      System.out.println(ts);
+      System.out.println(matchSt);
+      System.out.println(today);
+      if(ts.compareTo(matchSt) > 0 && mdao.MatchFull(mvo.getSeqNo()) == false){
+      	System.out.printf("%s 글 시간 초과로 종료되었습니다. \n",mvo.getTitle()) ;
+      	if(checkbool == false ){
+       		vo1.setId(mvo.getWriter());
+       		dao.deleteMatch(vo1);
+       		checkbool =true;
+       		System.out.println("생성자 감소 완료");
+       	}
+      	if(adao.checkAlarm(mvo.getSeqNo()) == false){
+      	  bool = adao.incompletion(mvo.getSeqNo());
+      	  if(bool == true){
+      		  System.out.println("수정 완료");
+      		  dao.deleteMatch(vo);
+      	  }
+      	  else System.out.println("수정 실패");
+      	}
+	 }
+   }
+   
+   
+   //if(adao.incompletionCheck(seq))
+   
    int succ = vo.getSuccessMatch();
    int all = vo.getAllMatch();
    double avg = 0;

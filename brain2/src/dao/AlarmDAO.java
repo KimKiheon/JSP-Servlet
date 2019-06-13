@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import vo.AlarmVO;
 import vo.MatchVO;
 import vo.Myconn;
+import vo.PeopleVO;
 
 /*
 	ALarmDAO
@@ -191,4 +192,101 @@ public class AlarmDAO {
 		System.out.println("�뾾�뒗 �븣�엺�엯�땲�떎!");
 		return false;
 	}
+	
+	public static boolean checkAlarm(int seqNo) {
+		System.out.println("[[[[[AlarmDAO�쓽 getAlarm 硫붿냼�뱶 �떎�뻾....]]]]]");
+		try {
+			int checknum = 0;
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			String SQL = "select count(if(kind = 1, kind, NULL)) from alarm where MatchseqNo = ?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, seqNo);
+			rs = pstmt.executeQuery();
+			while (rs.next() != false) {
+				String name = rs.getString(1);
+				System.out.println(name);
+				checknum = Integer.parseInt(name);
+				}
+			if(checknum != 0 ) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	public static boolean isAlarm(int seqNo) {
+		System.out.println("[[[[[AlarmDAO�쓽 getAlarm 硫붿냼�뱶 �떎�뻾....]]]]]");
+		try {
+			int checknum = 0;
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			String SQL = "select count(if(kind = 1, kind, NULL)) from alarm where MatchseqNo = ?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, seqNo);
+			rs = pstmt.executeQuery();
+			while (rs.next() != false) {
+				String name = rs.getString(1);
+				System.out.println(name);
+				checknum = Integer.parseInt(name);
+				}
+			if(checknum != 0 ) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	public boolean incompletion(int seq) {
+		System.out.println("[[[[[AlarmDAO의 incompletion 메소드 실행....]]]]]");
+		try {
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			String SQL = "update alarm set kind='4' where matchseqNo = ? and (kind=1 or kind=0 ) order by seqNo desc";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, seq);
+			pstmt.executeUpdate();
+			
+			System.out.println("[[[[[AlarmDAO의 incompletion 정상 메소드 종료....]]]]]");
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("[[[[[AlarmDAO의 incompletion 비정상 메소드 종료....]]]]]");
+		return false;
+	}
+	
+	public boolean incompletionCheck(int seq) {
+		System.out.println("[[[[[AlarmDAO의 incompletionCheck 메소드 실행....]]]]]");
+		try {
+			Connection conn = Myconn.getConn();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			System.out.printf("%d\n",seq);
+			String SQL = "select * from alarm where matchseqNo = ? and kind = 4";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				System.out.println("[[[[[AlarmDAO의 incompletionCheck 메소드 종료....]]]]]");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("[[[[[AlarmDAO의 getMatches 메소드 비정상 종료....]]]]]");
+		return false;
+	}
+	
+	
 }

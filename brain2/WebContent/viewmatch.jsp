@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf-8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -8,7 +8,12 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="dao.PeopleDAO" %>
+<%@ page import="vo.PeopleVO" %>
+<%@ page import="vo.AlarmVO" %>
 <%@ page import="dao.AlarmDAO"%>
+<%@page import="java.sql.*"%>
+ <%@page import="java.text.*"%>
+ <%@page import="java.util.*"%>
 <%
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
@@ -34,14 +39,39 @@ viewmatch.jsp
 	MemberDAO dao = new MemberDAO();
 	MatchDAO mdao = new MatchDAO();
 	vo = dao.getInfo(id);
+	AlarmDAO adao = new AlarmDAO();
 	int succ = vo.getSuccessMatch();
 	int all = vo.getAllMatch();
 	boolean bool = false;
+	boolean bool1 = false;
+	
+	
+	SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+	   Calendar cal = Calendar.getInstance();
+	   String today = null;
+	   today = formatter.format(cal.getTime());
+	   Timestamp ts = Timestamp.valueOf(today);
+	   int pg = 1;
+	   ArrayList<PeopleVO> MatchList = PeopleDAO.getList(pg, id);
+	   for (int i = 0; i < MatchList.size(); i++) {
+	      MatchVO mvo = new MatchVO();
+	      MatchDAO mdao1 = new MatchDAO();
+	      mvo = mdao1.getMatches(MatchList.get(i).getMatchseqNo());
+	      	
+	      java.sql.Timestamp matchSt = java.sql.Timestamp.valueOf(mvo.getStime());
+	      vo.setId(mvo.getWriter());
+	      if(ts.compareTo(matchSt) > 0 && mdao1.MatchFull(mvo.getSeqNo()) == false){
+	      	System.out.printf("%s 글 시간 초과로 종료되었습니다. \n",mvo.getTitle()) ;
+	     	bool1 = true;
+		 }
+	   }
+	
+	
 	double avg = 0;
 	if (succ == 0 || all == 0)
 		avg = 0;
 	else
-		avg = (double) (succ / all) * 100;
+		avg = (double) (succ* 100 / all) ;
 	
 	
 	//BBS View
@@ -97,6 +127,23 @@ viewmatch.jsp
 	}
 </script>
 <style>
+.circle {
+	background: aliceblue;
+	width: 400px;
+	padding: 20px;
+	border-radius: 50px;
+	text-align: center;
+	border-style: solid;
+	margin: auto;
+}
+
+.hidden {
+	display: none;
+}
+
+a:hover {
+	color: red;
+}
 </style>
 <%
 if(result != null){	%>
@@ -146,7 +193,7 @@ state="joinman";
 
 		<div class="rrow">
 			<form id = "JoinMatchCancelControl" action="JoinTheMatchProc" method="post">
-				<div class="hidden" style="display:none;">
+				<div class="hidden">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=match.getSeqNo()%>">
 				</div>
@@ -162,9 +209,17 @@ state="joinman";
 				else {
 				System.out.printf("%s\n",match.getWriter());
 				System.out.printf("%s\n",id);
-				if(id.equals(match.getWriter())) {%>
-				<span><input type="Button" onclick="location.href='updatematch.jsp?seqNo=<%=seqNo%>'" value="수정"></span>
+				
+				if(mdao.MatchFull(match.getSeqNo()) == false &&bool1 == true&& id.equals(match.getWriter())){%>
+					<span><input type="Button" value="수정불가"></span>
 				<%}
+				else if(bool == true && id.equals(match.getWriter())) {%>
+				<span><input type="Button" value="수정불가"></span>
+				<%	
+				}else if(id.equals(match.getWriter())) {%>
+				<span><input type="Button" onclick="location.href='updatematch.jsp?seqNo=<%=seqNo%>'" value="수정"></span>
+				<%	
+				}
 				if(id.equals(match.getWriter())){
 					%>
 					<script>function alertJoinCancel(){
@@ -180,7 +235,15 @@ state="joinman";
 					<span><input type="Button" onclick="javascript:full()" value="참가 중"></span>
 				<%	
 				}
-				else{%>
+				else if(mdao.MatchFull(match.getSeqNo()) == false && bool1 == true){%>
+					<script>function fail(){
+						alert("매치 미충족으로 취소할 수 없습니다.");
+					}</script>
+					<span><input type="Button" onclick="javascript:fail()" value="EndGame"></span>
+				<%	
+				}
+				
+				else {%>
 					<span><input type="Button" onclick="javascript:joincancel()" value="참가 중"></span>
 				<% 
 				}

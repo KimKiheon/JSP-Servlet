@@ -226,6 +226,5 @@ public class PeopleDAO {
 		}
 		return null;
 	}
-	
 
 }

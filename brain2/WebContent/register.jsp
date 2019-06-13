@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <%
 System.out.println("--------------------register.jsp--------------------");
@@ -7,55 +7,55 @@ System.out.println("--------------------register.jsp--------------------");
 %>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>È¸¿ø°¡ÀÔ</title>
+    <title>íšŒì›ê°€ì…</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script language="javascript">
     function checkIt(){
     	if(!document.userinput.id.value){
-    		alert("ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
+    		alert("IDë¥¼ ì…ë ¥í•˜ì„¸ìš”");
     		document.userinput.id.focus();
     		return false;
     	}
     	if(!document.userinput.pw.value){
-    		alert("Password¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
+    		alert("Passwordë¥¼ ì…ë ¥í•˜ì„¸ìš”");
     		document.userinput.pw.focus();
     		return false;
     	}
     	if(!document.userinput.pwc.value){
-    		alert("PasswordÀçÀÔ·Â ¶õ¿¡ ÀÔ·ÂÇÏ¼¼¿ä");
+    		alert("Passwordì¬ì…ë ¥ ë€ì— ì…ë ¥í•˜ì„¸ìš”");
     		document.userinput.pwc.focus();
     		return false;
     	}
     	if(!(document.userinput.pwc.value
     			== document.userinput.pw.value)){
-    		alert("Password°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù!");
+    		alert("Passwordê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤!");
     		document.userinput.pw.value="";
     		document.userinput.pwc.value="";
     		document.userinput.pw.focus();
     		return false;
     	}
     	if(!document.userinput.name.value){
-    		alert("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä");
+    		alert("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”");
     		document.userinput.name.focus();
     		return false;
     	}
     	if(!document.userinput.ktid.value){
-    		alert("KAKAO id¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+    		alert("KAKAO idë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
     		document.userinput.ktid.focus();
     		return false;
     	}
     	if(!document.userinput.email1.value){
-    		alert("EmailÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+    		alert("Emailì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
     		document.userinput.email1.focus();
     		return false;
     	}
     	if(!document.userinput.email2.value){
-    		alert("EmailÀÌ Á¤»óÀûÀ¸·Î ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+    		alert("Emailì´ ì •ìƒì ìœ¼ë¡œ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
     		document.userinput.email2.focus();
     		return false;
     	}
     	if(document.userinput.idchk.value != "success"){
-    		alert("id Áßº¹ Ã¼Å©¸¦ ÇØÁÖ¼¼¿ä~");
+    		alert("id ì¤‘ë³µ ì²´í¬ë¥¼ í•´ì£¼ì„¸ìš”~");
     		document.userinput.id.focus();
     		return false;
     	}
@@ -63,7 +63,7 @@ System.out.println("--------------------register.jsp--------------------");
     
     function openConfirmid(inputid){
     	if(inputid.id.value == ""){
-    		alert("Áßº¹ È®ÀÎ ¿¡·¯ : ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
+    		alert("ì¤‘ë³µ í™•ì¸ ì—ëŸ¬ : IDë¥¼ ì…ë ¥í•˜ì„¸ìš”");
     		return ;
     	}
     	url = "ConfirmId?id="+inputid.id.value;
@@ -98,21 +98,21 @@ System.out.println("--------------------register.jsp--------------------");
 <body>
    <header>
 	<div id="HR">
-        <a href="login.jsp">·Î±×ÀÎ</a> | <a href="register.jsp">È¸¿ø°¡ÀÔ</a>
+        <a href="login.jsp">ë¡œê·¸ì¸</a> | <a href="register.jsp">íšŒì›ê°€ì…</a>
        
         </div>
 		<div class="menu">
 				<div id="HL"> <img src="image/basketball.png" width="30" height="30" />&nbsp;<a href="main.jsp">CUKBM</a>
-				<span style="font-color:gray; font-size:10px; font-family:°íµñ">°¡Åç¸¯´ëÇĞ±³ Sports Matching Service</span>
+				<span style="font-color:gray; font-size:10px; font-family:ê³ ë”•">ê°€í†¨ë¦­ëŒ€í•™êµ Sports Matching Service</span>
            		 <div class="dropdown" style="float:right;">
                 <button class="dropbtn"><img src="image/menubar.png" width="20" height="20" /></button>
                 <div class="dropdown-content">
-                    <a href="login.jsp">·Î±×ÀÎ</a>
-                    <a href="register.jsp">È¸¿ø °¡ÀÔ</a>
-                    <a href="alarm.jsp">¾Ë¸²</a>
-                    <a href="makethematch.jsp">¸ÅÄ¡ »ı¼º</a>
-                    <a href="jointhematch.jsp">¸ÅÄ¡ Âü°¡</a>
-                    <a href="mypage.jsp">¸¶ÀÌ ÆäÀÌÁö</a>
+                    <a href="login.jsp">ë¡œê·¸ì¸</a>
+                    <a href="register.jsp">íšŒì› ê°€ì…</a>
+                    <a href="alarm.jsp">ì•Œë¦¼</a>
+                    <a href="makethematch.jsp">ë§¤ì¹˜ ìƒì„±</a>
+                    <a href="jointhematch.jsp">ë§¤ì¹˜ ì°¸ê°€</a>
+                    <a href="mypage.jsp">ë§ˆì´ í˜ì´ì§€</a>
                 </div>
             	</div>
         		</div>
@@ -131,25 +131,25 @@ System.out.println("--------------------register.jsp--------------------");
         onsubmit="return checkIt()">
             <div class="row">
                 <div class="col-25">
-                    <label for="name">ÀÌ¸§</label>
+                    <label for="name">ì´ë¦„</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="name" name="name" placeholder="È«±æµ¿">
+                    <input type="text" id="name" name="name" placeholder="í™ê¸¸ë™">
                 </div>
             </div>
             <div class="row">
                 <div class="col-25">
-                    <label for="id">¾ÆÀÌµğ</label>
+                    <label for="id">ì•„ì´ë””</label>
                 </div>
                 <div class="col-75">
                     <input onchange ="test();" type="text" id="id" name="id" placeholder="ID" maxlength="10"><br />
                     <br /><input type="button" name="confirm_id" value="checkid" onclick="openConfirmid(this.form)" />
-                    <input onchange="chkchange()" readonly type="textbox" id="idchk" name="idchk" value="IDÁßº¹Ã¼Å© ¸¦ ÇØÁÖ¼¼¿ä.">
+                    <input onchange="chkchange()" readonly type="textbox" id="idchk" name="idchk" value="IDì¤‘ë³µì²´í¬ ë¥¼ í•´ì£¼ì„¸ìš”.">
                 </div>
             </div>
             <div class="row">
                 <div class="col-25">
-                    <label for="pw">ºñ¹Ğ¹øÈ£</label>
+                    <label for="pw">ë¹„ë°€ë²ˆí˜¸</label>
                 </div>
                 <div class="col-75">
                     <input type="password" id="pw" name="pw" placeholder="password" maxlength="10">
@@ -157,7 +157,7 @@ System.out.println("--------------------register.jsp--------------------");
             </div>
             <div class="row">
                 <div class="col-25">
-                    <label for="pw">ºñ¹Ğ¹øÈ£ È®ÀÎ</label>
+                    <label for="pw">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</label>
                 </div>
                 <div class="col-75">
                     <input type="password" id="pwc" name="pwc" placeholder="password" maxlength="10">
@@ -171,25 +171,25 @@ System.out.println("--------------------register.jsp--------------------");
                     <input type="textbox" id="email1" name="email1" placeholder="Email" maxlength="10">
                    @<input type="textbox" id="email2" name="email2" placeholder="Email2" maxlength="10">
                     <select name="endomain" id="sel_mail" onchange="chgdomain3();" >
-                    <option value="">Á÷Á¢ ÀÔ·Â</option>
-                    <option value="daum.net">´ÙÀ½</option>
-                    <option value="naver.com">³×ÀÌ¹ö</option>
-                    <option value="gmail.com">±¸±Û</option>
-                    <option value="nate.com">³×ÀÌÆ®</option>
+                    <option value="">ì§ì ‘ ì…ë ¥</option>
+                    <option value="daum.net">ë‹¤ìŒ</option>
+                    <option value="naver.com">ë„¤ì´ë²„</option>
+                    <option value="gmail.com">êµ¬ê¸€</option>
+                    <option value="nate.com">ë„¤ì´íŠ¸</option>
                     </select>
                 </div>
             </div>
          
             <div class="row">
                 <div class="col-25">
-                    <label for="id">Ä«Ä«¿ÀÅå ID</label>
+                    <label for="id">ì¹´ì¹´ì˜¤í†¡ ID</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="ktid" name="ktid" placeholder="Ä«Ä«¿ÀÅåID" maxlength="20">
+                    <input type="text" id="ktid" name="ktid" placeholder="ì¹´ì¹´ì˜¤í†¡ID" maxlength="20">
                 </div>
             </div>
             <div class="row">
-                <a href="main.jsp"> <input type="submit" value="È¸¿ø°¡ÀÔ" onclick="register();"></a>
+                <a href="main.jsp"> <input type="submit" value="íšŒì›ê°€ì…" onclick="register();"></a>
             </div>
         </form>
     </div>
@@ -198,11 +198,11 @@ System.out.println("--------------------register.jsp--------------------");
 	<br>
 	<br>
 	<div class="foot">
-        »óÈ£¸í : CUKBM / ´ëÇ¥ : °¡ÇÃ¸®<br />
-		ÀüÈ­ : 010 - 1234 - 5678<br />
+        ìƒí˜¸ëª… : CUKBM / ëŒ€í‘œ : ê°€í”Œë¦¬<br />
+		ì „í™” : 010 - 1234 - 5678<br />
 		Facebook : object-oriented paradime	<br />
 		Address : Catholic University Of Korea<br />
-        Copyright¨Ï 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
+        Copyrightâ“’ 2019 CUKBM. All rights reserved. E-mail : cukbm2@catholic.ac.kr
 	</div>
 </body>
 </html>

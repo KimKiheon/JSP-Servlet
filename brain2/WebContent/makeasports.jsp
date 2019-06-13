@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf-8"%>
     <%@page import="vo.MemberVO" %>
      <%@page import="dao.MemberDAO" %>
@@ -36,6 +36,9 @@ else
     <meta charset="utf-8" />
     <title>Make the match</title>
     <style>
+      .hidden{
+    	display:none;
+      }
     </style>
     <script language="javascript">
     function checkIt(){

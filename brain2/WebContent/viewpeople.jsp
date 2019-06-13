@@ -40,7 +40,7 @@ viewpeople.jsp
 	if (succ == 0 || all == 0)
 		avg = 0;
 	else
-		avg = (double) (succ / all) * 100;
+		avg = (double) (succ* 100 / all) ;
 
 	//BBS View
 	int pageNumber = 1;
@@ -149,7 +149,7 @@ if(state == null){
 						int mall = membervo.getAllMatch();
 						double mavg;
 						if(mall == 0 || msucc == 0)mavg = 0;
-						else mavg = msucc*100/mall;
+						else mavg = msucc/mall*100;
 						%>
 						<td><%=mavg%>%</td>
 						<td><%=membervo.getKtid()%></td>

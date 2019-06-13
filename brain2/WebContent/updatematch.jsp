@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf8"
+<%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf-8"%>
 <%@page import="vo.MemberVO"%>
 <%@page import="dao.MemberDAO"%>
@@ -32,7 +32,7 @@ updatematch.jsp
 	if (succ == 0 || all == 0)
 		avg = 0;
 	else
-		avg = (double) (succ / all) * 100;
+		avg = (double) (succ* 100 / all) ;
 
 	//BBS View
 	int seqNo = 1;
@@ -57,7 +57,23 @@ updatematch.jsp
 <title>매치 게시글</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
 <style>
+.circle {
+	background: aliceblue;
+	width: 400px;
+	padding: 20px;
+	border-radius: 50px;
+	text-align: center;
+	border-style: solid;
+	margin: auto;
+}
 
+.hidden {
+	display: none;
+}
+
+a:hover {
+	color: red;
+}
 </style>
 <script language="javascript">
 function checkIt(){
@@ -154,7 +170,7 @@ function checkIt(){
 	<div class="shadow_eff2">
 		<div class="row">
 			<form action="UpdateMatchProc" method="post"  name="userinput" onsubmit="return checkIt()">
-				<div class="hidden" style="display:none;">
+				<div class="hidden">
 					<input type="number" id="seqNo" name="seqNo" readonly
 						value="<%=match.getSeqNo()%>">
 						<input type="text" id="flag1" name="flag1" readonly value="<%=match.getFlag1() %>">
