@@ -210,7 +210,7 @@ state="joinman";
 				System.out.printf("%s\n",match.getWriter());
 				System.out.printf("%s\n",id);
 				
-				if(mdao.MatchFull(match.getSeqNo()) == false &&bool1 == true&& id.equals(match.getWriter())){%>
+				if(mdao.MatchFull(match.getSeqNo()) == true && bool1 == true&& id.equals(match.getWriter())){%>
 					<span><input type="Button" value="수정불가"></span>
 				<%}
 				else if(bool == true && id.equals(match.getWriter())) {%>
